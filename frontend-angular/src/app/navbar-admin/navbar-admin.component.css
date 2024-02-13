@@ -1,0 +1,23 @@
+.background {
+  height: 78px;
+  width: 1280px;
+  background-color: #262f34;
+}
+
+.option {
+  height: 44px;
+  width: 55px;
+}
+
+.option img {
+  width: 24px;
+  height: 24px;
+}
+
+.option p {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 19px;
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+}

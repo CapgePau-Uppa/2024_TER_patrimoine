@@ -1,0 +1,14 @@
+.map-wrapper {
+  position: relative;
+  height: 100vh;
+}
+
+.map-border {
+  border: 1px solid white;
+  height: 100%;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
