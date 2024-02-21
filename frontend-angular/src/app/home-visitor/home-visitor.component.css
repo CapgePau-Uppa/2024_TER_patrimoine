@@ -1,0 +1,14 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+app-navbar-visitor {
+  flex: 0 0 auto;
+}
+
+app-carte {
+  flex: 1;
+}

@@ -1,19 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 
-import {NavbarUserComponent} from "./navbar-user.component";
-
+import { NavbarUserComponent } from "./navbar-user.component";
+import { RouterLink } from "@angular/router";
 
 
 @NgModule({
-  declarations: [
-    NavbarUserComponent
-  ],
+  declarations: [ NavbarUserComponent ],
   imports: [
-    CommonModule
-  ],
-  exports:[
-    NavbarUserComponent
-  ]
+    CommonModule,
+    NgOptimizedImage,
+    RouterLink ],
+  exports: [ NavbarUserComponent ]
 })
 export class NavbarUserModule { }

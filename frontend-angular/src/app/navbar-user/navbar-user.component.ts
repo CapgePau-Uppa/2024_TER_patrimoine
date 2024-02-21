@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar-user.component.css']
 })
 export class NavbarUserComponent {
-
+  toggleSearchBar() {
+    let searchBar = document.getElementById("searchBar");
+    // @ts-ignore
+    searchBar.style.display = searchBar.style.display !== "none" ? "none" : "flex";
+  }
 }

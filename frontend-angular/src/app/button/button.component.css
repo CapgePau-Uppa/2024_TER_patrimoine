@@ -6,6 +6,7 @@
   border-radius: 20px;
   background-color: #ffffff;
   border: 3px solid #262f34;
+  box-shadow: #262f34 0 0 10px;
 }
 
 .btn-blue {
@@ -16,6 +17,7 @@
   border-radius: 20px;
   background-color: #59c0fb;
   border: 3px solid #2a678e;
+  box-shadow: #262f34 0 0 10px;
 }
 
 .btn-dark {
@@ -26,6 +28,7 @@
   border-radius: 20px;
   background-color: #b5b5b5;
   border: 3px solid #262f34;
+  box-shadow: #262f34 0 0 10px;
 }
 
 text {

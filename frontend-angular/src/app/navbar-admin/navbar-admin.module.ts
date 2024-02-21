@@ -5,14 +5,8 @@ import { NavbarAdminComponent } from './navbar-admin.component';
 
 
 @NgModule({
-  declarations: [
-    NavbarAdminComponent
-  ],
-  imports: [
-    CommonModule
-  ],
-  exports:[
-    NavbarAdminComponent
-  ]
+  declarations: [ NavbarAdminComponent ],
+  imports: [ CommonModule ],
+  exports:[ NavbarAdminComponent ]
 })
 export class NavbarAdminModule { }

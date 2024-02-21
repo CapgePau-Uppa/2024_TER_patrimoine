@@ -4,14 +4,8 @@ import { CarteComponent } from './carte.component';
 
 
 @NgModule({
-  declarations: [
-    CarteComponent,
-  ],
-  imports: [
-    CommonModule,
-  ],
-  exports:[
-    CarteComponent,
-  ]
+  declarations: [ CarteComponent ],
+  imports: [ CommonModule ],
+  exports: [ CarteComponent ]
 })
 export class CarteModule { }

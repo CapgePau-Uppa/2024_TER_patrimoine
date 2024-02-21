@@ -1,5 +1,4 @@
 import { AfterViewInit, Component } from '@angular/core';
-//import * as L from 'leaflet';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +6,4 @@ import { AfterViewInit, Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  userRole: string = 'visitor';
 }

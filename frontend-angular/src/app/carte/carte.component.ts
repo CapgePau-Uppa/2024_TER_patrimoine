@@ -65,8 +65,8 @@ export class CarteComponent implements AfterViewInit {
   getUserLocation() {
     const menIcon = L.icon({
       iconUrl: '../assets/men.png',
-      iconSize:     [24, 52],
-      popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+      iconSize:     [22, 50], // width, height
+      popupAnchor:  [0, -30]
     });
 
     if (navigator.geolocation) {
