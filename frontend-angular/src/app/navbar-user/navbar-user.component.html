@@ -5,7 +5,7 @@
     <span>Carte</span>
   </div>
 
-  <div class="option" id="searchOption" (click)="toggleSearchBar()">
+  <div class="clickableOption" (click)="toggleSearchBar()">
     <img ngSrc='../../assets/search.png' alt="Rechercher" height="200" width="200">
     <span>Rechercher</span>
   </div>
@@ -24,8 +24,12 @@
     <img ngSrc='../../assets/searchbar.png' alt="Rechercher" height="24" width="24">
   </a>
 
-  <div class="filter">
+  <div class="clickableOption" id="filters" (click)="toggleFiltersWindow()">
     <img ngSrc='../../assets/filter.png' alt="Filtres" height="24" width="24">
     <span>Filtres</span>
   </div>
 </div>
+
+<!-- FilterWindow -->
+<!-- <app-filters-window *ngIf="showFilterWindow" (filtersSelected)="handleFilters($event)"></app-filters-window> -->
+<app-filters-window></app-filters-window>

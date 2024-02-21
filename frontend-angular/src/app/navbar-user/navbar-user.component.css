@@ -30,11 +30,11 @@ span {
   color: #ffffff;
 }
 
-#searchOption {
+#clickableOption {
   cursor: pointer;
 }
 
-.filter {
+#filter {
   display: flex;
   flex-direction: column;
   align-items: center;

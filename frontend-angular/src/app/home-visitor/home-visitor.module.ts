@@ -5,7 +5,6 @@ import { HomeVisitorComponent } from "./home-visitor.component";
 
 import { NavbarVisitorModule } from "../navbar-visitor/navbar-visitor.module";
 import { CarteModule } from "../carte/carte.module";
-import { ButtonModule } from "../button/button.module";
 
 
 @NgModule({

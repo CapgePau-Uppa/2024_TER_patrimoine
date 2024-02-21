@@ -13,10 +13,11 @@ import { NavbarUserModule } from "./navbar-user/navbar-user.module";
 import { HomeUserModule } from "./home-user/home-user.module";
 import { NavbarVisitorModule } from "./navbar-visitor/navbar-visitor.module";
 import { ButtonModule } from "./button/button.module";
+import { FiltersWindowModule } from "./filters-window/filters-window.module";
 
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     providers: [ ],
     bootstrap: [ AppComponent ],
@@ -33,7 +34,8 @@ import { ButtonModule } from "./button/button.module";
       NavbarUserModule,
 
       CarteModule,
-      ButtonModule
+      ButtonModule,
+      FiltersWindowModule
 
   ]
 })

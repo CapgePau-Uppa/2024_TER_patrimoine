@@ -3,6 +3,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 
 import { NavbarUserComponent } from "./navbar-user.component";
 import { RouterLink } from "@angular/router";
+import { FiltersWindowModule } from "../filters-window/filters-window.module";
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { RouterLink } from "@angular/router";
   imports: [
     CommonModule,
     NgOptimizedImage,
-    RouterLink ],
-  exports: [ NavbarUserComponent ]
+    RouterLink,
+    FiltersWindowModule ],
+  exports: [ NavbarUserComponent]
 })
 export class NavbarUserModule { }

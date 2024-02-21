@@ -11,4 +11,17 @@ export class NavbarUserComponent {
     // @ts-ignore
     searchBar.style.display = searchBar.style.display !== "none" ? "none" : "flex";
   }
+
+  showFilters = false;
+
+  toggleFiltersWindow() {
+    let filtersWindow = document.getElementById("filters");
+    // @ts-ignore
+    filtersWindow.style.display = filtersWindow.style.display !== "none" ? "none" : "flex";
+  }
+
+  // Method to handle selected filters
+  handleFilters(selectedFilters: any) {
+    // Handle selected filters here
+  }
 }
