@@ -1,0 +1,35 @@
+<div class="user">
+
+  <div class="option">
+    <img ngSrc='../../assets/map.png' alt="Carte" height="200" width="200">
+    <span>Carte</span>
+  </div>
+
+  <div class="clickableOption" (click)="toggleSearchBar()">
+    <img ngSrc='../../assets/search.png' alt="Rechercher" height="200" width="200">
+    <span>Rechercher</span>
+  </div>
+
+  <div class="option">
+    <img ngSrc='../../assets/compte.png' alt="Mon compte" height="200" width="200">
+    <span>Compte</span>
+  </div>
+
+</div>
+
+<!-- Search bar initially hidden -->
+<div class="search-bar" id="searchBar">
+  <input type="text" placeholder="Rechercher...">
+  <a routerLink="../home-user">
+    <img ngSrc='../../assets/searchbar.png' alt="Rechercher" height="24" width="24">
+  </a>
+
+  <div class="clickableOption" id="filters" (click)="toggleFiltersWindow()">
+    <img ngSrc='../../assets/filter.png' alt="Filtres" height="24" width="24">
+    <span>Filtres</span>
+  </div>
+</div>
+
+<!-- FilterWindow -->
+<!-- <app-filters-window *ngIf="showFilterWindow" (filtersSelected)="handleFilters($event)"></app-filters-window> -->
+<app-filters-window></app-filters-window>

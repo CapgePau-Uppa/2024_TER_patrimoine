@@ -1,0 +1,7 @@
+Installation : 
+
+npm install -g @angular/cli
+npm install leaflet
+npm i leaflet-routing-machine
+npm i --save @types/leaflet
+npm i --save @types/leaflet-routing-machine
