@@ -21,15 +21,15 @@
 <div class="search-bar" id="searchBar">
   <input type="text" placeholder="Rechercher...">
   <a routerLink="../home-user">
-    <img ngSrc='../../assets/searchbar.png' alt="Rechercher" height="24" width="24">
+    <img ngSrc='../../assets/searchbar.png' alt="Rechercher">
   </a>
 
   <div class="clickableOption" id="filters" (click)="toggleFiltersWindow()">
-    <img ngSrc='../../assets/filter.png' alt="Filtres" height="24" width="24">
+    <img ngSrc='../../assets/filter.png' alt="Filtres" height="5" width="5">
     <span>Filtres</span>
   </div>
 </div>
 
 <!-- FilterWindow -->
-<!-- <app-filters-window *ngIf="showFilterWindow" (filtersSelected)="handleFilters($event)"></app-filters-window> -->
-<app-filters-window></app-filters-window>
+<!-- <app-filters-window *ngIf="showFilterWindow" (filtersSelected)="handleFilters($event)"></app-filters-window> 
+<app-filters-window></app-filters-window>-->

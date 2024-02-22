@@ -26,13 +26,10 @@ import { FiltersWindowModule } from "./filters-window/filters-window.module";
       AppRoutingModule,
       HttpClientModule,
       RouterModule,
-
       HomeVisitorModule,
       HomeUserModule,
-
       NavbarVisitorModule,
       NavbarUserModule,
-
       CarteModule,
       ButtonModule,
       FiltersWindowModule

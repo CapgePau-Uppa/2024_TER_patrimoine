@@ -1,5 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import * as L from 'leaflet';
+import { BatimentDTO } from './batiment-dto.model';
+import { BatimentService } from './batiment.service';
 
 @Component({
   selector: 'app-carte',
@@ -7,66 +9,45 @@ import * as L from 'leaflet';
   styleUrls: ['./carte.component.css']
 })
 export class CarteComponent implements AfterViewInit {
-  map: L.Map | undefined;
+  map: L.Map |undefined ;
+  batiments: BatimentDTO[] = [];
 
-  constructor() { }
+  constructor(private batimentService: BatimentService) { }
 
   ngAfterViewInit(): void {
     if (typeof this.map === 'undefined') {
       this.createMap();
-      // this.addMonuments();
       this.getUserLocation();
+      this.loadBatiments();
     }
   }
 
-  // Creation of the map with the coordinates of France
   createMap() {
     const franceCenter = {
       lat: 46.603354,
       lng: 1.888334,
     };
 
-    // Initial zoom level of the map
     const zoomLevel = 6;
 
-    // Creation of the Leaflet map
     this.map = L.map('map', {
-      center: [franceCenter.lat, franceCenter.lng], // Centering on France
+      center: [franceCenter.lat, franceCenter.lng],
       zoom: zoomLevel
     });
 
-    // Adding an OpenStreetMap layer
     const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       minZoom: 2,
       maxZoom: 19,
-      // attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
 
     mainLayer.addTo(this.map);
   }
 
-  // Adding a monument using these coordinates
-  /*addMonuments() {
-    const monuments = [
-      { name: 'Tour Eiffel', lat: 48.8584, lng: 2.2945 },
-      { name: 'Basilique Saint-Sernin', lat: 43.6047, lng: 1.4432 },
-      { name: 'Château de Pau', lat: 43.2988, lng: -0.3707 }
-    ];
-
-    // Marker
-    monuments.forEach(monument => {
-      L.marker([monument.lat, monument.lng]).addTo(this.map!).bindPopup(monument.name).openPopup();
-    });
-  }*/
-
-
-
-  // Get the user's position
   getUserLocation() {
     const menIcon = L.icon({
       iconUrl: '../assets/men.png',
-      iconSize:     [22, 50], // width, height
-      popupAnchor:  [0, -30]
+      iconSize: [22, 50],
+      popupAnchor: [0, -30]
     });
 
     if (navigator.geolocation) {
@@ -74,17 +55,55 @@ export class CarteComponent implements AfterViewInit {
         const userLat = position.coords.latitude;
         const userLng = position.coords.longitude;
 
-        // Centering on the position
-        this.map!.setView([userLat, userLng], 16); // 16 = level of zoom
+        this.map!.setView([userLat, userLng], 16);
 
-        L.marker([userLat, userLng], {icon: menIcon}).addTo(this.map!).bindPopup('Your position').openPopup();
+        L.marker([userLat, userLng], { icon: menIcon }).addTo(this.map!).bindPopup('Your position').openPopup();
 
-        }, error => {
+      }, error => {
         console.error('Geolocation error : ', error);
       });
 
     } else {
       console.error('Geolocation is not supported by this browser.');
     }
+  }
+
+  loadBatiments(): void {
+    this.batimentService.getBatiments().subscribe(data => {
+      this.batiments = data;
+      this.addMarkers();
+    });
+  }
+
+  addMarkers(): void {
+    this.batiments.forEach(batiment => {
+      const marker = L.marker([batiment.lat, batiment.lon]).addTo(this.map!);
+      
+      const cardContent = `
+        <div class="card">
+          <img src="${batiment.image}" class="card-img-top" alt="Batiment">
+          <div class="card-body">
+            <h5 class="card-title" style="text-align : center">${batiment.nom}</h5>
+            <p class="card-text">Type: ${batiment.type}</p>
+            <p class="card-text">Statut: ${batiment.statut}</p>
+          </div>
+        </div>
+      `;
+  
+      marker.bindPopup(cardContent);
+      marker.bindTooltip(batiment.nom);
+      //lorsqu'on clique des details apparaissent
+      marker.on('click', () => {
+        marker.openPopup();
+      });
+      //en survole que le nom
+      marker.on('mouseover', () => {
+        marker.openTooltip();
+      });
+
+      marker.on('mouseout', () => {
+        marker.closeTooltip();
+      });
+    });
   }
 }
