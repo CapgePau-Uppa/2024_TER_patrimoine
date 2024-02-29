@@ -1,0 +1,55 @@
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FDF9EF;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 50%;
+}
+
+h1 {
+  font-family: "Roboto", sans-serif;
+  color: #262f34;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 19px;
+  font-family: "Roboto", sans-serif;
+  color: #262f34;
+}
+
+.form-group select {
+  border: 2px solid #262f34;
+  border-radius: 10px;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+img {
+  margin-left: -40px;
+  pointer-events: none;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 30px;
+  margin: 0 20% 0 20%;
+}
+
+
+

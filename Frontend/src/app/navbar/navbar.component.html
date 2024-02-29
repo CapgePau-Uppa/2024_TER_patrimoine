@@ -1,0 +1,44 @@
+<div class="navbar">
+
+  <!-- Option "Carte" -->
+  <div class="option">
+    <img ngSrc='../../assets/map.png' alt="Carte" height="24" width="24">
+    <span>Carte</span>
+  </div>
+
+
+  <!-- Option "Suggestion", initialement cachée -->
+  <div class="option" id="opt-suggest">
+    <img ngSrc='../../assets/map.png' alt="Carte" height="24" width="24">
+    <span>Suggestions</span>
+  </div>
+
+
+  <!-- Bar de recherche, initialement cachée -->
+  <div id="searchBar">
+    <input type="text" placeholder="Rechercher...">
+    <img id="clickSearch" ngSrc='../../assets/searchbar.png' alt="Rechercher" routerLink="../home" height="24" width="24">
+
+    <!-- Option "Filtres", initialement cachée -->
+    <a class="option" id="filters" (click)="toggleFilters()">
+      <img ngSrc='../../assets/filter.png' alt="Filtres" height="5" width="5">
+      <span>Filtres</span>
+    </a>
+  </div>
+
+
+  <!-- Option "Mon compte", initialement cachée -->
+  <div class="option" id="opt-account">
+    <img ngSrc='../../assets/compte.png' alt="Mon compte" height="24" width="24">
+    <span>Compte</span>
+  </div>
+
+
+  <!-- Bouton "Se connecter" -->
+  <!-- <a routerLink="../home-user" id="btn-connect"> -->
+    <app-button id="btn-connect" text="Se connecter" [buttonClass]="'btn-light'" (click)="toggleStatus(1)"></app-button>
+  <!--<app-button id="btn-connect" text="Se connecter" [buttonClass]="'btn-light'" (click)="navigateToFilters()"></app-button>-->
+</div>
+
+<app-filters></app-filters>
+<app-button id="btn-add-bat" text="Ajouter un bâtiment" [buttonClass]="'btn-blue'"></app-button>
