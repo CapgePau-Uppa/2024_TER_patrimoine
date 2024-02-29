@@ -78,3 +78,39 @@ app-filters {
   bottom: 50px;
   right: 50px;
 }
+
+/* -------- MENU DEROULANT -------- */
+.menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  z-index: 2;
+  top: 75px;
+  right: 0px;
+  width: auto;
+  background-color: #262f34;
+  padding: 10px 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.menu-option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.menu a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 10px 0;
+}
+
+.menu img {
+  margin-right: 10px;
+}
+
+.menu a:hover {
+  text-decoration: underline;
+}

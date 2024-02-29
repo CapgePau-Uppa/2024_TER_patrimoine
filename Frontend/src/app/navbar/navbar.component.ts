@@ -55,4 +55,16 @@ export class NavbarComponent {
       filtersWindow.style.display = "none";
     }
   }
+
+  toggleMenu() {
+    const menu = document.getElementById("menu");
+    // @ts-ignore
+    if (menu.style.display === "none") {
+      // @ts-ignore
+      menu.style.display = "flex";
+    } else {
+      // @ts-ignore
+      menu.style.display = "none";
+    }
+  }
 }

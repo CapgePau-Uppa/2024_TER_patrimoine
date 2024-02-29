@@ -26,16 +26,27 @@
   </div>
 
 
-  <!-- Option "Mon compte", initialement cachée -->
-  <div class="option" id="opt-account">
+  <!-- Option "Menu", initialement cachée -->
+  <a class="option" id="opt-account" (click)="toggleMenu()">
     <img ngSrc='../../assets/menu.png' alt="Menu" height="40" width="40">
-  </div>
+  </a>
 
 
   <!-- Bouton "Se connecter" -->
   <!-- <a routerLink="../home-user" id="btn-connect"> -->
     <app-button id="btn-connect" text="Se connecter" [buttonClass]="'btn-light'" (click)="toggleStatus(1)"></app-button>
-  <!--<app-button id="btn-connect" text="Se connecter" [buttonClass]="'btn-light'" (click)="navigateToFilters()"></app-button>-->
+</div>
+
+<div class="menu" id="menu">
+  <div class="menu-option">
+    <img ngSrc='../../assets/compte.png' alt="Mon compte" height="24" width="24">
+    <a routerLink="../account">Mon compte</a>
+  </div>
+
+  <div class="menu-option">
+    <img ngSrc='../../assets/parametres.png' alt="Parametres" height="24" width="24">
+    <a routerLink="../settings">Paramètres</a>
+  </div>
 </div>
 
 <app-filters></app-filters>
