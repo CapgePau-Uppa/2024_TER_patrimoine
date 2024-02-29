@@ -14,6 +14,7 @@ import { ButtonModule } from "./button/button.module";
 import { NavbarModule } from "./navbar/navbar.module";
 import { HomeModule } from "./home/home.module";
 import { FiltersModule } from './filters/filters.module';
+import { DetailsModule } from './details/details.module';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { FiltersModule } from './filters/filters.module';
       ButtonModule,
       NavbarModule,
       HomeModule,
-      FiltersModule
+      FiltersModule,
+      DetailsModule
     ]
 })
 export class AppModule { }

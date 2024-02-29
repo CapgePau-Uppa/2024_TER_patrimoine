@@ -5,6 +5,7 @@ import { RouterLink } from "@angular/router";
 import { NavbarComponent } from "./navbar.component";
 import { ButtonModule } from "../button/button.module";
 import { FiltersModule } from "../filters/filters.module";
+import { DetailsModule } from "../details/details.module";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FiltersModule } from "../filters/filters.module";
     RouterLink,
 
     ButtonModule,
-    FiltersModule
+    FiltersModule,
+    DetailsModule
   ],
   exports: [ NavbarComponent]
 })

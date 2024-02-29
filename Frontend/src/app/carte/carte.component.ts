@@ -41,6 +41,17 @@ export class CarteComponent implements AfterViewInit {
     });
 
     mainLayer.addTo(this.map);
+
+    const marker = L.marker([43.32299343757268, -0.37960487089050216]).addTo(this.map!);
+
+    /*//lorsqu'on clique des details apparaissent
+    marker.on('click', () => {
+      //marker.openPopup();
+      console.log("Marker clicked")
+      const details = document.getElementById("details");
+      // @ts-ignore
+      details.style.display = "block";
+    });*/
   }
 
   getUserLocation() {
@@ -57,7 +68,7 @@ export class CarteComponent implements AfterViewInit {
 
         this.map!.setView([userLat, userLng], 16);
 
-        L.marker([userLat, userLng], { icon: menIcon }).addTo(this.map!).bindPopup('Your position').openPopup();
+        L.marker([userLat, userLng], { icon: menIcon }).addTo(this.map!).bindPopup('Votre position').openPopup();
 
       }, error => {
         console.error('Geolocation error : ', error);
@@ -78,7 +89,7 @@ export class CarteComponent implements AfterViewInit {
   addMarkers(): void {
     this.batiments.forEach(batiment => {
       const marker = L.marker([batiment.lat, batiment.lon]).addTo(this.map!);
-      
+
       const cardContent = `
         <div class="card">
           <img src="${batiment.image}" class="card-img-top" alt="Batiment">
@@ -89,13 +100,15 @@ export class CarteComponent implements AfterViewInit {
           </div>
         </div>
       `;
-  
+
       marker.bindPopup(cardContent);
       marker.bindTooltip(batiment.nom);
+
       //lorsqu'on clique des details apparaissent
       marker.on('click', () => {
         marker.openPopup();
       });
+
       //en survole que le nom
       marker.on('mouseover', () => {
         marker.openTooltip();
@@ -106,4 +119,5 @@ export class CarteComponent implements AfterViewInit {
       });
     });
   }
+
 }

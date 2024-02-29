@@ -1,0 +1,40 @@
+.building-details {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  top: 78px;
+  right: 0;
+  width: 500px;
+  height: 100%;
+  background-color: #FDF9EF;
+  padding: 30px;
+  transition: right 0.3s ease-out;
+  border-left: 4px solid #262f34;
+}
+
+h1 {
+  font-family: "Roboto", sans-serif;
+  color: #262f34;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 19px;
+  font-family: "Roboto", sans-serif;
+  color: #262f34;
+}
+
+.form-group p {
+  border: 2px solid #262f34;
+  border-radius: 10px;
+  height: 40px;
+  background: white;
+}
+
+.form-group p.auto-height {
+  height: auto;
+}

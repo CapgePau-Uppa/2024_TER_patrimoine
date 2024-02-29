@@ -18,11 +18,7 @@
   align-items: center;
   height: 45px;
   width: 60px;
-}
-
-.option img {
-  width: 24px;
-  height: 24px;
+  cursor: pointer;
 }
 
 .option span {
