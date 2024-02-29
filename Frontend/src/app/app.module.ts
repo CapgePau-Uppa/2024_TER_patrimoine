@@ -15,6 +15,7 @@ import { NavbarModule } from "./navbar/navbar.module";
 import { HomeModule } from "./home/home.module";
 import { FiltersModule } from './filters/filters.module';
 import { DetailsModule } from './details/details.module';
+import { AddBatModule } from "./add-bat/add-bat.module";
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { DetailsModule } from './details/details.module';
       NavbarModule,
       HomeModule,
       FiltersModule,
-      DetailsModule
+      DetailsModule,
+      AddBatModule
     ]
 })
 export class AppModule { }

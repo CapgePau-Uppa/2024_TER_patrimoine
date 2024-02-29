@@ -1,0 +1,63 @@
+
+<app-navbar></app-navbar>
+
+<main>
+  <h1>Signaler un nouveau bâtiment</h1>
+
+  <div class="container">
+    <div class="form-group">
+
+      <div class="names">
+        <div class="form" id="name">
+          <label for="name">Prénom de l'utilisateur</label>
+          <input type="text" id="name" required>
+        </div>
+
+        <div class="form">
+          <label for="surname">Nom de l'utilisateur</label>
+          <input type="text" id="surname" required>
+        </div>
+      </div>
+
+      <div class="checkbox">
+        <input type="checkbox" id="anonyme">
+        <label for="anonyme">Rester anonyme</label>
+      </div>
+
+      <div class="form">
+        <label for="bat-name">Nom du bâtiment</label>
+        <input type="text" id="bat-name" required>
+      </div>
+
+      <div class="form">
+        <label for="bat-type">Type du bâtiment</label>
+        <div class="dropdown">
+          <select id="bat-type" class="form-control">
+            <option value="00">Tous les types</option>
+            <option value="01">Maison</option>
+            <option value="02">Appartement</option>
+            <option value="03">Terrain</option>
+            <option value="04">Local commercial</option>
+            <option value="05">Bureau</option>
+            <option value="06">Immeuble</option>
+            <option value="07">Fonds de commerce</option>
+            <option value="08">Parking</option>
+            <option value="09">Autre</option>
+          </select>
+          <img ngSrc='../../assets/arrow.png' alt="Fleche" height="24" width="24">
+        </div>
+      </div>
+
+      <div class="form">
+        <label for="bat-addr">Adresse du bâtiment</label>
+        <input type="text" id="bat-addr" required>
+      </div>
+
+      <div class="button-container">
+        <app-button text="Annuler" [buttonClass]="'btn-light'"></app-button>
+        <app-button text="Valider" [buttonClass]="'btn-blue'"></app-button>
+      </div>
+    </div>
+    <div id="picture"></div>
+  </div>
+</main>

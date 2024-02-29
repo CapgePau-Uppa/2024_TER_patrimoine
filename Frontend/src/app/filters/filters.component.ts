@@ -11,6 +11,4 @@ export class FiltersComponent {
     // @ts-ignore
     filtersWindow.style.display = "none";
   }
-
-
 }
