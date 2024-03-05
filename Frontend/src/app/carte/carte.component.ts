@@ -14,6 +14,7 @@ export class CarteComponent implements AfterViewInit {
 
   constructor(private batimentService: BatimentService) { }
 
+  // Function to initialize the map
   ngAfterViewInit(): void {
     if (typeof this.map === 'undefined') {
       this.createMap();
@@ -22,29 +23,33 @@ export class CarteComponent implements AfterViewInit {
     }
   }
 
+  // Function to create the map
   createMap() {
     const franceCenter = {
       lat: 46.603354,
       lng: 1.888334,
     };
-
     const zoomLevel = 6;
 
+    // Create the map
     this.map = L.map('map', {
       center: [franceCenter.lat, franceCenter.lng],
       zoom: zoomLevel
     });
 
+    // Add the main layer
     const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       minZoom: 2,
       maxZoom: 19,
     });
 
+    // Add the main layer to the map
     mainLayer.addTo(this.map);
 
+    // Add a marker
     const marker = L.marker([43.32299343757268, -0.37960487089050216]).addTo(this.map!);
 
-    /*//lorsqu'on clique des details apparaissent
+    /*// When we click on the marker, the details appear
     marker.on('click', () => {
       //marker.openPopup();
       console.log("Marker clicked")
@@ -55,13 +60,16 @@ export class CarteComponent implements AfterViewInit {
 
   }
 
+  // Function to get the user location
   getUserLocation() {
+    // Create the icon
     const menIcon = L.icon({
       iconUrl: '../assets/men.png',
       iconSize: [22, 50],
       popupAnchor: [0, -30]
     });
 
+    // Get the user location
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         const userLat = position.coords.latitude;
@@ -69,6 +77,7 @@ export class CarteComponent implements AfterViewInit {
 
         this.map!.setView([userLat, userLng], 16);
 
+        // Add the marker
         L.marker([userLat, userLng], { icon: menIcon }).addTo(this.map!).bindPopup('Votre position').openPopup();
 
       }, error => {
@@ -80,17 +89,23 @@ export class CarteComponent implements AfterViewInit {
     }
   }
 
+  // Function to load the buildings
   loadBatiments(): void {
+    // Get the buildings
     this.batimentService.getBatiments().subscribe(data => {
       this.batiments = data;
       this.addMarkers();
     });
   }
 
+  // Function to add a marker
   addMarkers(): void {
+    // Add a marker for each building
     this.batiments.forEach(batiment => {
+      // Create the marker
       const marker = L.marker([batiment.lat, batiment.lon]).addTo(this.map!);
 
+      // Create the card content
       const cardContent = `
         <div class="card">
           <img src="${batiment.image}" class="card-img-top" alt="Batiment">
@@ -102,23 +117,30 @@ export class CarteComponent implements AfterViewInit {
         </div>
       `;
 
+      // Add the popup and the tooltip
       marker.bindPopup(cardContent);
       marker.bindTooltip(batiment.nom);
 
-      //lorsqu'on clique des details apparaissent
+      // When we click on the marker, the details appear
       marker.on('click', () => {
         marker.openPopup();
       });
 
-      //en survole que le nom
+      // When we hover over the marker, only the name appears
       marker.on('mouseover', () => {
         marker.openTooltip();
       });
 
+      // When we move the mouse out of the marker, the tooltip closes
       marker.on('mouseout', () => {
         marker.closeTooltip();
       });
     });
+  }
+
+  resetView(): void {
+    console.log("back to user");
+    this.getUserLocation();
   }
 
 }
