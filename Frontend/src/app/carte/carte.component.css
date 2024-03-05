@@ -1,7 +1,6 @@
 .map-wrapper {
   position: relative;
-  height: 100vh;
-  z-index: 1;
+  height: 90vh;
 }
 
 .map-border {

@@ -24,10 +24,13 @@
               "src/favicon.ico",
               "src/assets",
               {
-                "glob" :"**/*",
-                "input" : "node_modules/leaflet/dist/images/",
-                "output" : "./assets"
-              }
+                "glob": "**/*",
+                "input": "node_modules/leaflet/dist/images/",
+                "output": "./assets"
+              },
+              "src/manifest.webmanifest",
+              "src/manifest.webmanifest",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.css",
@@ -36,7 +39,10 @@
             ],
             
             "scripts": [  "./node_modules/@popperjs/core/dist/umd/popper.min.js",
-            "./node_modules/bootstrap/dist/js/bootstrap.min.js"]
+            "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+          ],
+          "serviceWorker": true,
+          "ngswConfigPath": "ngsw-config.json"
           },
           
           "configurations": {
@@ -101,7 +107,10 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest",
+              "src/manifest.webmanifest",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.css"

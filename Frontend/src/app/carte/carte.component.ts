@@ -52,6 +52,7 @@ export class CarteComponent implements AfterViewInit {
       // @ts-ignore
       details.style.display = "block";
     });*/
+
   }
 
   getUserLocation() {
