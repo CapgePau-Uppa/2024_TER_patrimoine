@@ -1,0 +1,16 @@
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/api/dto/BatimentDTO.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/BackendApplication.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/controller/MerimeeController.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/model/MerimeeData.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/entities/Coordonnees.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/repository/LieuRepository.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/repository/CoordonneesRepository.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/services/BatimentService.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/RestTemplateConfig.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/services/MerimeeDataService.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/repository/BatimentRepository.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/model/MerimeeDataResponse.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/CorsConfig.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/entities/Batiment.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/entities/Lieu.java
+/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/api/controller/BatimentAPI.java
