@@ -1,0 +1,29 @@
+.map-wrapper {
+  position: relative;
+  height: 90vh;
+  z-index: 1;
+}
+
+.map-border {
+  border: 1px solid white;
+  height: 100%;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+button {
+  cursor: pointer;
+  position: absolute;
+  z-index: 1000;
+  top: 85px;
+  left: 11px;
+  width: 34px;
+  height: 34px;
+  background-color: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  box-shadow: none;
+}

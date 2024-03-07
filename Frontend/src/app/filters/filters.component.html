@@ -3,6 +3,7 @@
   <h1>Filtres</h1>
 
   <div class="form-group">
+<<<<<<< Updated upstream:Frontend/src/app/filters/filters.component.html
     <label for="region">Rechercher par région</label>
     <div class="dropdown">
       <select id="region" class="form-control">
@@ -20,6 +21,22 @@
       <option value="11">Occitanie</option>
       <option value="12">Pays de la Loire</option>
       <option value="13">Provence-Alpes-Côte d'Azur</option>
+=======
+    <label for="buildingType">Rechercher par type</label>
+    <div class="dropdown">
+      <select id="buildingType" class="form-control" [(ngModel)]="selectedType" (change)="onTypeSelected()">
+        <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+      </select>
+      <img ngSrc='../../assets/arrow.png' alt="Fleche" height="24" width="24">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="region">Rechercher par région</label>
+    <div class="dropdown">
+      <select id="region" class="form-control" [(ngModel)]="selectedRegion">
+        <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+>>>>>>> Stashed changes:frontend-angular/src/app/filters/filters.component.html
       </select>
       <img ngSrc='../../assets/arrow.png' alt="Fleche" height="24" width="24">
     </div>
@@ -28,6 +45,7 @@
   <div class="form-group">
     <label for="departement">Rechercher par département</label>
     <div class="dropdown">
+<<<<<<< Updated upstream:Frontend/src/app/filters/filters.component.html
       <select id="departement" class="form-control">
         <option value="00">Tous les départements</option>
         <option value="01">Ain</option>
@@ -132,10 +150,16 @@
         <option value="974">La Réunion</option>
         <option value="976">Mayotte</option>
       </select>
+=======
+        <select id="departement" class="form-control" [(ngModel)]="selectedDepartement" (change)="onDepartementSelected()">
+          <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
+        </select>
+>>>>>>> Stashed changes:frontend-angular/src/app/filters/filters.component.html
       <img ngSrc='../../assets/arrow.png' alt="Fleche" height="24" width="24">
     </div>
   </div>
 
+<<<<<<< Updated upstream:Frontend/src/app/filters/filters.component.html
   <div class="form-group">
     <label for="buildingType">Rechercher par type</label>
     <div class="dropdown">
@@ -158,6 +182,12 @@
   <div class="button-container">
     <app-button text="Annuler" [buttonClass]="'btn-light'" (click)="hideFilters()"></app-button>
     <app-button text="Valider" [buttonClass]="'btn-blue'"></app-button>
+=======
+
+  <div class="button-container">
+    <app-button text="Annuler" [buttonClass]="'btn-light'" (click)="clearSelection()"></app-button>
+    <app-button text="Valider" [buttonClass]="'btn-blue'" (click)="hideFilters()"></app-button>
+>>>>>>> Stashed changes:frontend-angular/src/app/filters/filters.component.html
   </div>
 
 </div>

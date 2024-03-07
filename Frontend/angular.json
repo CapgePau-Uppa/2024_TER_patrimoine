@@ -46,6 +46,7 @@
           },
 
           "configurations": {
+<<<<<<< Updated upstream:Frontend/angular.json
               "production": {
                 "fileReplacements": [
                   {
@@ -53,6 +54,15 @@
                     "with": "src/environments/environment.ts"
                   }
                 ],
+=======
+            "production": { 
+              "fileReplacements": [
+              {
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.ts"
+              }
+            ],
+>>>>>>> Stashed changes:frontend-angular/angular.json
               "budgets": [
                 {
                   "type": "initial",
@@ -74,7 +84,12 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+<<<<<<< Updated upstream:Frontend/angular.json
 
+=======
+              
+              
+>>>>>>> Stashed changes:frontend-angular/angular.json
             }
           },
           "defaultConfiguration": "production"

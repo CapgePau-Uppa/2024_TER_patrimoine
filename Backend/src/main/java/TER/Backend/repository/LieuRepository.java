@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package TER.Backend.repository;
 
 
@@ -12,3 +13,18 @@ public interface LieuRepository extends JpaRepository<Lieu, Long> {
    @Override
     <S extends Lieu> S save(S lieu);
 }
+=======
+package TER.Backend.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import TER.Backend.entities.Lieu;
+
+@Repository
+public interface LieuRepository extends JpaRepository<Lieu, Long> {
+
+   @Override
+    <S extends Lieu> S save(S lieu);
+}
+>>>>>>> Stashed changes
