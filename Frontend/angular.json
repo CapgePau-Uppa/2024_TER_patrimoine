@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "frontend-angular": {
+    "Frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/frontend-angular",
+            "outputPath": "dist/Frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -27,10 +27,7 @@
                 "glob": "**/*",
                 "input": "node_modules/leaflet/dist/images/",
                 "output": "./assets"
-              },
-              "src/manifest.webmanifest",
-              "src/manifest.webmanifest",
-              "src/manifest.webmanifest"
+              }
             ],
             "styles": [
               "src/styles.css",
@@ -55,14 +52,14 @@
                   }
                 ],
 =======
-            "production": { 
+            "production": {
               "fileReplacements": [
               {
                 "replace": "src/environments/environment.ts",
                 "with": "src/environments/environment.ts"
               }
             ],
->>>>>>> Stashed changes:frontend-angular/angular.json
+>>>>>>> Stashed changes:Frontend/angular.json,
               "budgets": [
                 {
                   "type": "initial",
@@ -87,51 +84,12 @@
 <<<<<<< Updated upstream:Frontend/angular.json
 
 =======
-              
-              
->>>>>>> Stashed changes:frontend-angular/angular.json
+
+
+>>>>>>> Stashed changes:Frontend/angular.json
             }
           },
           "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "browserTarget": "frontend-angular:build:production"
-            },
-            "development": {
-              "browserTarget": "frontend-angular:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "frontend-angular:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-            "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest",
-              "src/manifest.webmanifest",
-              "src/manifest.webmanifest"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
-            "scripts": []
-          }
         }
       }
     }

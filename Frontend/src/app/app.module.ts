@@ -4,8 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgOptimizedImage } from "@angular/common";
-import { ServiceWorkerModule } from "@angular/service-worker";
-
 
 // Components modules
 import { AppRoutingModule } from './app-routing.module';
@@ -31,13 +29,6 @@ import { AddBatModule } from "./add-bat/add-bat.module";
       HttpClientModule,
       RouterModule,
       NgOptimizedImage,
-      ServiceWorkerModule.register('ngsw-worker.js', {
-        enabled: !isDevMode(),
-        // Register the ServiceWorker as soon as the application is stable
-        // or after 30 seconds (whichever comes first).
-        registrationStrategy: 'registerWhenStable:30000'
-      }),
-
       CarteModule,
       ButtonModule,
       NavbarModule,
