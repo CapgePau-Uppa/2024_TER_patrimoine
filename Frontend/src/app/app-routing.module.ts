@@ -4,7 +4,7 @@ import { HomeComponent } from "./home/home.component";
 import { AddBatComponent } from "./add-bat/add-bat.component";
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'add-bat', component: AddBatComponent },
 ];
 

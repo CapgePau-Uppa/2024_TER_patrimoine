@@ -16,8 +16,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 45px;
-  width: 60px;
+  height: auto;
+  width: auto;
   cursor: pointer;
 }
 
