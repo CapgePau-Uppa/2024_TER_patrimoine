@@ -11,10 +11,6 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   width: 50%;
 }
-<<<<<<< Updated upstream:Frontend/src/app/filters/filters.component.css
-
-=======
->>>>>>> Stashed changes:frontend-angular/src/app/filters/filters.component.css
 h1 {
   font-family: "Roboto", sans-serif;
   color: #262f34;
@@ -40,10 +36,7 @@ h1 {
   display: flex;
   flex-direction: row;
   align-items: center;
-<<<<<<< Updated upstream:Frontend/src/app/filters/filters.component.css
-=======
   height: fit-content;
->>>>>>> Stashed changes:frontend-angular/src/app/filters/filters.component.css
 }
 
 img {

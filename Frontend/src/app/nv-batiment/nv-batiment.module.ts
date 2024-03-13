@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { NvBatimentComponent } from './nv-batiment.component';
 import {ButtonModule} from "../button/button.module";
 import {CarteModule} from "../carte/carte.module";
-import {NavbarVisitorModule} from "../navbar-visitor/navbar-visitor.module";
 
 
 
@@ -14,8 +13,7 @@ import {NavbarVisitorModule} from "../navbar-visitor/navbar-visitor.module";
   imports: [
     CommonModule,
     ButtonModule,
-    CarteModule,
-    NavbarVisitorModule
+    CarteModule
   ]
 })
 export class NvBatimentModule { }

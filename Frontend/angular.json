@@ -38,20 +38,10 @@
             "scripts": [  "./node_modules/@popperjs/core/dist/umd/popper.min.js",
             "./node_modules/bootstrap/dist/js/bootstrap.min.js"
           ],
-          "serviceWorker": true,
           "ngswConfigPath": "ngsw-config.json"
           },
 
           "configurations": {
-<<<<<<< Updated upstream:Frontend/angular.json
-              "production": {
-                "fileReplacements": [
-                  {
-                    "replace": "src/environments/environment.ts",
-                    "with": "src/environments/environment.ts"
-                  }
-                ],
-=======
             "production": {
               "fileReplacements": [
               {
@@ -59,7 +49,6 @@
                 "with": "src/environments/environment.ts"
               }
             ],
->>>>>>> Stashed changes:Frontend/angular.json,
               "budgets": [
                 {
                   "type": "initial",
@@ -81,15 +70,21 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
-<<<<<<< Updated upstream:Frontend/angular.json
-
-=======
-
-
->>>>>>> Stashed changes:Frontend/angular.json
             }
           },
           "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "Frontend:build:production"
+            },
+            "development": {
+              "browserTarget": "Frontend:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
         }
       }
     }
