@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -6,6 +6,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+
+  ngOnInit(): void {
+    this.getDisplay("filters-window");
+    this.getDisplay("menu");
+  }
+
+  getDisplay(id: string): string | null {
+    const element = document.getElementById(id);
+
+    if (element) {
+      return getComputedStyle(element).display;
+    }
+    return null;
+  }
 
   toggleStatus(status: number) {
     if (status === 0) {  // visitor
@@ -46,8 +60,10 @@ export class NavbarComponent {
 
   toggleFilters() {
     const filtersWindow = document.getElementById("filters-window");
+    const filtersDisplay = this.getDisplay("filters-window");
+
     // @ts-ignore
-    if (filtersWindow.style.display === "none") {
+    if (filtersDisplay === "none") {
       // @ts-ignore
       filtersWindow.style.display = "block";
     } else {
@@ -58,8 +74,10 @@ export class NavbarComponent {
 
   toggleMenu() {
     const menu = document.getElementById("menu");
+    const menuDisplay = this.getDisplay("menu");
+
     // @ts-ignore
-    if (menu.style.display === "none") {
+    if (menuDisplay === "none") {
       // @ts-ignore
       menu.style.display = "flex";
     } else {
