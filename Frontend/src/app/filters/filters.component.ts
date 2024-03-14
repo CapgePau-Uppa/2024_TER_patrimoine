@@ -15,12 +15,13 @@ export class FiltersComponent implements OnInit{
     // @ts-ignore
     filtersWindow.style.display = "none";
   }
-
   clearSelection(): void {
     this.selectedType = ''; // Réinitialisez la valeur de la sélection à une chaîne vide
     this.selectedDepartement = '';
     this.selectedRegion = '';
   }
+
+
 
   regions: string[] = [];
   departements: string[] = []; // Initialisation de la propriété departements
@@ -45,6 +46,7 @@ export class FiltersComponent implements OnInit{
   }
 
 
+
   onTypeSelected(): void {
     if (this.selectedType !== null) { // Vérifiez si la valeur est différente de null
       this.batimentService.setSelectedType(this.selectedType);
@@ -57,6 +59,5 @@ export class FiltersComponent implements OnInit{
     }
   }
 
-
-
 }
+

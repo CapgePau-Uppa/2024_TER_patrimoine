@@ -12,7 +12,6 @@ import { FiltersModule } from '../filters/filters.module';
         CommonModule,
         HttpClientModule,
         DetailsModule,
-        DetailsModule,
         FiltersModule
     ],
   exports: [ CarteComponent ]

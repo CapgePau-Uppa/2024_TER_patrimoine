@@ -17,6 +17,14 @@ export class BatimentService {
     return this.http.get<BatimentDTO[]>(`${this.baseUrl}/batiment`);
   }
 
+  getClusteringDepartement(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/batiment/clustering`);
+  }
+
+  getBatimentsClusteringByDepartement(dep: string): Observable<BatimentDTO[]> {
+    return this.http.get<BatimentDTO[]>(`${this.baseUrl}/batiment/clustering-batiments/${dep}`);
+  }
+
   getBatimentsByType(type: string): Observable<BatimentDTO[]> {
     return this.http.get<BatimentDTO[]>(`${this.baseUrl}/batiment/batiments-par-type?type=${type}`);
   }
