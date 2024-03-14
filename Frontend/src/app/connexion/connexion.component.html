@@ -19,8 +19,11 @@
     </div>
 
     <div class="button-container">
-      <app-button text="Annuler" [buttonClass]="'btn-light'" ></app-button>
-      <app-button text="Valider" [buttonClass]="'btn-blue'" ></app-button>
+      <a routerLink="home">
+        <app-button text="Annuler" [buttonClass]="'btn-light'"></app-button>
+      </a>
+
+      <app-button text="Valider" [buttonClass]="'btn-blue'"></app-button>
       <!--(click)="annuler()" (click)="valider()"-->
     </div>
 
