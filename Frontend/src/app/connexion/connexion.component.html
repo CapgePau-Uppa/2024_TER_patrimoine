@@ -1,0 +1,30 @@
+
+<app-navbar></app-navbar>
+
+<main>
+  <h1>Connexion</h1>
+
+  <div class="container">
+
+    <div class="form">
+      <label for="identifiant">Identifiant</label>
+      <input type="text" id="identifiant" required>
+      <p id="idEmpty"></p>
+    </div>
+
+    <div class="form">
+      <label for="mdp">Mot de passe</label>
+      <input type="text" id="mdp" required>
+      <p id="mdpEmpty"></p>
+    </div>
+
+    <div class="button-container">
+      <a routerLink="home">
+        <app-button text="Annuler" [buttonClass]="'btn-light'"></app-button>
+      </a>
+
+      <app-button text="Valider" [buttonClass]="'btn-blue'"></app-button>
+    </div>
+
+  </div>
+</main>

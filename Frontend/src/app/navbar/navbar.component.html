@@ -32,8 +32,10 @@
   </a>
 
   <!-- Bouton "Se connecter" -->
-  <!-- <a routerLink="../home-user" id="btn-connect"> -->
-    <app-button id="btn-connect" text="Se connecter" [buttonClass]="'btn-light'" (click)="toggleStatus(1)"></app-button>
+  <a routerLink="connexion">
+    <app-button text="Se connecter" [buttonClass]="'btn-light'"></app-button>
+    <!-- (click)="toggleStatus(1)" -->
+  </a>
 </div>
 
 <div class="menu" id="menu">
@@ -44,11 +46,12 @@
 
   <div class="menu-option">
     <img ngSrc='../../assets/parametres.png' alt="Parametres" height="24" width="24">
-    <a routerLink="../settings">Paramètres</a>
+    <a routerLink="settings">Paramètres</a>
   </div>
 </div>
 
 <app-filters></app-filters>
+
 <a routerLink="../add-bat">
   <app-button id="btn-add-bat" text="Ajouter un bâtiment" [buttonClass]="'btn-blue'"></app-button>
 </a>

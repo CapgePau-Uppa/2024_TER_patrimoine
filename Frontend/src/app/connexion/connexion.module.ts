@@ -1,12 +1,21 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NavbarModule } from "../navbar/navbar.module";
+import { ButtonModule } from "../button/button.module";
+import { ConnexionComponent } from "./connexion.component";
+import {RouterLink} from "@angular/router";
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [ ConnexionComponent ],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    NavbarModule,
+    ButtonModule,
+    NgOptimizedImage,
+    RouterLink
+  ],
+  exports: [ ConnexionComponent ]
 })
 export class ConnexionModule { }

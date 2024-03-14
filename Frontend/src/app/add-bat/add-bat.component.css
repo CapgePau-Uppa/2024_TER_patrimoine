@@ -52,7 +52,7 @@ h1 {
 .form input {
   border: 3px solid #262f34;
   border-radius: 10px;
-  height: 35px;
+  padding: 10px;
 }
 
 .form select {
