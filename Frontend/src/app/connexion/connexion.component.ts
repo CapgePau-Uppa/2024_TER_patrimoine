@@ -12,9 +12,13 @@ export class ConnexionComponent {
   identifiant: string = '';
   mdp: string = '';
 
-  constructor( private navbar: NavbarComponent, private router: Router ) {}
+  constructor( private navbar: NavbarComponent, private router: Router ) {
+    console.log('ConnexionComponent');
+  }
 
   valider() {
+    const identifiantElement = document.getElementById('identifiant');
+    const mdpElement = document.getElementById('mdp');
 
     // Vérifiez si les champs sont remplis
     if (this.identifiant && this.mdp) {
@@ -23,16 +27,18 @@ export class ConnexionComponent {
       this.router.navigate(['']);
     } else {
       if (!this.identifiant) {
-        alert('Identifiant manquant');
+        // @ts-ignore
+        identifiantElement.innerHTML = 'Veuillez saisir un identifiant';
+      }
+      if (!this.mdp) {
+        // @ts-ignore
+        mdpElement.innerHTML = 'Veuillez saisir un mot de passe';
       }
     }
   }
 
   annuler() {
-    // Réinitialiser les valeurs des champs d'entrée ou effectuer d'autres actions d'annulation
     this.identifiant = '';
     this.mdp = '';
   }
-
-
 }
