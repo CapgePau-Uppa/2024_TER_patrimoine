@@ -12,7 +12,7 @@ export class ConnexionComponent {
   identifiant: string = '';
   mdp: string = '';
 
-  constructor( private navbar: NavbarComponent, private router: Router ) {} // Injectez le composant Navbar dans le constructeur
+  constructor( private navbar: NavbarComponent, private router: Router ) {}
 
   valider() {
 
