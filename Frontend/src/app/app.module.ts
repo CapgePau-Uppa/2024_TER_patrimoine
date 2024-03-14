@@ -1,5 +1,5 @@
 // Modules
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -8,7 +8,6 @@ import { NgOptimizedImage } from "@angular/common";
 // Components modules
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { CarteModule } from "./carte/carte.module";
 import { ButtonModule } from "./button/button.module";
 import { NavbarModule } from "./navbar/navbar.module";

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from "../navbar/navbar.component";
 import { Router } from '@angular/router';
+import {NavbarComponent} from "../navbar/navbar.component";
 
 
 @Component({
@@ -12,7 +12,7 @@ export class ConnexionComponent {
   identifiant: string = '';
   mdp: string = '';
 
-  constructor( private navbar: NavbarComponent, private router: Router ) {
+  constructor( private navbarComponent: NavbarComponent, private router: Router ) {
     console.log('ConnexionComponent');
   }
 
@@ -22,9 +22,9 @@ export class ConnexionComponent {
 
     // Vérifiez si les champs sont remplis
     if (this.identifiant && this.mdp) {
-      this.navbar.toggleStatus(1);
-
+      //this.navbarComponent.toggleStatut(1);
       this.router.navigate(['']);
+
     } else {
       if (!this.identifiant) {
         // @ts-ignore

@@ -3,7 +3,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { NavbarModule } from "../navbar/navbar.module";
 import { ButtonModule } from "../button/button.module";
 import { ConnexionComponent } from "./connexion.component";
-import {RouterLink} from "@angular/router";
+import { RouterLink } from "@angular/router";
 
 
 

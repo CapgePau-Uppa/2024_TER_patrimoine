@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -21,11 +21,11 @@ export class NavbarComponent {
     return null;
   }
 
-  toggleStatus(status: number) {
-    if (status === 0) {  // visitor
+  toggleStatut(statut: number) {
+    if (statut === 0) {  // visitor
     }
 
-    else if (status === 1) {  // user
+    else if (statut === 1) {  // user
       const searchBar = document.getElementById("searchBar");
       // @ts-ignore
       searchBar.style.display = "flex";
@@ -43,7 +43,7 @@ export class NavbarComponent {
       btnBat.style.display = "block";
     }
 
-    else if (status === 2) {  // admin
+    else if (statut === 2) {  // admin
       const optSuggest = document.getElementById("opt-suggest");
       // @ts-ignore
       optSuggest.style.display = "flex";
