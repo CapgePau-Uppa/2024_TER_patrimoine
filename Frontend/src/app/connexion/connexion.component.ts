@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {NavbarComponent} from "../navbar/navbar.component";
+import { GlobalService } from "../global.service";
 
 
 @Component({
@@ -12,13 +12,18 @@ export class ConnexionComponent {
   identifiant: string = '';
   mdp: string = '';
 
-  constructor( private navbar: NavbarComponent, private router: Router ) {
+  //private navbar: NavbarComponent,
+  constructor( private router: Router, public globalService: GlobalService) {
+
     console.log('ConnexionComponent');
   }
 
   valider() {
+    this.globalService.globalVariable = 1;
+    console.log('global variable : ' + this.globalService.globalVariable);
+    //this.router.navigate("../");
 
-    // Vérifiez si les champs sont remplis
+    /*// Vérifiez si les champs sont remplis
     if (this.identifiant && this.mdp) {
       //this.navbarComponent.toggleStatut(1);
       this.router.navigate(['']);
@@ -27,7 +32,7 @@ export class ConnexionComponent {
       if (!this.identifiant) {
         alert('Identifiant manquant');
       }
-    }
+    }*/
   }
 
   annuler() {

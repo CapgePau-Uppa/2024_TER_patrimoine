@@ -7,7 +7,7 @@ import { ConnexionComponent } from "./connexion/connexion.component";
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'add-bat', component: AddBatComponent },
-  { path: 'connexion', component: ConnexionComponent },
+  { path: 'connexion', component: ConnexionComponent }
 ];
 
 @NgModule({

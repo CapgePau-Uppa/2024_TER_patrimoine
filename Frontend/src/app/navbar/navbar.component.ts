@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GlobalService } from "../global.service";
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,12 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  constructor(public globalService: GlobalService) { }
+
   ngOnInit(): void {
     this.getDisplay("filters-window");
     this.getDisplay("menu");
+    this.toggleStatut(this.globalService.globalVariable)
   }
 
   getDisplay(id: string): string | null {
