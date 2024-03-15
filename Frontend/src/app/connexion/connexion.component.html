@@ -8,22 +8,18 @@
 
     <div class="form">
       <label for="identifiant">Identifiant</label>
-      <input type="text" id="identifiant" required>
-      <p id="idEmpty"></p>
+      <input type="text" id="identifiant" required [(ngModel)]="identifiant">
     </div>
 
     <div class="form">
       <label for="mdp">Mot de passe</label>
-      <input type="text" id="mdp" required>
-      <p id="mdpEmpty"></p>
+      <input type="text" id="mdp" required [(ngModel)]="mdp">
+      <p id="message"></p>
     </div>
 
     <div class="button-container">
       <app-button text="Annuler" [buttonClass]="'btn-light'" routerLink="../"></app-button>
-
-
-      <app-button text="Valider" [buttonClass]="'btn-blue'" (click)="valider()" routerLink="../"></app-button>
-      <!--(click)="annuler()" (click)="valider()"-->
+      <app-button text="Valider" [buttonClass]="'btn-blue'" (click)="valider()"></app-button>
     </div>
 
   </div>

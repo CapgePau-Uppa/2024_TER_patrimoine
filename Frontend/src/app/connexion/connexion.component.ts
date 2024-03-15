@@ -14,25 +14,30 @@ export class ConnexionComponent {
 
   //private navbar: NavbarComponent,
   constructor( private router: Router, public globalService: GlobalService) {
-
-    console.log('ConnexionComponent');
+    console.log('constructor, id : ' + this.identifiant + ', mdp : ' + this.mdp);
   }
 
   valider() {
-    this.globalService.globalVariable = 1;
-    console.log('global variable : ' + this.globalService.globalVariable);
-    //this.router.navigate("../");
+    const message = document.getElementById("message");
+    console.log('valider, id : ' + this.identifiant + ', mdp : ' + this.mdp);
 
-    /*// Vérifiez si les champs sont remplis
+    // Vérifiez si les champs sont remplis
     if (this.identifiant && this.mdp) {
-      //this.navbarComponent.toggleStatut(1);
-      this.router.navigate(['']);
+      console.log("validate");
+      // @ts-ignore
+      message.innerHTML = '';
+
+
+      this.globalService.globalVariable = 1;
+      console.log('global variable : ' + this.globalService.globalVariable);
+
+      this.router.navigate(['../']);
 
     } else {
-      if (!this.identifiant) {
-        alert('Identifiant manquant');
-      }
-    }*/
+      console.log("error");
+      // @ts-ignore
+      message.innerHTML = '*Les deux champs sont requis.';
+    }
   }
 
   annuler() {
