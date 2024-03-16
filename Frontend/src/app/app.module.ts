@@ -16,6 +16,7 @@ import { FiltersModule } from './filters/filters.module';
 import { DetailsModule } from './details/details.module';
 import { AddBatModule } from "./add-bat/add-bat.module";
 import { ConnexionModule } from "./connexion/connexion.module";
+import { HomeAdminModule } from "./home-admin/home-admin.module";
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { ConnexionModule } from "./connexion/connexion.module";
       FiltersModule,
       DetailsModule,
       AddBatModule,
-      ConnexionModule
+      ConnexionModule,
+      HomeAdminModule
     ]
 })
 export class AppModule { }

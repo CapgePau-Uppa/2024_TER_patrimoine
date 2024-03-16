@@ -28,7 +28,7 @@ export class ConnexionComponent {
       message.innerHTML = '';
 
 
-      this.globalService.globalVariable = 1;
+      this.globalService.globalVariable = 2;
       console.log('global variable : ' + this.globalService.globalVariable);
 
       this.router.navigate(['../']);

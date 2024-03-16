@@ -1,6 +1,8 @@
 
-body {
+main {
   background-color: #FDF9EF;
+  height: 93.5vh;
+  padding: 40px;
 }
 
 h1 {

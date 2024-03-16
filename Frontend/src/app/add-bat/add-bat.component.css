@@ -49,7 +49,7 @@ h1 {
   color: #262f34;
 }
 
-.form input {
+.form input, dropdown{
   border: 3px solid #262f34;
   border-radius: 10px;
   padding: 10px;
@@ -64,6 +64,7 @@ h1 {
   display: flex;
   flex-direction: row;
   align-items: center;
+  line-height: 2;
 }
 
 img {
@@ -72,10 +73,14 @@ img {
 }
 
 #picture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border: 3px solid #262f34;
   border-radius: 10px;
   background-color: white;
   width: 30%;
+  color: grey;
 }
 
 .button-container {
