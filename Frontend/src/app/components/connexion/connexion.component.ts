@@ -27,11 +27,13 @@ export class ConnexionComponent {
       // @ts-ignore
       message.innerHTML = '';
 
-
-      this.globalService.globalVariable = 2;
-      console.log('global variable : ' + this.globalService.globalVariable);
-
+      // Connexion d'un utilisateur
+      this.globalService.globalVariable = 1;
       this.router.navigate(['../']);
+
+      //Connexion d'un administrateur
+      /*this.globalService.globalVariable = 1;
+      this.router.navigate(['../home-admin']);*/
 
     } else {
       console.log("error");

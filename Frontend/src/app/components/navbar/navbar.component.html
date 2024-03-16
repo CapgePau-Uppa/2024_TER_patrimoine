@@ -13,12 +13,12 @@
   </div>
 
 
-  <!-- Bar de recherche, initialement cachée -->
+  <!-- BARRE DE RECHERCHE -->
   <div id="searchBar">
     <input type="text" placeholder="Rechercher...">
     <img id="clickSearch" ngSrc='../../assets/searchbar.png' alt="Rechercher" routerLink="../home" height="24" width="24">
 
-    <!-- Option "Filtres", initialement cachée -->
+    <!-- FILTRES -->
     <a class="option" id="filters" (click)="toggleFilters()">
       <img ngSrc='../../assets/filter.png' alt="Filtres" height="24" width="24">
       <span>Filtres</span>
@@ -26,24 +26,29 @@
   </div>
 
 
-  <!-- Option "Menu", initialement cachée -->
+  <!-- MENU -->
   <a class="option" id="opt-account" (click)="toggleMenu()">
     <img ngSrc='../../assets/menu.png' alt="Menu" height="40" width="40">
   </a>
 
-  <!-- Bouton "Se connecter" -->
+
+  <!-- BOUTON CONNECTER -->
   <a routerLink="connexion" id="btn-connect">
     <app-button text="Se connecter" [buttonClass]="'btn-light'"></app-button>
-    <!-- (click)="toggleStatus(1)" -->
   </a>
 </div>
 
+
+<!-- MENU DEROULANT -->
 <div class="menu" id="menu">
+
+  <!-- COMPTE -->
   <div class="menu-option">
     <img ngSrc='../../assets/compte.png' alt="Mon compte" height="24" width="24">
     <a routerLink="../account">Mon compte</a>
   </div>
 
+  <!-- PARAMETRES -->
   <div class="menu-option">
     <img ngSrc='../../assets/parametres.png' alt="Parametres" height="24" width="24">
     <a routerLink="settings">Paramètres</a>
@@ -53,5 +58,5 @@
 <app-filters></app-filters>
 
 <a routerLink="add-bat">
-  <app-button id="btn-add-bat" text="Ajouter un bâtiment" [buttonClass]="'btn-blue'"></app-button>
+  <app-button id="btn-add-bat" text="Suggérer un bâtiment" [buttonClass]="'btn-blue'"></app-button>
 </a>
