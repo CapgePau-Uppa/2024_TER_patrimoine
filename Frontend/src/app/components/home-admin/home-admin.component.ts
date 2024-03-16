@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { SuggestDataService } from "../suggest-data.service";
+import { SuggestDataService } from "../../services/suggest-data.service";
+import { Building } from "../../building.model";
 
 @Component({
   selector: 'app-home-admin',
@@ -12,7 +13,7 @@ export class HomeAdminComponent {
   buildings: Building[] = [];
 
   ngOnInit() {
-    this.buildings = this.buildingService.getAllBuildings();
+    this.buildings = this.suggestDataService.getAllBuildings();
   }
 
   showBuildingDetails(building: Building) {

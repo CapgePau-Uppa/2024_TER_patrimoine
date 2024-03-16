@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarModule } from "../navbar/navbar.module";
 import { CarteModule } from "../carte/carte.module";
 import { HomeComponent } from "./home.component";
-import {FiltersModule} from "../filters/filters.module";
+import { FiltersModule } from "../filters/filters.module";
 
 
 

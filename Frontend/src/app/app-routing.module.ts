@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from "./home/home.component";
-import { AddBatComponent } from "./add-bat/add-bat.component";
-import { ConnexionComponent } from "./connexion/connexion.component";
+import { HomeComponent } from "./components/home/home.component";
+import { AddBatComponent } from "./components/add-bat/add-bat.component";
+import { ConnexionComponent } from "./components/connexion/connexion.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

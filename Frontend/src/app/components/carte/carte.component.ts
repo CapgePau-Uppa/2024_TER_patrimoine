@@ -2,9 +2,6 @@ import { AfterViewInit, Component, EventEmitter, OnInit, OnDestroy} from '@angul
 import * as L from 'leaflet';
 import { BatimentDTO } from './batiment-dto.model';
 import { BatimentService } from './batiment.service';
-import { FilterService } from '../filters/filters-service.model';
-import { FiltersComponent } from '../filters/filters.component';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-carte',

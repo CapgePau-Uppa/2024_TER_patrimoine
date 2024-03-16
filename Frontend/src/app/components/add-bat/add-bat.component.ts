@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { SuggestDataService } from "../suggest-data.service";
+import { SuggestDataService } from "../../services/suggest-data.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-add-bat',
@@ -7,18 +8,24 @@ import { SuggestDataService } from "../suggest-data.service";
   styleUrls: ['./add-bat.component.css']
 })
 export class AddBatComponent {
-  constructor(public suggestDataService: SuggestDataService) { }
+  myForm: FormGroup;
+
+  constructor(public suggestDataService: SuggestDataService, private formBuilder: FormBuilder) {
+    this.myForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      batName: ['', Validators.required],
+      batType: ['', Validators.required],
+      batAddr: ['', Validators.required]
+    });
+  }
 
   // Add the data in suggest-data.service
-  onSubmit(name: string, surname: string, batName: string, buildingType: string, batAddr: string): void {
-    const newBuilding: Building = {
-      name: name,
-      surname: surname,
-      batName: batName,
-      buildingType: buildingType,
-      batAddr: batAddr
-    };
-
-    this.suggestDataService.saveBuilding(newBuilding);
+  onSubmit(): void {
+    if (this.myForm.valid) {
+      const formData = this.myForm.value;
+      this.suggestDataService.saveBuilding(formData);
+      this.myForm.reset();
+    }
   }
 }

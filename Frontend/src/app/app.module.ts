@@ -8,15 +8,16 @@ import { NgOptimizedImage } from "@angular/common";
 // Components modules
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CarteModule } from "./carte/carte.module";
-import { ButtonModule } from "./button/button.module";
-import { NavbarModule } from "./navbar/navbar.module";
-import { HomeModule } from "./home/home.module";
-import { FiltersModule } from './filters/filters.module';
-import { DetailsModule } from './details/details.module';
-import { AddBatModule } from "./add-bat/add-bat.module";
-import { ConnexionModule } from "./connexion/connexion.module";
-import { HomeAdminModule } from "./home-admin/home-admin.module";
+import { CarteModule } from "./components/carte/carte.module";
+import { ButtonModule } from "./components/button/button.module";
+import { NavbarModule } from "./components/navbar/navbar.module";
+import { HomeModule } from "./components/home/home.module";
+import { FiltersModule } from './components/filters/filters.module';
+import { DetailsModule } from './components/details/details.module';
+import { AddBatModule } from "./components/add-bat/add-bat.module";
+import { ConnexionModule } from "./components/connexion/connexion.module";
+import { HomeAdminModule } from "./components/home-admin/home-admin.module";
+import { SuggestionModule } from "./components/suggestion/suggestion.module";
 
 @NgModule({
     declarations: [
@@ -38,7 +39,8 @@ import { HomeAdminModule } from "./home-admin/home-admin.module";
       DetailsModule,
       AddBatModule,
       ConnexionModule,
-      HomeAdminModule
+      HomeAdminModule,
+      SuggestionModule
     ]
 })
 export class AppModule { }
