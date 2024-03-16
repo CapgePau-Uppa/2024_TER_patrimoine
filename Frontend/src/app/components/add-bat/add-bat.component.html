@@ -8,7 +8,7 @@
     <div class="form-group">
 
       <div class="names">
-        <div class="form" id="name">
+        <div class="form" id="nameForm">
           <label for="name">Prénom de l'utilisateur</label>
           <input type="text" id="name" required>
         </div>
@@ -30,19 +30,10 @@
       </div>
 
       <div class="form">
-        <label for="bat-type">Type du bâtiment</label>
+        <label for="buildingType">Rechercher par type</label>
         <div class="dropdown">
-          <select id="bat-type" class="form-control">
-            <option value="00">Tous les types</option>
-            <option value="01">Maison</option>
-            <option value="02">Appartement</option>
-            <option value="03">Terrain</option>
-            <option value="04">Local commercial</option>
-            <option value="05">Bureau</option>
-            <option value="06">Immeuble</option>
-            <option value="07">Fonds de commerce</option>
-            <option value="08">Parking</option>
-            <option value="09">Autre</option>
+          <select id="buildingType" class="form-control" [(ngModel)]="selectedType" (change)="onTypeSelected()">
+            <option *ngFor="let type of types" [value]="type">{{ type }}</option>
           </select>
           <img ngSrc='../../assets/arrow.png' alt="Fleche" height="24" width="24">
         </div>

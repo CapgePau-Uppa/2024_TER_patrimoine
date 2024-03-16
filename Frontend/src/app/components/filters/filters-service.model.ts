@@ -18,8 +18,6 @@ export class FilterService {
         return this.http.get<string[]>(`${this.baseUrl}/batiment/list-types`);
     }
 
-    
-
 
     getAllRegions(): Observable<string[]> {
         return this.http.get<string[]>(`${this.baseUrl}/batiment/list-region`);
@@ -32,7 +30,7 @@ export class FilterService {
     getAllCommunes(): Observable<string[]> {
         return this.http.get<string[]>(`${this.baseUrl}/batiment/list-commune`);
     }
-    
+
 
 
     triggerValidateClicked(): void {

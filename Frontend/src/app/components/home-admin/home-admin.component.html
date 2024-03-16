@@ -1,0 +1,10 @@
+
+<app-navbar></app-navbar>
+
+<main>
+
+  <aside>
+    <app-suggestion *ngFor="let building of buildings" [nom]="building.nom" (click)="showBuildingDetails(building)"></app-suggestion>
+  </aside>
+
+</main>

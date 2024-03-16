@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeAdminComponent } from "./home-admin.component";
-import {NavbarModule} from "../navbar/navbar.module";
+import { NavbarModule } from "../navbar/navbar.module";
+import { SuggestionModule } from "../suggestion/suggestion.module";
 
 
 
@@ -9,7 +10,8 @@ import {NavbarModule} from "../navbar/navbar.module";
   declarations: [ HomeAdminComponent ],
   imports: [
     CommonModule,
-    NavbarModule
+    NavbarModule,
+    SuggestionModule
   ],
   exports: [ HomeAdminComponent ]
 })

@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { FiltersComponent } from "./filters.component";
 import { ButtonModule } from "../button/button.module";
 import { FilterService } from './filters-service.model';
-import { CarteModule } from '../carte/carte.module';
-
 
 @NgModule({
   declarations: [ FiltersComponent ],
