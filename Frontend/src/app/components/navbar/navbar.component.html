@@ -1,14 +1,14 @@
 <div class="navbar">
 
-  <!-- Option "Carte" -->
+  <!-- CARTE -->
   <div class="option">
     <img ngSrc='../../../favicon.ico' alt="Accueil" routerLink="../" height="50" width="50">
   </div>
 
 
-  <!-- Option "Suggestion", initialement cachée -->
+  <!-- SUGGESTION -->
   <div class="option" id="opt-suggest">
-    <img ngSrc='../../assets/home.png' alt="Suggestion" height="24" width="24">
+    <img ngSrc='../../assets/suggest.png' alt="Suggestion" height="24" width="24">
     <span>Suggestions</span>
   </div>
 
@@ -45,7 +45,7 @@
   <!-- COMPTE -->
   <div class="menu-option">
     <img ngSrc='../../assets/compte.png' alt="Mon compte" height="24" width="24">
-    <a routerLink="../account">Mon compte</a>
+    <a routerLink="account">Mon compte</a>
   </div>
 
   <!-- PARAMETRES -->
@@ -57,6 +57,4 @@
 
 <app-filters></app-filters>
 
-<a routerLink="add-bat">
-  <app-button id="btn-add-bat" text="Suggérer un bâtiment" [buttonClass]="'btn-blue'"></app-button>
-</a>
+

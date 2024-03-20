@@ -27,3 +27,12 @@ button {
   border-radius: 4px;
   box-shadow: none;
 }
+
+/* -------- BOUTON AJOUTER BATIMENT -------- */
+#btn-add-bat {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  bottom: 60px;
+  right: 60px;
+}

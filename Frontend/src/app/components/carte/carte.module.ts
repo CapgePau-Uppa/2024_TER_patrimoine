@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CarteComponent } from './carte.component';
 import { DetailsModule } from "../details/details.module";
 import { FiltersModule } from '../filters/filters.module';
+import {ButtonModule} from "../button/button.module";
+import {RouterLink} from "@angular/router";
 
 
 @NgModule({
@@ -12,7 +14,9 @@ import { FiltersModule } from '../filters/filters.module';
         CommonModule,
         HttpClientModule,
         DetailsModule,
-        FiltersModule
+        FiltersModule,
+        ButtonModule,
+        RouterLink
     ],
   exports: [ CarteComponent ]
 })

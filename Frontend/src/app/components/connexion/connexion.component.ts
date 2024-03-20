@@ -14,12 +14,10 @@ export class ConnexionComponent {
 
   //private navbar: NavbarComponent,
   constructor( private router: Router, public globalService: GlobalService) {
-    console.log('constructor, id : ' + this.identifiant + ', mdp : ' + this.mdp);
   }
 
-  valider() {
+  valider(role: number) {
     const message = document.getElementById("message");
-    console.log('valider, id : ' + this.identifiant + ', mdp : ' + this.mdp);
 
     // Vérifiez si les champs sont remplis
     if (this.identifiant && this.mdp) {
@@ -27,26 +25,20 @@ export class ConnexionComponent {
       // @ts-ignore
       message.innerHTML = '';
 
-      // Connexion d'un utilisateur
-      this.globalService.globalVariable = 1;
-      this.router.navigate(['../']);
-
-      //Connexion d'un administrateur
-      /*this.globalService.globalVariable = 1;
-      this.router.navigate(['../home-admin']);*/
+      if (role == 1) {
+        // Connexion d'un utilisateur
+        this.globalService.globalVariable = 1;
+        this.router.navigate(['../']);
+      }
+      else {
+        //Connexion d'un administrateur
+        this.globalService.globalVariable = 2;
+        this.router.navigate(['../home-admin']);
+      }
 
     } else {
-      console.log("error");
       // @ts-ignore
       message.innerHTML = '*Les deux champs sont requis.';
     }
   }
-
-  annuler() {
-    // Réinitialiser les valeurs des champs d'entrée ou effectuer d'autres actions d'annulation
-    this.identifiant = '';
-    this.mdp = '';
-  }
-
-
 }

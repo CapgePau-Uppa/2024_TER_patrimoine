@@ -2,33 +2,38 @@
   display : block;
   height: 40px;
   width: auto;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 0 40px 0 40px;
   border-radius: 20px;
   background-color: #ffffff;
   border: 3px solid #262f34;
+}
+
+.btn-light:hover {
+  background-color: #262f34;
+  color: #ffffff;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.25rem rgba(38,47,52,.5);
 }
 
 .btn-blue {
   display : block;
   height: 40px;
   width: auto;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 0 40px 0 40px;
   border-radius: 20px;
   background-color: #59c0fb;
   border: 3px solid #2a678e;
 }
 
-.btn-dark {
-  display : block;
-  height: 40px;
-  width: auto;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 20px;
-  background-color: #b5b5b5;
-  border: 3px solid #262f34;
+.btn-blue:hover {
+  background-color: #2a678e;
+  color: #ffffff;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.25rem rgba(42,103,142,.5);
 }
 
 text {

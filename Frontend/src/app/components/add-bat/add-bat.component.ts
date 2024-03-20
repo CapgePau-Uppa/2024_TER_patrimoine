@@ -15,17 +15,18 @@ export class AddBatComponent {
       name: ['', Validators.required],
       surname: ['', Validators.required],
       batName: ['', Validators.required],
-      batType: ['', Validators.required],
+      batType: ['00', Validators.required],
       batAddr: ['', Validators.required]
     });
   }
 
   // Add the data in suggest-data.service
   onSubmit(): void {
-    if (this.myForm.valid) {
-      const formData = this.myForm.value;
-      this.suggestDataService.saveBuilding(formData);
-      this.myForm.reset();
-    }
+    console.log("onSubmit");
+    const formData = this.myForm.value;
+    console.log(formData);
+    this.suggestDataService.saveBuilding(formData);
+    console.log(this.suggestDataService.getAllBuildings());
+    this.myForm.reset();
   }
 }

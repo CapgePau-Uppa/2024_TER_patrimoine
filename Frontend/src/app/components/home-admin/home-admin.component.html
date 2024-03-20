@@ -1,10 +1,15 @@
-
-<app-navbar></app-navbar>
+<header>
+  <app-navbar></app-navbar>
+</header>
 
 <main>
 
   <aside>
-    <app-suggestion *ngFor="let building of buildings" [batName]="building.name" (click)="showBuildingDetails(building)"></app-suggestion>
+    <h1>Suggestions</h1>
+    <div *ngFor="let building of buildings">
+      <app-suggestion [batName]="building.name"></app-suggestion>
+    </div>
   </aside>
+
 
 </main>

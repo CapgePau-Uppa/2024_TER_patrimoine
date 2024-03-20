@@ -28,6 +28,7 @@ export class SuggestDataService {
 
   // Get all the buildings from the suggest-data.service
   getAllBuildings() {
+    console.log(this.buildings);
     return this.buildings;
   }
 }
