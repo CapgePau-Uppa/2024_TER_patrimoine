@@ -29,5 +29,5 @@
         "lang": "fr-FR",
         "display": "standalone",
         "scope": "/",
-        "start_url": "/",
+        "start_url": "./"
 }
