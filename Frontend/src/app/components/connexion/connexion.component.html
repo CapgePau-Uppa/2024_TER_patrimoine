@@ -4,21 +4,22 @@
 <main>
   <h1>Connexion</h1>
 
-  <div class="form">
-    <label for="identifiant">Identifiant</label>
-    <input type="text" id="identifiant" required [(ngModel)]="identifiant">
-  </div>
+  <div class="container">
+    <div class="form">
+      <label for="identifiant">Identifiant</label>
+      <input type="text" id="identifiant" required [(ngModel)]="identifiant">
+    </div>
 
-  <div class="form">
-    <label for="mdp">Mot de passe</label>
-    <input type="text" id="mdp" required [(ngModel)]="mdp">
-    <p id="message"></p>
-  </div>
+    <div class="form">
+      <label for="mdp">Mot de passe</label>
+      <input type="text" id="mdp" required [(ngModel)]="mdp">
+      <p id="message"></p>
+    </div>
 
-  <div class="button-container">
-    <app-button text="Annuler" [buttonClass]="'btn-light'" routerLink="../"></app-button>
-    <app-button text="ValiderUser" [buttonClass]="'btn-blue'" (click)="valider(1)"></app-button>
-    <app-button text="ValiderAdmin" [buttonClass]="'btn-blue'" (click)="valider(2)"></app-button>
+    <div class="button-container">
+      <app-button text="Annuler" [buttonClass]="'btn-light'" routerLink="../"></app-button>
+      <app-button text="ValiderUser" [buttonClass]="'btn-blue'" (click)="valider(1)"></app-button>
+      <app-button text="ValiderAdmin" [buttonClass]="'btn-blue'" (click)="valider(2)"></app-button>
+    </div>
   </div>
-
 </main>

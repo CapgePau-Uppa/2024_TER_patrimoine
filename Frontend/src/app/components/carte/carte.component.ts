@@ -82,7 +82,7 @@ export class CarteComponent implements AfterViewInit{
   getUserLocation() {
     // Create the icon
     const menIcon = L.icon({
-      iconUrl: '../assets/men.png',
+      iconUrl: '../assets/icones/men.png',
       iconSize: [22, 50],
       popupAnchor: [0, -30]
     });

@@ -1,18 +1,25 @@
-.btn-light {
-  display : block;
+div {
+  display : flex;
+  align-items: center;
   height: 40px;
-  width: auto;
-  padding-left: 20px;
-  padding-right: 20px;
+  width: 300px;
   border-radius: 20px;
   background-color: #ffffff;
-  border: 3px solid #262f34;
+  border: 3px solid #b5b5b5;
+  margin: 10px;
 }
 
 nom {
-  text-align: center;
-  vertical-align: middle;
+  text-align: left;
   font-size: 20px;
   font-family: 'Roboto', sans-serif;
   color: #262f34;
+}
+
+i {
+  padding: 0 15px;
+}
+
+div:hover {
+  background-color: rgba(181, 181, 181, 0.2);
 }

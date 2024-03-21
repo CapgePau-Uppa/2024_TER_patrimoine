@@ -1,13 +1,11 @@
-body {
-  background-color: #FDF9EF;
-  height: 100vh;
-}
 
 main {
-  display: flex;
+  background-color: #FDF9EF;
+  padding: 40px;
+  position: relative;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  height: 93.5vh;
 }
 
 h1 {
@@ -15,4 +13,9 @@ h1 {
   color: #262f34;
   padding: 60px 0 40px 0;
   text-align: center;
+}
+
+app-button {
+  display: flex;
+  justify-content: center;
 }

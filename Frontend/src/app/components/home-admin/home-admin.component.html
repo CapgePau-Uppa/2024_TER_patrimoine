@@ -7,9 +7,38 @@
   <aside>
     <h1>Suggestions</h1>
     <div *ngFor="let building of buildings">
-      <app-suggestion [batName]="building.name"></app-suggestion>
+      <app-suggestion [batName]="building.batName"
+                      [ngClass]="{'selected': building === buildingInfo}"
+                      (click)="getBuildingInformation(building.batName)"></app-suggestion>
     </div>
   </aside>
 
+  <div id="container">
+
+    <div id="information" *ngIf="buildingInfo">
+      <p>Suggestion de {{ buildingInfo.name }} {{ buildingInfo.surname }}</p>
+      <div class="form">
+        <label for="batName">Nom du bâtiment</label>
+        <input type="text" id="batName" [(ngModel)]="buildingInfo.batName" disabled>
+      </div>
+
+      <div class="form">
+        <label for="batType">Type de bâtiment</label>
+        <input type="text" id="batType" [(ngModel)]="buildingInfo.batType" disabled>
+      </div>
+
+      <div class="form">
+        <label for="batAddress">Adresse</label>
+        <input type="text" id="batAddress" [(ngModel)]="buildingInfo.batAddr" disabled>
+      </div>
+
+    </div>
+
+    <div id="buttons">
+      <app-button text="Oui" [buttonClass]="'btn-blue'" (click)="valider()"></app-button>
+      <app-button text="Modif" [buttonClass]="'btn-blue'" (click)="modifier()"></app-button>
+      <app-button text="Non" [buttonClass]="'btn-blue'" (click)="annuler()"></app-button>
+    </div>
+  </div>
 
 </main>

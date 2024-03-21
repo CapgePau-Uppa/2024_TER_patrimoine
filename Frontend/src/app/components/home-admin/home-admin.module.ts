@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HomeAdminComponent } from "./home-admin.component";
 import { NavbarModule } from "../navbar/navbar.module";
 import { SuggestionModule } from "../suggestion/suggestion.module";
+import {ButtonModule} from "../button/button.module";
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -11,7 +13,9 @@ import { SuggestionModule } from "../suggestion/suggestion.module";
   imports: [
     CommonModule,
     NavbarModule,
-    SuggestionModule
+    SuggestionModule,
+    ButtonModule,
+    FormsModule
   ],
   exports: [ HomeAdminComponent ]
 })

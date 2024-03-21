@@ -1,8 +1,10 @@
 
 main {
   background-color: #FDF9EF;
-  height: 100vh;
   padding: 40px;
+  position: relative;
+  height: 93.5vh;
+  z-index: 1;
 }
 
 h1 {

@@ -39,7 +39,7 @@
             <option value="terrain">Terrain</option>
             <option value="école">École</option>
           </select>
-          <img ngSrc='../../assets/arrow.png' alt="Fleche" height="24" width="24">
+          <img ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
         </div>
       </div>
 
@@ -49,7 +49,7 @@
       </div>
 
       <div class="button-container">
-        <app-button text="Annuler" [buttonClass]="'btn-light'"></app-button>
+        <app-button text="Annuler" [buttonClass]="'btn-light'" routerLink="../"></app-button>
         <app-button type="submit" text="Valider" [buttonClass]="'btn-blue'" routerLink="../"></app-button>
       </div>
     </form>

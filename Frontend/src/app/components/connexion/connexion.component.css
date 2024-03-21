@@ -1,22 +1,16 @@
 
-page {
-  background-color: #FDF9EF;
-  height: 100vh;
-}
-
 main {
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  background-color: #FDF9EF;
+  padding: 40px;
+  position: relative;
+  height: 93.5vh;
+  z-index: 1;
 }
 
 h1 {
   font-family: "Roboto", sans-serif;
   color: #262f34;
-  padding: 60px 0 40px 0;
+  padding-bottom: 40px;
   text-align: center;
 }
 

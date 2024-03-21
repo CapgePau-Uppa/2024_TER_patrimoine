@@ -11,12 +11,29 @@ export class HomeAdminComponent {
   constructor(public suggestDataService: SuggestDataService) { }
 
   buildings: Building[] = [];
+  buildingInfo: Building | null = null;
 
   ngOnInit() {
     this.buildings = this.suggestDataService.getAllBuildings();
   }
 
-  showBuildingDetails(building: Building) {
-    // Afficher les détails complets du bâtiment
+  getBuildingInformation(buildingName: string) {
+    const info = document.getElementById("container");
+    // @ts-ignore
+    info.style.display = "flex";
+
+    this.buildingInfo = this.suggestDataService.getBuilding(buildingName);
+  }
+
+  valider() {
+
+  }
+
+  modifier() {
+
+  }
+
+  annuler() {
+
   }
 }

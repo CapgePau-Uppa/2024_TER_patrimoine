@@ -1,12 +1,10 @@
 
-body {
-  background-color: #FDF9EF;
-  height: 100vh;
-}
-
 main {
+  background-color: #FDF9EF;
   display: flex;
-  flex-direction: row;
+  position: relative;
+  height: 93.5vh;
+  z-index: 1;
 }
 
 aside {
@@ -26,3 +24,58 @@ h1 {
   margin: 30px 0 40px 0;
   text-align: center;
 }
+
+.selected {
+  border: 3px solid #262f34;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border: 3px solid #262f34;
+}
+
+#information {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  background-color: white;
+  border: 3px solid #262f34;
+  border-radius: 10px;
+  padding: 10px;
+  width: 80%;
+  height: auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 40px;
+}
+
+.form label {
+  font-size: 19px;
+  font-family: "Roboto", sans-serif;
+  color: #262f34;
+}
+
+.form input {
+  border: 3px solid #262f34;
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%
+}
+
+#buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px 0;
+  width: 70%;
+}
+
+
