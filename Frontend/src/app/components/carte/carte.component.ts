@@ -25,8 +25,8 @@ export class CarteComponent implements AfterViewInit{
     if (typeof this.map === 'undefined') {
       this.createMap();
       this.getUserLocation();
-      //this.loadBatiments();
-      this.addClusteringMarkers();
+      this.loadBatiments();
+      //this.addClusteringMarkers();
     }
     this.batimentService.selectedType$.subscribe(type => {
       if (type) {
@@ -107,7 +107,7 @@ export class CarteComponent implements AfterViewInit{
     }
   }
 
-  // Fonction pour afficher les marker par departements
+/*  // Fonction pour afficher les marker par departements
   addClusteringMarkers(): void {
     this.batimentService.getClusteringDepartement().subscribe(data => {
       data.forEach(department => {
@@ -147,7 +147,7 @@ export class CarteComponent implements AfterViewInit{
   }
   private zoomToDepartment(marker: any): void {
     this.map!.setView(marker.getLatLng(), 10);
-  }
+  }*/
 
 
   // Function to load all batiments
@@ -158,7 +158,7 @@ export class CarteComponent implements AfterViewInit{
     });
   }
   loadBatimentsParType(selectedType: string): void{
-    this.loadBatiments();
+    //this.loadBatiments();
     this.clearMap();
     this.batimentService.getBatimentsByType(selectedType).subscribe(data => {
       this.batiments = data;

@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalService {
   globalVariable= 0;
+  isConnected= false;
 
   constructor() {}
 }

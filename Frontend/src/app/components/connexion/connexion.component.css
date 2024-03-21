@@ -14,6 +14,10 @@ h1 {
   text-align: center;
 }
 
+.container {
+  width: 60%;
+}
+
 .form {
   display: flex;
   flex-direction: column;

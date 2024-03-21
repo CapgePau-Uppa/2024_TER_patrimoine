@@ -12,14 +12,14 @@
 
     <div class="form">
       <label for="mdp">Mot de passe</label>
-      <input type="text" id="mdp" required [(ngModel)]="mdp">
+      <input type="password" id="mdp" required [(ngModel)]="mdp">
       <p id="message"></p>
     </div>
 
     <div class="button-container">
       <app-button text="Annuler" [buttonClass]="'btn-light'" routerLink="../"></app-button>
-      <app-button text="ValiderUser" [buttonClass]="'btn-blue'" (click)="valider(1)"></app-button>
-      <app-button text="ValiderAdmin" [buttonClass]="'btn-blue'" (click)="valider(2)"></app-button>
+      <!--<app-button text="ValiderUser" [buttonClass]="'btn-blue'" (click)="valider(1)"></app-button>-->
+      <app-button text="Valider" [buttonClass]="'btn-blue'" (click)="valider()"></app-button>
     </div>
   </div>
 </main>

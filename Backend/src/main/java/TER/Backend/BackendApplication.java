@@ -1,14 +1,16 @@
 package TER.Backend;
 
 import java.util.List;
+import java.util.Scanner;
 
+import TER.Backend.security.entities.User;
+import TER.Backend.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import TER.Backend.api.dto.BatimentDTO;
-import TER.Backend.entities.Batiment;
+
 import TER.Backend.services.BatimentService;
 
 
@@ -17,6 +19,8 @@ public class BackendApplication implements CommandLineRunner {
 
     @Autowired
     private BatimentService batimentService;
+    @Autowired
+    private UserService userService;
 
     public static void main(String[] args) {
         SpringApplication.run(BackendApplication.class, args);
@@ -24,7 +28,35 @@ public class BackendApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Appelez la méthode getBatimentsByType avec le type spécifié
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Entrez le nom : ");
+        String nom = scanner.nextLine();
+        System.out.println("Entrez le prénom : ");
+        String prenom = scanner.nextLine();
+        System.out.println("Entrez le rôle : ");
+        String role = scanner.nextLine();
+        System.out.println("Entrez l'email : ");
+        String email = scanner.nextLine();
+        System.out.println("Entrez le mot de passe : ");
+        String mdp = scanner.nextLine();
+
+        User newUser = new User();
+        newUser.setNom(nom);
+        newUser.setPrenom(prenom);
+        newUser.setRole(role);
+        newUser.setEmail(email);
+        newUser.setMdp(mdp);
+
+        // Sauvegarde de l'utilisateur
+        User savedUser = userService.saveUser(newUser);
+
+        // Vérification de l'utilisateur sauvegardé
+        System.out.println("Utilisateur enregistré : " + savedUser);
+
+        // Fermeture du scanner
+        scanner.close();
+        /*// Appelez la méthode getBatimentsByType avec le type spécifié
         String typeRecherche = "Charente";
         List<BatimentDTO> batiments = batimentService.getBatimentsByDepartement(typeRecherche);
             
@@ -36,7 +68,8 @@ public class BackendApplication implements CommandLineRunner {
             for (BatimentDTO batiment : batiments) {
                 System.out.println(batiment);
             }
-        }
+        }*/
+        System.out.println("test");
     }
 }
 
