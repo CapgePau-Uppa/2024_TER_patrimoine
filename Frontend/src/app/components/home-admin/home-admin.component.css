@@ -29,12 +29,15 @@ h1 {
   border: 3px solid #262f34;
 }
 
+#information p {
+  align-self: flex-start;
+}
+
 #container {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  border: 3px solid #262f34;
 }
 
 #information {
@@ -45,7 +48,7 @@ h1 {
   background-color: white;
   border: 3px solid #262f34;
   border-radius: 10px;
-  padding: 10px;
+  padding: 30px;
   width: 80%;
   height: auto;
 }
@@ -53,7 +56,8 @@ h1 {
 .form {
   display: flex;
   flex-direction: column;
-  padding-bottom: 40px;
+  padding: 30px;
+  width: 100%
 }
 
 .form label {
@@ -66,7 +70,6 @@ h1 {
   border: 3px solid #262f34;
   border-radius: 10px;
   padding: 10px;
-  width: 100%
 }
 
 #buttons {
@@ -78,4 +81,14 @@ h1 {
   width: 70%;
 }
 
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.option p {
+  font-size: 19px;
+  font-family: "Roboto", sans-serif;
+  color: #262f34;
+}

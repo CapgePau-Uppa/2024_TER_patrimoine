@@ -17,6 +17,7 @@
 
     <div id="information" *ngIf="buildingInfo">
       <p>Suggestion de {{ buildingInfo.name }} {{ buildingInfo.surname }}</p>
+
       <div class="form">
         <label for="batName">Nom du bâtiment</label>
         <input type="text" id="batName" [(ngModel)]="buildingInfo.batName" disabled>
@@ -35,9 +36,26 @@
     </div>
 
     <div id="buttons">
-      <app-button text="Oui" [buttonClass]="'btn-blue'" (click)="valider()"></app-button>
-      <app-button text="Modif" [buttonClass]="'btn-blue'" (click)="modifier()"></app-button>
-      <app-button text="Non" [buttonClass]="'btn-blue'" (click)="annuler()"></app-button>
+      <div class="option">
+        <app-button [buttonClass]="'btn-blue'" (click)="valider()">
+          <img src="assets/icones/valider.png" alt="Valider">
+        </app-button>
+        <p>Valider</p>
+      </div>
+
+      <div class="option">
+        <app-button [buttonClass]="'btn-blue'" (click)="modifier()">
+          <img src="assets/icones/modifier.png" alt="Modifier">
+        </app-button>
+        <p>Modifier</p>
+      </div>
+
+      <div class="option">
+        <app-button [buttonClass]="'btn-blue'" (click)="annuler()">
+          <img src="assets/icones/annuler.png" alt="Annuler">
+        </app-button>
+        <p>Supprimer</p>
+      </div>
     </div>
   </div>
 
