@@ -29,11 +29,13 @@ export class ConnexionComponent {
 
     if (this.identifiant == "fatoumamhdi@gmail.com" && this.mdp == "123456") {
       this.globalService.globalVariable = 2;
+      this.globalService.isConnected = true;
       this.router.navigate(['../home-admin']);
     }
 
     if (this.identifiant == "sabr.lavergne@gmail.com" && this.mdp == "123456") {
       this.globalService.globalVariable = 1;
+      this.globalService.isConnected = true;
       this.router.navigate(['../']);
     }
 
@@ -48,10 +50,12 @@ export class ConnexionComponent {
           if (role === "USER") {
             // Connexion d'un utilisateur
             this.globalService.globalVariable = 1;
+            this.globalService.isConnected = true;
             this.router.navigate(['../']);
           } else if (role === "ADMIN") {
             // Connexion d'un administrateur
             this.globalService.globalVariable = 2;
+            this.globalService.isConnected = true;
             this.router.navigate(['../home-admin']);
           } else {
             // Rôle non reconnu

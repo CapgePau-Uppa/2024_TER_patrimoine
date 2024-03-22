@@ -20,6 +20,7 @@ export class AccountComponent {
 
   deconnect() {
     this.globalService.globalVariable = 0;
+    this.globalService.isConnected = false;
     this.router.navigate(['../']);
   }
 }

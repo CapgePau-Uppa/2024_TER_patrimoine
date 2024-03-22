@@ -13,7 +13,7 @@ export class NavbarComponent {
   ngOnInit(): void {
     this.getDisplay("filters-window");
     this.getDisplay("menu");
-    this.toggleStatut(this.globalService.globalVariable)
+    this.toggleStatut();
   }
 
   getDisplay(id: string): string | null {
@@ -25,40 +25,43 @@ export class NavbarComponent {
     return null;
   }
 
-  toggleStatut(statut: number) {
-    if (statut === 0) {  // visitor
+  toggleStatut() {
+    let connection = this.globalService.isConnected;
+    let statut = this.globalService.globalVariable;
+
+    if (!connection) {
     }
 
-    else if (statut === 1) {  // user
-      const searchBar = document.getElementById("searchBar");
-      // @ts-ignore
-      searchBar.style.display = "flex";
+    else {
+      if (statut === 1) {  // user
+        const searchBar = document.getElementById("searchBar");
+        // @ts-ignore
+        searchBar.style.display = "flex";
 
-      const optAccount = document.getElementById("opt-account");
-      // @ts-ignore
-      optAccount.style.display = "flex";
+        const optAccount = document.getElementById("opt-account");
+        // @ts-ignore
+        optAccount.style.display = "flex";
 
-      const btnConnect = document.getElementById("btn-connect");
-      // @ts-ignore
-      btnConnect.style.display = "none";
+        const btnConnect = document.getElementById("btn-connect");
+        // @ts-ignore
+        btnConnect.style.display = "none";
 
-      const btnBat = document.getElementById("btn-add-bat");
-      // @ts-ignore
-      btnBat.style.display = "block";
-    }
+        const btnBat = document.getElementById("btn-add-bat");
+        // @ts-ignore
+        btnBat.style.display = "block";
+      } else if (statut === 2) {  // admin
+        const optSuggest = document.getElementById("opt-suggest");
+        // @ts-ignore
+        optSuggest.style.display = "flex";
 
-    else if (statut === 2) {  // admin
-      const optSuggest = document.getElementById("opt-suggest");
-      // @ts-ignore
-      optSuggest.style.display = "flex";
+        const optAccount = document.getElementById("opt-account");
+        // @ts-ignore
+        optAccount.style.display = "flex";
 
-      const optAccount = document.getElementById("opt-account");
-      // @ts-ignore
-      optAccount.style.display = "flex";
-
-      const btnConnect = document.getElementById("btn-connect");
-      // @ts-ignore
-      btnConnect.style.display = "none";
+        const btnConnect = document.getElementById("btn-connect");
+        // @ts-ignore
+        btnConnect.style.display = "none";
+      }
     }
   }
 

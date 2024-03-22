@@ -29,7 +29,7 @@ public class BackendApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Scanner scanner = new Scanner(System.in);
+        /*Scanner scanner = new Scanner(System.in);
         System.out.println("Entrez le nom : ");
         String nom = scanner.nextLine();
         System.out.println("Entrez le prénom : ");
@@ -56,6 +56,8 @@ public class BackendApplication implements CommandLineRunner {
 
         // Fermeture du scanner
         scanner.close();
+        */
+        
         /*// Appelez la méthode getBatimentsByType avec le type spécifié
         String typeRecherche = "Charente";
         List<BatimentDTO> batiments = batimentService.getBatimentsByDepartement(typeRecherche);

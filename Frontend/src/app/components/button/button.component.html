@@ -1,2 +1,6 @@
 
-<button [ngClass]="buttonClass">{{ text }}</button>
+<button [ngClass]="buttonClass" *ngIf="!imageUrl">{{ text }}</button>
+
+<button [ngClass]="buttonClass" *ngIf="imageUrl">
+  <img [src]="imageUrl" [alt]="altText">
+</button>
