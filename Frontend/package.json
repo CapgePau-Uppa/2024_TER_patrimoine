@@ -7,7 +7,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "run-start": "ng serve && ng build && npm install"
+    "run-start": "npm install && ng build && ng serve"
   },
   "repository": {
     "type": "git",
