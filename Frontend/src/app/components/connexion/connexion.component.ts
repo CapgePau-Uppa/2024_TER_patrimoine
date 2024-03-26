@@ -27,7 +27,7 @@ export class ConnexionComponent {
     console.log("validate2");
 
 
-    if (this.identifiant == "fatoumamhdi@gmail.com" && this.mdp == "123456") {
+    /*if (this.identifiant == "fatoumamhdi@gmail.com" && this.mdp == "123456") {
       this.globalService.globalVariable = 2;
       this.globalService.isConnected = true;
       this.router.navigate(['../home-admin']);
@@ -37,10 +37,10 @@ export class ConnexionComponent {
       this.globalService.globalVariable = 1;
       this.globalService.isConnected = true;
       this.router.navigate(['../']);
-    }
+    }*/
 
 
-    /*if (this.identifiant && this.mdp) {
+    if (this.identifiant && this.mdp) {
       console.log("validate");
       this.message = '';
       this.connexionService.getConnexion().subscribe(
@@ -70,7 +70,7 @@ export class ConnexionComponent {
       );
     } else {
       this.message = '*Les deux champs sont requis.';
-    }*/
+    }
   }
 }
 
