@@ -23,6 +23,7 @@ echo "Docker environment started."
 echo "Starting backend and frontend..."
 
 cd ./Backend
+mvn clean install
 mvn spring-boot:run &
 cd ../Frontend
 npm run run-start

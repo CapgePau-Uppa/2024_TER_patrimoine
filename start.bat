@@ -23,6 +23,7 @@ echo Docker environment started.
 echo Starting backend and frontend...
 
 cd Backend
+start mvn clean install
 start mvn spring-boot:run
 cd ..
 

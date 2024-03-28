@@ -92,3 +92,18 @@ h1 {
   font-family: "Roboto", sans-serif;
   color: #262f34;
 }
+
+.img {
+  display : block;
+  height: 40px;
+  width: auto;
+  padding: 0 40px 0 40px;
+  border-radius: 20px;
+  background-color: #59c0fb;
+  border: 3px solid #2a678e;
+}
+
+.img:hover {
+  background-color: #2a678e;
+  color: #ffffff;
+}
