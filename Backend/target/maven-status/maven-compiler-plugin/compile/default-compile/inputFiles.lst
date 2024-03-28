@@ -1,21 +1,17 @@
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/api/dto/BatimentDTO.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/BackendApplication.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/controller/MerimeeController.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/model/MerimeeData.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/security/entities/User.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/entities/Coordonnees.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/repository/LieuRepository.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/repository/CoordonneesRepository.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/security/repository/UserRepository.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/services/BatimentService.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/RestTemplateConfig.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/services/MerimeeDataService.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/repository/BatimentRepository.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/model/MerimeeDataResponse.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/util/ImagesUtil.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/CorsConfig.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/entities/Batiment.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/entities/Lieu.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/api/controller/BatimentAPI.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/api/controller/UserAPI.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/security/service/UserService.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\services\MerimeeDataService.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\BackendApplication.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\services\BatimentService.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\entities\Coordonnees.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\repository\BatimentRepository.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\model\MerimeeData.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\api\controller\BatimentAPI.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\model\MerimeeDataResponse.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\util\ImagesUtil.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\repository\CoordonneesRepository.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\entities\Lieu.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\RestTemplateConfig.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\entities\Batiment.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\controller\MerimeeController.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\repository\LieuRepository.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\api\dto\BatimentDTO.java
+C:\Users\Easy Services Pro\Desktop\TER 2024\2024_TER_patrimoine\Backend\src\main\java\TER\Backend\CorsConfig.java

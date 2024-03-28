@@ -34,17 +34,17 @@ export class BatimentService {
   }
 
 
-  private selectedTypeSource = new BehaviorSubject<string | null>(null); // Modifiez le type ici
+  private selectedTypeSource = new BehaviorSubject<string | null>(null);
   selectedType$ = this.selectedTypeSource.asObservable();
 
-  setSelectedType(type: string | null): void { // Modifiez le type ici
+  setSelectedType(type: string | null): void { 
     this.selectedTypeSource.next(type);
   }
 
-  private selectedDepSource = new BehaviorSubject<string | null>(null); // Modifiez le type ici
+  private selectedDepSource = new BehaviorSubject<string | null>(null); 
   selectedDepartement$ = this.selectedDepSource.asObservable();
 
-  setSelectedDepartement(dep: string | null): void { // Modifiez le type ici
+  setSelectedDepartement(dep: string | null): void {
     this.selectedDepSource.next(dep);
 }
 }

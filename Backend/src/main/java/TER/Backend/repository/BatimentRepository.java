@@ -30,6 +30,8 @@ public interface BatimentRepository extends JpaRepository<Batiment, Long> {
     List<Batiment> findByCommune(@Param("commune") String commune);
     @Query("SELECT b FROM Batiment b JOIN b.lieu l WHERE l.departement = :departement")
     List<Batiment> findByDepartement(@Param("departement") String dep);
+    @Query("SELECT b FROM Batiment b JOIN b.lieu l WHERE l.region = :region")
+    List<Batiment> findByRegion(@Param("region") String region);
     
 
     @Override
@@ -51,6 +53,13 @@ public interface BatimentRepository extends JpaRepository<Batiment, Long> {
     //Tous les Departements
     @Query("SELECT DISTINCT l.departement FROM Lieu l")
     List<String> findDistinctDepartements();
+    //Affichage des marqueurs sur la carte par département
+    //@Query("SELECT l.departement, COUNT(b), MIN(c.lat), MIN(c.lon) FROM Batiment b JOIN b.lieu l JOIN b.coordonnees c GROUP BY l.departement")
+    @Query("SELECT l.departement, COUNT(b.id), c.lat, c.lon FROM Batiment b " +
+       "JOIN b.lieu l " +
+       "JOIN b.coordonnees c " +
+       "GROUP BY l.departement")
+    List<Object[]> countAndFirstBuildingCoordinatesByDepartement();
 
 
 }

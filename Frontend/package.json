@@ -27,10 +27,12 @@
     "bootstrap": "^5.3.3",
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
+    "package": "^1.0.1",
     "popper.js": "^1.16.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.2.3",
+    "@types/leaflet": "^1.9.8",
     "typescript": "^5.3.3"
   }
 }

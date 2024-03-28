@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalService } from "../../services/global.service";
 import {ConnexionService} from "./connexion.service";
+import { UserDTO } from './user-dto.model';
 
 
 @Component({
@@ -12,7 +13,7 @@ import {ConnexionService} from "./connexion.service";
 
 export class ConnexionComponent {
 
-  identifiant: string = '';
+  email: string = '';
   mdp: string = '';
   message: string = '';
 
@@ -22,7 +23,31 @@ export class ConnexionComponent {
     public globalService: GlobalService
   ) {}
 
-  valider() {
+
+  valider(): void {
+    const userDTO: UserDTO = {
+      email: this.email,
+      mdp: this.mdp,
+      role: '',
+      id: 0,
+      nom: '',
+      prenom: ''
+    };
+
+    this.connexionService.login(userDTO).subscribe(
+      response => {
+        this.globalService.isConnected = true;
+        this.router.navigate(['../home-admin']);
+        console.log('Connexion réussie', response);
+      },
+      error => {
+        // Gérer les erreurs de connexion ici
+        console.error('Erreur de connexion', error);
+      }
+    );
+  }
+
+  /*valider() {
     // Vérifiez si les champs sont remplis
     console.log("validate2");
 
@@ -40,7 +65,7 @@ export class ConnexionComponent {
     }*/
 
 
-    if (this.identifiant && this.mdp) {
+    /*if (this.identifiant && this.mdp) {
       console.log("validate");
       this.message = '';
       this.connexionService.getConnexion().subscribe(
@@ -72,5 +97,6 @@ export class ConnexionComponent {
       this.message = '*Les deux champs sont requis.';
     }
   }
+  */
 }
 

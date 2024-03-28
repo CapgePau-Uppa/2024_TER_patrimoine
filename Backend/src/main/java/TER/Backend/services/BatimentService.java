@@ -13,7 +13,10 @@ import TER.Backend.repository.CoordonneesRepository;
 import TER.Backend.repository.LieuRepository;
 import TER.Backend.util.ImagesUtil;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -80,6 +83,20 @@ public class BatimentService {
                         .map(batiment -> new BatimentDTO(batiment))
                         .collect(Collectors.toList());
     }
+    //Affichage des batiments par département
+    public List<Map<String, Object>> getBuildingClusteringByDepartment() {
+        List<Object[]> results = batimentRepository.countAndFirstBuildingCoordinatesByDepartement();
+        List<Map<String, Object>> clusteringData = new ArrayList<>();
+        for (Object[] result : results) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("departement", (String) result[0]);
+            data.put("count", (Long) result[1]);
+            data.put("lat", (Double) result[2]);
+            data.put("lon", (Double) result[3]);
+            clusteringData.add(data);
+        }
+        return clusteringData;
+    }
     //Trouver un batiment par type
     public List<Batiment> findBatimentsByType(String type) {
         return batimentRepository.findByType(type);
@@ -98,7 +115,15 @@ public class BatimentService {
     //recuperation liste regions des batiments
     public List<String> findAllRegions() {
         return batimentRepository.findDistinctRegions();
-    }//recuperation liste communes des batiments
+    }
+    
+    public List<BatimentDTO> getBatimentsByRegion(String region) {
+        List<Batiment> batiments = batimentRepository.findByRegion(region);
+        return batiments.stream()
+                        .map(batiment -> new BatimentDTO(batiment))
+                        .collect(Collectors.toList());
+    }
+    //recuperation liste communes des batiments
     public List<String> findAllCommunes() {
         return batimentRepository.findDistinctCommunes();
     }

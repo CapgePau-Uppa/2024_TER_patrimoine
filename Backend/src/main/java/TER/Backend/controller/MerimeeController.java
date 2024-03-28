@@ -18,9 +18,9 @@ public class MerimeeController {
     @Autowired
     private BatimentService batimentService;
     
-    /*@PostConstruct
+    /* @PostConstruct
     // Importer les données de l'api, la màj ce fera le 5 des mois à minuit (00:00:00)
-    //@Scheduled(cron = "0 0 0 5 * ?")
+    @Scheduled(cron = "0 0 0 5 * ?")
     public void importerDonneesAuDemarrage() {
         List<MerimeeData> listeMerimeeData = merimeeAPIService.recupererDonnees();
         batimentService.enregistrerBatiments(listeMerimeeData);
@@ -30,3 +30,4 @@ public class MerimeeController {
 
     
 }
+
