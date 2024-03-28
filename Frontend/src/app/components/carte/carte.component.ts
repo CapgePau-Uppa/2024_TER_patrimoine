@@ -10,6 +10,7 @@ import { BatimentService } from './batiment.service';
 })
 export class CarteComponent implements AfterViewInit{
 
+  // Variables
   map: L.Map |undefined ;
   batiments: BatimentDTO[] = [];
   markers: any[] = [];
@@ -18,6 +19,20 @@ export class CarteComponent implements AfterViewInit{
   previousDepartmentMarker: any;
 
   constructor(private batimentService: BatimentService) { }
+
+  toggleDetails(batiments: BatimentDTO){
+    const element = document.getElementById("details");
+    //const filtersDisplay = this.getDisplay("filters-window");
+
+    // @ts-ignore
+    if (element.display === "none") {
+      // @ts-ignore
+      filtersWindow.style.display = "block";
+    } else {
+      // @ts-ignore
+      filtersWindow.style.display = "none";
+    }
+  }
 
 
   // Function to initialize the map
@@ -45,7 +60,6 @@ export class CarteComponent implements AfterViewInit{
       }
     });
   }
-
 
   // Function to create the map
   createMap() {
@@ -107,8 +121,8 @@ export class CarteComponent implements AfterViewInit{
     }
   }
 
-/*  // Fonction pour afficher les marker par departements
-  addClusteringMarkers(): void {
+  // Function to add clustering markers
+  /*addClusteringMarkers(): void {
     this.batimentService.getClusteringDepartement().subscribe(data => {
       data.forEach(department => {
         //let marker = L.marker([department.lat, department.lon]).addTo(this.map!);
@@ -149,7 +163,6 @@ export class CarteComponent implements AfterViewInit{
     this.map!.setView(marker.getLatLng(), 10);
   }*/
 
-
   // Function to load all batiments
   loadBatiments(): void {
     this.batimentService.getBatiments().subscribe(data => {
@@ -157,6 +170,8 @@ export class CarteComponent implements AfterViewInit{
       this.addMarkers();
     });
   }
+
+  // Function to load batiments by type
   loadBatimentsParType(selectedType: string): void{
     //this.loadBatiments();
     this.clearMap();
@@ -169,6 +184,7 @@ export class CarteComponent implements AfterViewInit{
 
   }
 
+  // Function to load batiments by departement
   loadBatimentsParDepartements(selectedDepartement: string): void{
     this.clearMap();
     this.batimentService.getBatimentsByDepartement(selectedDepartement).subscribe(data => {
@@ -196,7 +212,7 @@ export class CarteComponent implements AfterViewInit{
           <td class="container" style="padding: 1px 15px;">
             <h4><b>${batiment.nom}</b></h4>
             <p>Type: ${batiment.type} <br> Statut: ${batiment.statut} </p>
-            <button style="float:right; background:none; border:none; font-weight:bold;">>></button>
+            <button style="float:right; background:none; border:none; font-weight:bold;" (click)="toggleDetails()">Plus de détails</button>
           </td>
           </tr>
       </table>
@@ -223,10 +239,13 @@ export class CarteComponent implements AfterViewInit{
     });
   }
 
+  // Function to reset the view
   resetView(): void {
     console.log("back to user");
     this.getUserLocation();
   }
+
+  // Function to clear the map
   clearMap(): void {
     if (this.map) {
       this.map.eachLayer((layer) => {
@@ -236,5 +255,4 @@ export class CarteComponent implements AfterViewInit{
       });
     }
   }
-
 }
