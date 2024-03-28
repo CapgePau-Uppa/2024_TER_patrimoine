@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,10 +34,24 @@ public class BatimentAPI {
         this.batimentService = batimentService;
     }
 
-    //Get tout les batiments pour ensuite les afficher sur la carte
+    //Get tout les batiments pour ensuite les afficher sur la carte (solution avec données<=100)
     @GetMapping
     public List<BatimentDTO> getAllBatiments() {
         return batimentService.getAllBatiments();
+    }
+    //Get tous les batiments par departement pour ensuite les afficher sur la carte (solution pour toutes les données)
+    @GetMapping("/clustering")
+    public ResponseEntity<List<Map<String, Object>>> getBuildingClusteringByDepartment() {
+        List<Map<String, Object>> clusteringData = batimentService.getBuildingClusteringByDepartment();
+        return ResponseEntity.ok(clusteringData);
+    }
+     @GetMapping("/clustering-batiments/{dep}")
+    public ResponseEntity<List<BatimentDTO>> getBatimentsOfDepartement(@PathVariable String dep) {
+        List<BatimentDTO> batiments = batimentService.getBatimentsByDepartement(dep);
+        if (batiments.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(batiments, HttpStatus.OK);
     }
     
     /*--------Filtre--------*/
@@ -80,6 +98,10 @@ public class BatimentAPI {
     public List<String> getAllRegions() {
         return batimentService.findAllRegions();
         
+    }
+    @GetMapping("/batiments-par-region")
+    public List<BatimentDTO> getBatimentsByRegion(@RequestParam("region") String region) {
+        return batimentService.getBatimentsByRegion(region);
     }
     //Departement
     @GetMapping("/list-departement")
