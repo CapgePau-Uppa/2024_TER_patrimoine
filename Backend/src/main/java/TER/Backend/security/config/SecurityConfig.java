@@ -28,7 +28,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Configuration
+   /* @Configuration
     public static class WebSecurityConfig {
 
         @Autowired
@@ -42,5 +42,5 @@ public class SecurityConfig {
                     .and()
                 .csrf().disable();
         }
-    }
+    }*/
 }

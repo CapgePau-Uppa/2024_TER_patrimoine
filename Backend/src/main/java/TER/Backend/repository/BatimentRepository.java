@@ -32,6 +32,7 @@ public interface BatimentRepository extends JpaRepository<Batiment, Long> {
     List<Batiment> findByDepartement(@Param("departement") String dep);
     @Query("SELECT b FROM Batiment b JOIN b.lieu l WHERE l.region = :region")
     List<Batiment> findByRegion(@Param("region") String region);
+    List<Batiment> findByNomContainingIgnoreCase(String nom);
     
 
     @Override

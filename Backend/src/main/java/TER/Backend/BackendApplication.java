@@ -22,39 +22,54 @@ public class BackendApplication{ //implements CommandLineRunner
     
 
     public static void main(String[] args) {
-        SpringApplication.run(BackendApplication.class, args);
-        /* ConfigurableApplicationContext context = SpringApplication.run(BackendApplication.class, args);
+        //SpringApplication.run(BackendApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(BackendApplication.class, args);
         UserService userService = context.getBean(UserService.class);
         PasswordEncoder passwordEncoder = context.getBean(PasswordEncoder.class);
-
+        BatimentService batimentService = context.getBean(BatimentService.class);
+        boolean ok=true;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Que souhaitez-vous faire ?");
-        System.out.println("1. Créer un utilisateur");
+        while(ok){
+        System.out.println("1. Inscription utilisateur");
         System.out.println("2. Créer un administrateur");
         System.out.println("3. Se connecter");
+        System.out.println("4. Rechercher un bâtiment");
+        System.out.println("5. Nombre de bâtiments par département");
+        System.out.println("6. Quitter");
         System.out.print("Votre choix : ");
         int choix = scanner.nextInt();
         scanner.nextLine(); // Consommer le retour chariot
 
         switch (choix) {
             case 1:
-                System.out.println("Création d'un utilisateur");
+                System.out.println("Inscription");
                 createUser(scanner, userService, passwordEncoder);
                 break;
             case 2:
-                System.out.println("Création d'un administrateur");
+                System.out.println("Création d'un admnin");
                 createAdmin(scanner, userService, passwordEncoder);
                 break;
             case 3:
                 System.out.println("Connexion");
                 loginUser(scanner, userService, passwordEncoder);
                 break;
+            case 4:
+                System.out.println("Recherche d'un bâtiment");
+                rechercherBatiment(scanner, batimentService);
+                break;
+            case 5:
+                System.out.println("Nombre de âtiments par département");
+                rechercherClusters(batimentService);
+                break;
+            case 6:
+                ok=false;
+                break;
             default:
                 System.out.println("Choix invalide");
                 break;
         }
-
+    }
         scanner.close();
         context.close();
     }
@@ -95,35 +110,34 @@ public class BackendApplication{ //implements CommandLineRunner
 
         User user = userService.findByEmail(email);
         if (user != null && passwordEncoder.matches(mdp, user.getMdp())) {
-            System.out.println("Connexion réussie pour l'utilisateur : " + user.getEmail());
+            System.out.println("Connexion réussie pour " + user.getEmail());
         } else {
-            System.out.println("Échec de la connexion. Vérifiez vos informations d'identification.");
+            System.out.println("Échec de la connexion");
         }
     }
-    
 
-    @Override
-    public void run(String... args) throws Exception {
-        List<Map<String, Object>> clusteringData = batimentService.getBuildingClusteringByDepartment();
-        int cpt=0;
+    private static void rechercherBatiment(Scanner scanner, BatimentService batimentService) {
+        System.out.print("Nom du bâtiment : ");
+        String nomBatiment = scanner.nextLine();
+        System.out.println("Résultats de la recherche : ");
+        batimentService.getBatimentsByNom(nomBatiment).forEach(System.out::println);
+    }
+
+    private static void rechercherClusters(BatimentService batimentService) {
         System.out.println("Départements avec leurs coordonnées et leur nombre de bâtiments :");
-        for (Map<String, Object> data : clusteringData) {
+        batimentService.getBuildingClusteringByDepartment().forEach(data -> {
             String departement = (String) data.get("departement");
             Long count = (Long) data.get("count");
             Double latitude = (Double) data.get("lat");
             Double longitude = (Double) data.get("lon");
-            cpt=cpt+1;
 
             System.out.println("Département : " + departement);
             System.out.println("Nombre de bâtiments : " + count);
             System.out.println("Latitude : " + latitude);
             System.out.println("Longitude : " + longitude);
             System.out.println("---------------------------------------------");
-        }
-        System.out.println(cpt);
-        
-    }*/
+        });
+    }
 }
 
 
-}

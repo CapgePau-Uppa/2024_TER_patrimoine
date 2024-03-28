@@ -104,10 +104,16 @@ public class BatimentService {
     public List<BatimentDTO> getBatimentsByType(String type) {
         List<Batiment> batiments = batimentRepository.findByType(type);
         return batiments.stream()
-                        .map(batiment -> new BatimentDTO(batiment)) // Supposant que vous avez un constructeur de BatimentDTO prenant un Batiment
+                        .map(batiment -> new BatimentDTO(batiment))
                         .collect(Collectors.toList());
     }
-
+    // Trouver un batiment par nom
+    public List<BatimentDTO> getBatimentsByNom(String nom) {
+        List<Batiment> batiments = batimentRepository.findByNomContainingIgnoreCase(nom);
+        return batiments.stream()
+                       .map(batiment -> new BatimentDTO(batiment))
+                       .collect(Collectors.toList());
+    }
     //recuperation liste types des batiments
     public List<String> findAllTypes() {
         return batimentRepository.findDistinctTypes();

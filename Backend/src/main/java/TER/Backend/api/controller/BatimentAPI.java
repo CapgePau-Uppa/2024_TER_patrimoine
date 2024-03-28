@@ -81,6 +81,15 @@ public class BatimentAPI {
     public List<BatimentDTO> getBatimentsByType(@RequestParam("type") String type) {
         return batimentService.getBatimentsByType(type);
     }
+
+    //Rechercher
+
+    @GetMapping("/rechercher")
+    public ResponseEntity<List<BatimentDTO>> getBatimentsByNom(@RequestParam("nom") String nom) {
+        List<BatimentDTO> batiments = batimentService.getBatimentsByNom(nom);
+        return new ResponseEntity<>(batiments, HttpStatus.OK);
+    }
+
     //Commune
     @GetMapping("/list-commune")
     public List<String> getAllCommunes() {

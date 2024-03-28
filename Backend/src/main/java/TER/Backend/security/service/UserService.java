@@ -54,12 +54,12 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("Utilisateur non trouvé avec l'adresse e-mail: " + email);
+            throw new UsernameNotFoundException("Utilisateur non trouvé : " + email);
         }
         return org.springframework.security.core.userdetails.User.builder()
             .username(user.getEmail())
             .password(user.getMdp())
-            .roles(user.getRole().name()) // Assurez-vous que getRole() retourne un enum Role
+            .roles(user.getRole().name())
             .build();
     }
     
