@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Arrêter le script en cas d'erreur
+set -e
+
 echo "Starting Docker Desktop..."
 open -a Docker
 sleep 10
@@ -24,7 +27,7 @@ echo "Starting backend and frontend..."
 
 cd ./Backend
 mvn clean install
-mvn spring-boot:run &
+
 cd ../Frontend
 npm run run-start
 
