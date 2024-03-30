@@ -15,12 +15,10 @@ TER/Backend/api/dto/UserDTO.class
 TER/Backend/repository/LieuRepository.class
 TER/Backend/entities/Lieu.class
 TER/Backend/util/ImagesUtil.class
-TER/Backend/security/config/SecurityConfig$WebSecurityConfig.class
 TER/Backend/security/entity/User.class
 TER/Backend/entities/Batiment.class
 TER/Backend/repository/CoordonneesRepository.class
 TER/Backend/model/MerimeeDataResponse.class
-TER/Backend/security/entities/User.class
 TER/Backend/api/controller/UserAPI.class
 TER/Backend/controller/MerimeeController.class
 TER/Backend/security/service/UserService.class

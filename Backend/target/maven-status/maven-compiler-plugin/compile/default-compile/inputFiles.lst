@@ -3,7 +3,6 @@
 /Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/controller/MerimeeController.java
 /Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/security/config/SecurityConfig.java
 /Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/model/MerimeeData.java
-/Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/security/entities/User.java
 /Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/entities/Coordonnees.java
 /Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/repository/LieuRepository.java
 /Users/sabrina/Documents/GitHub/2024_TER_patrimoine/Backend/src/main/java/TER/Backend/repository/CoordonneesRepository.java
