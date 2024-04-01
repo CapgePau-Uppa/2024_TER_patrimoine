@@ -15,7 +15,7 @@ if ! command -v docker &> /dev/null
 then
     echo "Docker n'est pas installé. Veuillez l'installer et réessayer."
     exit 1
-fi
+fi git
 
 # Lancement de l'environnement Docker
 docker-compose -f "$DOCKER_COMPOSE_PATH" up -d
