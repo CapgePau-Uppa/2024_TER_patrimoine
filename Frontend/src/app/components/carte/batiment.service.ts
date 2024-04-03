@@ -13,10 +13,12 @@ export class BatimentService {
 
   constructor(private http: HttpClient) { }
 
+  // Tous les batiments : on ne l'utilise plus
   getBatiments(): Observable<BatimentDTO[]> {
     return this.http.get<BatimentDTO[]>(`${this.baseUrl}/batiment`);
   }
 
+  // Rassemblement des batiments par département pour l'affichage sur la carte
   getClusteringDepartement(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/batiment/clustering`);
   }
@@ -25,12 +27,18 @@ export class BatimentService {
     return this.http.get<BatimentDTO[]>(`${this.baseUrl}/batiment/clustering-batiments/${dep}`);
   }
 
+  // Filtre : par type, par département, par région
+
   getBatimentsByType(type: string): Observable<BatimentDTO[]> {
     return this.http.get<BatimentDTO[]>(`${this.baseUrl}/batiment/batiments-par-type?type=${type}`);
   }
 
   getBatimentsByDepartement(dep: string): Observable<BatimentDTO[]> {
     return this.http.get<BatimentDTO[]>(`${this.baseUrl}/batiment/batiments-par-departement?departement=${dep}`);
+  }
+
+  getBatimentsByRegion(region: string): Observable<BatimentDTO[]> {
+    return this.http.get<BatimentDTO[]>(`${this.baseUrl}/batiment/batiments-par-region?region=${region}`);
   }
 
 
@@ -46,5 +54,26 @@ export class BatimentService {
 
   setSelectedDepartement(dep: string | null): void {
     this.selectedDepSource.next(dep);
-}
+  }
+
+  private selectedRegionSource = new BehaviorSubject<string | null>(null);
+  selectedRegion$ = this.selectedRegionSource.asObservable();
+
+  setSelectedRegion(region: string | null): void {
+    this.selectedRegionSource.next(region);
+  }
+
+  // Filtre rechercher par nom
+
+  getBatimentByName(nom: string): Observable<BatimentDTO[]> {
+    return this.http.get<BatimentDTO[]>(`${this.baseUrl}/batiment/rechercher?nom=${nom}`);
+  }
+
+  private selectedNomSource = new BehaviorSubject<string | null>(null);
+  selectedNom$ = this.selectedNomSource.asObservable();
+
+  setSelectedNom(nom: string | null): void {
+    this.selectedNomSource.next(nom);
+  }
+
 }

@@ -15,7 +15,7 @@
 
   <!-- BARRE DE RECHERCHE -->
   <div id="searchBar">
-    <input type="text" placeholder="Rechercher...">
+    <input id="recherche" type="text" placeholder="Rechercher..." [(ngModel)]="selectedNomSource" (change)="rechercher()">
     <img id="clickSearch" ngSrc='../../assets/icones/searchbar.png' alt="Rechercher" routerLink="../" height="24" width="24">
 
     <!-- FILTRES -->

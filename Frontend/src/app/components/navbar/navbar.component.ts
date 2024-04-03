@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { GlobalService } from "../../services/global.service";
+import { BatimentService } from '../carte/batiment.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,12 +11,22 @@ import { GlobalService } from "../../services/global.service";
 })
 export class NavbarComponent {
 
-  constructor(public globalService: GlobalService) { }
+  //Pour le filtre rechercher
+  @Output() nomRechercher: EventEmitter<string> = new EventEmitter<string>();
+  selectedNomSource: string = '';
+
+  constructor(public globalService: GlobalService, private batimentService: BatimentService) { }
 
   ngOnInit(): void {
     this.getDisplay("filters-window");
     this.getDisplay("menu");
     this.toggleStatut();
+  }
+  
+  rechercher(): void {
+    if (this.selectedNomSource !== null) { 
+      this.batimentService.setSelectedNom(this.selectedNomSource);
+    }
   }
 
   getDisplay(id: string): string | null {

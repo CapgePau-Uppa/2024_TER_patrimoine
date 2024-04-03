@@ -6,6 +6,7 @@ import { NavbarComponent } from "./navbar.component";
 import { ButtonModule } from "../button/button.module";
 import { FiltersModule } from "../filters/filters.module";
 import { DetailsModule } from "../details/details.module";
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { DetailsModule } from "../details/details.module";
     CommonModule,
     NgOptimizedImage,
     RouterLink,
+    FormsModule,
 
     ButtonModule,
     FiltersModule,

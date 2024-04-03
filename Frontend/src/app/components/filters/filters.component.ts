@@ -25,15 +25,14 @@ export class FiltersComponent implements OnInit{
 
   regions: string[] = [];
   departements: string[] = []; // Initialisation de la propriété departements
-  communes: string[] = [];
   types: string[] = [];
   @Output() typeSelected: EventEmitter<string> = new EventEmitter<string>();
   @Output() departementSelected: EventEmitter<string> = new EventEmitter<string>();
+  @Output() regionSelected: EventEmitter<string> = new EventEmitter<string>();
 
 
   selectedRegion: string = '';
   selectedDepartement: string = '';
-  selectedCommune: string = '';
   selectedType: string = '';
 
   constructor(private filterService: FilterService, private batimentService: BatimentService) { }
@@ -42,7 +41,6 @@ export class FiltersComponent implements OnInit{
     this.filterService.getAllTypes().subscribe(types => this.types = types);
     this.filterService.getAllRegions().subscribe(regions => this.regions = regions);
     this.filterService.getAllDepartements().subscribe(departements => this.departements = departements);
-    this.filterService.getAllCommunes().subscribe(communes => this.communes = communes);
   }
 
 
@@ -58,6 +56,14 @@ export class FiltersComponent implements OnInit{
       this.batimentService.setSelectedDepartement(this.selectedDepartement);
     }
   }
+
+  onRegionSelected(): void {
+    if (this.selectedRegion !== null) {
+      this.batimentService.setSelectedRegion(this.selectedRegion);
+    }
+  }
+
+
 
 }
 

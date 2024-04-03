@@ -45,6 +45,14 @@ export class CarteComponent implements AfterViewInit{
         this.loadBatiments();
       }
     });
+    this.batimentService.selectedNom$.subscribe(nom => {
+      if (nom) {
+        this.loadBatimentsParNom(nom);
+      }if(nom='')
+      {
+        this.loadBatiments();
+      }
+    });
   }
 
 
@@ -154,8 +162,10 @@ export class CarteComponent implements AfterViewInit{
       this.addMarkers();
     });
   }
+
+  //FILTRE : par type, par departement, par region
   loadBatimentsParType(selectedType: string): void{
-    this.clearMap();
+    this.removeDepartmentMarkers();
     this.buildingMarkersLayer.clearLayers();
     this.batimentService.getBatimentsByType(selectedType).subscribe(data => {
       this.batiments = data;
@@ -167,13 +177,39 @@ export class CarteComponent implements AfterViewInit{
   }
 
   loadBatimentsParDepartements(selectedDepartement: string): void{
-    this.clearMap();
+    this.removeDepartmentMarkers();
+    this.buildingMarkersLayer.clearLayers();
     this.batimentService.getBatimentsByDepartement(selectedDepartement).subscribe(data => {
       this.batiments = data;
       console.log(this.batiments);
       console.log(selectedDepartement);
       this.addMarkers();
     });
+
+  }
+  loadBatimentsParRegion(selectedRegion: string): void{
+    this.removeDepartmentMarkers();
+    this.buildingMarkersLayer.clearLayers();
+    this.batimentService.getBatimentsByDepartement(selectedRegion).subscribe(data => {
+      this.batiments = data;
+      console.log(this.batiments);
+      console.log(selectedRegion);
+      this.addMarkers();
+    });
+
+  }
+
+  loadBatimentsParNom(selectedNomSource: string): void{
+    this.removeDepartmentMarkers();
+    this.buildingMarkersLayer.clearLayers();
+    this.batimentService.getBatimentByName(selectedNomSource).subscribe(data => {
+      this.batiments = data;
+      console.log(this.batiments);
+      console.log(selectedNomSource);
+      console.log("Nombre de bâtiments:", this.batiments.length);
+      this.addMarkers();
+    });
+  
 
   }
 
@@ -214,6 +250,7 @@ export class CarteComponent implements AfterViewInit{
     });
   }
 
+
   resetView(): void {
     console.log("back to user");
     this.getUserLocation();
@@ -226,6 +263,12 @@ export class CarteComponent implements AfterViewInit{
         }
       });
     }
+  }
+  removeDepartmentMarkers(): void {
+    this.departmentMarkers.forEach(marker => {
+      this.map!.removeLayer(marker);
+    });
+    this.departmentMarkers = []; // Réinitialiser la liste des marqueurs de département
   }
 
 }

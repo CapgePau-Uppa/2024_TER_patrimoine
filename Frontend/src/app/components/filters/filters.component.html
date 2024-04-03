@@ -4,7 +4,7 @@
 
   <!-- Building type dropdown -->
   <div class="form-group">
-    <label for="buildingType">Rechercher par type</label>
+    <label for="buildingType">Rechercher par Type</label>
     <div class="dropdown">
       <select id="buildingType" class="form-control" [(ngModel)]="selectedType" (change)="onTypeSelected()">
         <option *ngFor="let type of types" [value]="type">{{ type }}</option>
@@ -15,9 +15,9 @@
 
   <!-- Region dropdown -->
   <div class="form-group">
-    <label for="region">Rechercher par région</label>
+    <label for="region">Rechercher par Région</label>
     <div class="dropdown">
-      <select id="region" class="form-control" [(ngModel)]="selectedRegion">
+      <select id="region" class="form-control" [(ngModel)]="selectedRegion" (change)="onRegionSelected()">
         <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
       </select>
       <img ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
@@ -26,7 +26,7 @@
 
   <!-- Departement dropdown -->
   <div class="form-group">
-    <label for="departement">Rechercher par département</label>
+    <label for="departement">Rechercher par Département</label>
     <div class="dropdown">
         <select id="departement" class="form-control" [(ngModel)]="selectedDepartement" (change)="onDepartementSelected()">
           <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
@@ -34,6 +34,7 @@
       <img ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
     </div>
   </div>
+
 
   <div class="button-container">
     <app-button text="Annuler" [buttonClass]="'btn-light'" (click)="clearSelection()"></app-button>
