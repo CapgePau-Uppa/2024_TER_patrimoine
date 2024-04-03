@@ -13,8 +13,16 @@ export class ConnexionService {
 
   constructor(private http: HttpClient) { }
 
-  login(user: UserDTO): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/auth/login`, user);
+  connexion(email: string, mdp: string): Observable<boolean> {
+    return this.http.post<boolean>(`${this.baseUrl}/auth/connexion`, { email, mdp });
+  }
+
+  inscription(nom: string, prenom: string, email: string,mdp: string): Observable<string> {
+    return this.http.post<string>(`${this.baseUrl}/auth/inscription`, {nom,prenom,email,mdp});
+  }
+
+  getRoleByEmail(email: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/auth/role?email=${email}`);
   }
 
 

@@ -1,28 +1,45 @@
 package TER.Backend.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import TER.Backend.api.dto.UserDTO;
 import TER.Backend.security.entity.User;
 import TER.Backend.security.entity.User.Role;
 import TER.Backend.security.repository.UserRepository;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService{
 
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    public UserService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    public UserDTO connexion(String email, String mdp){
+        User user = userRepository.findByEmail(email);
+        if (user != null && passwordEncoder.matches(mdp, user.getMdp())) {
+            UserDTO userDTO = new UserDTO();
+            //userDTO.setId(user.getId());
+            userDTO.setEmail(user.getEmail());
+            //userDTO.setNom(user.getNom());
+            //userDTO.setPrenom(user.getPrenom());
+            //userDTO.setRole(user.getRole().name());
+            return userDTO;
+        } else {
+            return null;
+        }
+    }
+    
 
     public User saveUser(String nom, String prenom, String email, String mdp) {
         // Tout d'abord vérifier si l'utilisateur existe
@@ -50,17 +67,10 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException("Utilisateur non trouvé : " + email);
-        }
-        return org.springframework.security.core.userdetails.User.builder()
-            .username(user.getEmail())
-            .password(user.getMdp())
-            .roles(user.getRole().name())
-            .build();
+    // Trouvez le role d'un utilisateur
+    public String getRoleByEmail(String email) {
+        return userRepository.findRoleByEmail(email);
     }
+    
     
 }

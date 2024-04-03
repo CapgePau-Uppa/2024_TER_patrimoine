@@ -23,7 +23,7 @@ public class MerimeeDataService {
 
     public List<MerimeeData> recupererDonnees() {
         //Recuperation de 100 elements de la bd gouv
-        String apiUrl = "https://data.culture.gouv.fr/api/explore/v2.1/catalog/datasets/liste-des-immeubles-proteges-au-titre-des-monuments-historiques/records?limit=100&refine=region:Nouvelle-Aquitaine";
+       /* String apiUrl = "https://data.culture.gouv.fr/api/explore/v2.1/catalog/datasets/liste-des-immeubles-proteges-au-titre-des-monuments-historiques/records?limit=100&refine=region:Nouvelle-Aquitaine";
 
         
         // Reponse sous forme de MerimeeDataResponse
@@ -41,10 +41,10 @@ public class MerimeeDataService {
             }
         }
 
-        return Collections.emptyList();
+        return Collections.emptyList();*/
         
         
-        /* 
+        
         //Recupération de tout les elements de la bd gouvernementale
         String apiUrl = "https://data.culture.gouv.fr/api/explore/v2.1/catalog/datasets/liste-des-immeubles-proteges-au-titre-des-monuments-historiques/exports/json";
 
@@ -69,7 +69,7 @@ public class MerimeeDataService {
             e.printStackTrace();
         }
 
-        return Collections.emptyList();*/
+        return Collections.emptyList();  
     }
 }
 

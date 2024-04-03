@@ -36,7 +36,8 @@ public class BackendApplication{ //implements CommandLineRunner
         System.out.println("3. Se connecter");
         System.out.println("4. Rechercher un bâtiment");
         System.out.println("5. Nombre de bâtiments par département");
-        System.out.println("6. Quitter");
+        System.out.println("6. Trouver le role d'un utilisateurs");
+        System.out.println("7. Quitter");
         System.out.print("Votre choix : ");
         int choix = scanner.nextInt();
         scanner.nextLine(); // Consommer le retour chariot
@@ -63,8 +64,13 @@ public class BackendApplication{ //implements CommandLineRunner
                 rechercherClusters(batimentService);
                 break;
             case 6:
+                System.out.println("Role");
+                rechercherRole(scanner, userService);
+                break;
+            case 7:
                 ok=false;
                 break;
+                
             default:
                 System.out.println("Choix invalide");
                 break;
@@ -72,6 +78,13 @@ public class BackendApplication{ //implements CommandLineRunner
     }
         scanner.close();
         context.close();
+    }
+
+    private static void rechercherRole(Scanner scanner, UserService userService) {
+        System.out.print("Email : ");
+        String email = scanner.nextLine();
+        String role = userService.getRoleByEmail(email);
+        System.out.println(role);
     }
 
     private static void createUser(Scanner scanner, UserService userService, PasswordEncoder passwordEncoder) {

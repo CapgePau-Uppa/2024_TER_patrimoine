@@ -54,7 +54,7 @@ public class BatimentAPI {
         return new ResponseEntity<>(batiments, HttpStatus.OK);
     }
     
-    /*--------Filtre--------*/
+    /*--------Filtres--------*/
     //Types (tous les types meme ceux qui ont 2 types ou plus)
     @GetMapping("/list-types-all")
     public List<String> getAllTypesDouble() {
@@ -68,7 +68,7 @@ public class BatimentAPI {
         Set<String> uniqueTypes = new HashSet<>();
         for (String type : allTypes) {
             if (type != null) {
-                String[] splitTypes = type.split("[;,]+"); // Diviser par ';' ','
+                String[] splitTypes = type.split("[;,]+"); // Enlever les ';' ','
                 uniqueTypes.addAll(Arrays.asList(splitTypes));
             }
         }

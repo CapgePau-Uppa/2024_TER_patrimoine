@@ -36,10 +36,10 @@ public class BatimentService {
             //Verifier si le titre n'est pas un seul mot 
             //Matcher matcher = pattern.matcher(merimeeData.getTitre_editorial_de_la_notice());
             //Verifier l'existence du batiment
-            Batiment existingBatiment = batimentRepository.findByReference(merimeeData.getReference());
+            //Batiment existingBatiment = batimentRepository.findByReference(merimeeData.getReference());
             //Verifier si les coordonnées ne sont pas nuls (car dans les données il y a des coordonnees null)
-            Coordonnees coord = merimeeData.getCoordonnees_au_format_wgs84();
-            if (existingBatiment == null && coord != null) {
+            Coordonnees coord = merimeeData.getCoordonnees_au_format_wgs84(); //existingBatiment == null && 
+            if (coord != null) {
                 //Créer lieu
                 Lieu lieu = new Lieu();
                 lieu.setRegion(merimeeData.getRegion().get(0));

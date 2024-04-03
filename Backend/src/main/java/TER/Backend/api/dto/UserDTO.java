@@ -16,6 +16,7 @@ public class UserDTO {
     private String prenom;
     private String email;
     private String mdp;
+    private String role;
 
     public UserDTO(User user) {
         id = user.getId();
@@ -23,6 +24,7 @@ public class UserDTO {
         prenom = user.getPrenom();
         email = user.getEmail();
         mdp = user.getMdp();
+        role = user.getRole().name();
     }
     
     

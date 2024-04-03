@@ -12,16 +12,18 @@ import jakarta.annotation.PostConstruct;
 @RestController
 public class MerimeeController {
 
+    /* Controller pour la première importation des données de l'api Merimée avec @PostConstruct
+    Le @Scheduled permet de faire la mise à jour des données de l'api, la màj ce fera le 5 des mois à minuit (00:00:00)  */
     @Autowired
     private MerimeeDataService merimeeAPIService;
 
     @Autowired
-    private BatimentService batimentService;
+    private BatimentService batimentService; 
     
-    /* @PostConstruct
-    // Importer les données de l'api, la màj ce fera le 5 des mois à minuit (00:00:00)
-    @Scheduled(cron = "0 0 0 5 * ?")
-    public void importerDonneesAuDemarrage() {
+    
+    //@PostConstruct
+    //@Scheduled(cron = "0 0 0 5 * ?")
+    /*public void importerDonneesAuDemarrage() {
         List<MerimeeData> listeMerimeeData = merimeeAPIService.recupererDonnees();
         batimentService.enregistrerBatiments(listeMerimeeData);
         System.out.println("Données importées avec succès!");
