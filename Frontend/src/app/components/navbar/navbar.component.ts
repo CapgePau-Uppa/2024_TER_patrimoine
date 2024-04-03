@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { GlobalService } from "../../services/global.service";
@@ -14,19 +14,38 @@ export class NavbarComponent {
   //Pour le filtre rechercher
   @Output() nomRechercher: EventEmitter<string> = new EventEmitter<string>();
   selectedNomSource: string = '';
+  afficherAucunResultat: boolean = false;
+  placeholderText: string = "Rechercher...";
 
-  constructor(public globalService: GlobalService, private batimentService: BatimentService) { }
+// Utilisez une référence locale pour accéder à l'entrée
+  @ViewChild('rechercheInput') rechercheInput!: ElementRef<HTMLInputElement>;
+
+  constructor(public globalService: GlobalService, private batimentService: BatimentService) {
+    this.placeholderText = "Rechercher...";
+    
+  }
 
   ngOnInit(): void {
     this.getDisplay("filters-window");
     this.getDisplay("menu");
     this.toggleStatut();
   }
-  
+
+  // Barre de recherche
   rechercher(): void {
     if (this.selectedNomSource !== null) { 
       this.batimentService.setSelectedNom(this.selectedNomSource);
+
     }
+    // Afficher le message d'erreur si aucun résultat n'est trouvé
+    this.batimentService.afficherAucunResultat$.subscribe((value) => {
+      if (value) {
+        this.rechercheInput.nativeElement.value = ''; 
+        this.placeholderText = 'Aucun résultat trouvé... Veuillez réessayer.' ;
+      } else {
+        this.placeholderText = 'Rechercher...';
+      }
+  });
   }
 
   getDisplay(id: string): string | null {

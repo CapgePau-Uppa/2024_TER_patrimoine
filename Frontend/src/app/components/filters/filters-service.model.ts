@@ -31,9 +31,15 @@ export class FilterService {
         return this.http.get<string[]>(`${this.baseUrl}/batiment/list-commune`);
     }
 
-
-
     triggerValidateClicked(): void {
         this.validateClickedSubject.next();
   }
+
+    // Cacher le menu des filtres lorsqu'on a clique sur un élément
+    hideFilters() {
+        const filtersWindow = document.getElementById("filters-window");
+        if (filtersWindow) {
+            filtersWindow.style.display = "none";
+        };
+    }
 }

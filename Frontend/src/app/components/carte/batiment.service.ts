@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { BatimentDTO } from './batiment-dto.model';
 import { environment } from 'src/environments/environment';
 
@@ -76,4 +76,19 @@ export class BatimentService {
     this.selectedNomSource.next(nom);
   }
 
+  // Recherche true ou false 
+  private afficherAucunResultat = new BehaviorSubject<boolean>(false);
+  afficherAucunResultat$ = this.afficherAucunResultat.asObservable();
+
+  setAfficherAucunResultat(value: boolean) {
+    this.afficherAucunResultat.next(value);
+  }
+
+  //Recharger la page (lorsqu'on a plus besoins des filtres)
+  private reloadMapSubject = new Subject<void>();
+  reloadMap$ = this.reloadMapSubject.asObservable();
+
+  triggerMapReload() {
+    this.reloadMapSubject.next();
+  }
 }

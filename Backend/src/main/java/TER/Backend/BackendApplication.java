@@ -37,7 +37,7 @@ public class BackendApplication{ //implements CommandLineRunner
         System.out.println("4. Rechercher un bâtiment");
         System.out.println("5. Nombre de bâtiments par département");
         System.out.println("6. Trouver le role d'un utilisateurs");
-        System.out.println("7. Trouver le type d'un bâtiment");
+        System.out.println("7. Trouver le type/region d'un bâtiment");
         System.out.println("8. Quitter");
         System.out.print("Votre choix : ");
         int choix = scanner.nextInt();
@@ -69,12 +69,24 @@ public class BackendApplication{ //implements CommandLineRunner
                 rechercherRole(scanner, userService);
                 break;
             case 7:
-                rechercherType(scanner, batimentService);
-                break;
+                System.out.println("1. Type de bâtiment");
+                System.out.println("2. Région");
+                int choix2 = scanner.nextInt();
+                scanner.nextLine();
+                switch (choix2) {
+                    case 1:
+                        rechercherType(scanner, batimentService);
+                        break;
+                    case 2:
+                        rechercherBatimentParRegion(scanner, batimentService);
+                        break;
+                    default:
+                        System.out.println("Choix invalide");
+                        break;
+                }
             case 8:
                 ok=false;
                 break;
-                
             default:
                 System.out.println("Choix invalide");
                 break;
@@ -84,6 +96,13 @@ public class BackendApplication{ //implements CommandLineRunner
         context.close();
     }
 
+    private static void rechercherBatimentParRegion(Scanner scanner, BatimentService batimentService) {
+        System.out.print("Nom de la région : ");
+        String nomRegion = scanner.nextLine();
+        System.out.println("Résultats de la recherche : ");
+        batimentService.getBatimentsByRegion(nomRegion).forEach(System.out::println);
+    }
+
     private static void rechercherType(Scanner scanner, BatimentService batimentService) {
         System.out.print("Type du bâtiment : ");
         String typeBatiment = scanner.nextLine();
@@ -91,7 +110,6 @@ public class BackendApplication{ //implements CommandLineRunner
         batimentService.getBatimentsByType(typeBatiment).forEach(System.out::println);
         int count = batimentService.getBatimentsByType(typeBatiment).size();
         System.out.println("Nombre de bâtiments de type " + typeBatiment + " : " + count);
-        throw new UnsupportedOperationException("Unimplemented method 'rechercherType'");
     }
 
     private static void rechercherRole(Scanner scanner, UserService userService) {

@@ -1,14 +1,16 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, OnDestroy} from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, OnDestroy, booleanAttribute} from '@angular/core';
 import * as L from 'leaflet';
+import { Subscription } from 'rxjs';
 import { BatimentDTO } from './batiment-dto.model';
 import { BatimentService } from './batiment.service';
+import { FilterService } from '../filters/filters-service.model';
 
 @Component({
   selector: 'app-carte',
   templateUrl: './carte.component.html',
   styleUrls: ['./carte.component.css']
 })
-export class CarteComponent implements AfterViewInit{
+export class CarteComponent implements AfterViewInit, OnInit{
 
   map: L.Map |undefined ;
   batiments: BatimentDTO[] = [];
@@ -17,8 +19,15 @@ export class CarteComponent implements AfterViewInit{
   buildingMarkersLayer: any;
   previousDepartmentMarker: any;
 
-  constructor(private batimentService: BatimentService) { }
+  private reloadSubscription!: Subscription;
 
+  constructor(private batimentService: BatimentService, private filterService: FilterService) { }
+ 
+  ngOnInit(): void {
+    this.reloadSubscription = this.batimentService.reloadMap$.subscribe(() => {
+      this.clearMap(); // Supprimer tous les marqueurs ou couches, sauf le fond de carte
+      this.addClusteringMarkers(); // Appeler ngAfterViewInit() lorsque le sujet est déclenché
+    });  }
 
   // Initialisation de la carte
   ngAfterViewInit(): void {
@@ -34,7 +43,8 @@ export class CarteComponent implements AfterViewInit{
         this.loadBatimentsParType(type);
       }if(type='')
       {
-        this.loadBatiments();
+        //this.loadBatiments();
+        this.addClusteringMarkers();
       }
     });
     this.batimentService.selectedDepartement$.subscribe(dep => {
@@ -42,7 +52,15 @@ export class CarteComponent implements AfterViewInit{
         this.loadBatimentsParDepartements(dep);
       }if(dep='')
       {
-        this.loadBatiments();
+        this.addClusteringMarkers();
+      }
+    });
+    this.batimentService.selectedRegion$.subscribe(region => {
+      if (region) {
+        this.loadBatimentsParRegion(region);
+      }if(region='')
+      {
+        this.addClusteringMarkers();
       }
     });
     this.batimentService.selectedNom$.subscribe(nom => {
@@ -173,6 +191,10 @@ export class CarteComponent implements AfterViewInit{
       console.log(selectedType);
       this.addMarkers();
     });
+    this.hideFilters();
+    // Zoomer en arrière    
+    this.map!.setZoom(6);
+
 
   }
 
@@ -185,17 +207,24 @@ export class CarteComponent implements AfterViewInit{
       console.log(selectedDepartement);
       this.addMarkers();
     });
+    this.hideFilters();
+    // Zoomer en arrière
+    this.map!.setZoom(6);
 
   }
   loadBatimentsParRegion(selectedRegion: string): void{
     this.removeDepartmentMarkers();
     this.buildingMarkersLayer.clearLayers();
-    this.batimentService.getBatimentsByDepartement(selectedRegion).subscribe(data => {
+    this.batimentService.getBatimentsByRegion(selectedRegion).subscribe(data => {
       this.batiments = data;
       console.log(this.batiments);
       console.log(selectedRegion);
       this.addMarkers();
     });
+    this.hideFilters();
+    // Zoomer en arrière    
+    this.map!.setZoom(6);
+
 
   }
 
@@ -207,10 +236,24 @@ export class CarteComponent implements AfterViewInit{
       console.log(this.batiments);
       console.log(selectedNomSource);
       console.log("Nombre de bâtiments:", this.batiments.length);
-      this.addMarkers();
+      // Vérifier si la recherche existe
+      if (this.batiments.length === 0) {
+        var aucunResultat =true;
+        this.batimentService.setAfficherAucunResultat(aucunResultat);
+        console.log("Aucun résultat trouvé");
+      } else {
+        var aucunResultat =false;
+        this.batimentService.setAfficherAucunResultat(aucunResultat);
+        this.addMarkers();
+      }
     });
-  
+    // Zoomer en arrière
+    this.map!.setZoom(6);
 
+  }
+  //Cacher la fenêtre des filtres
+  hideFilters(): void {
+    this.filterService.hideFilters();
   }
 
   // Ajout des markers
@@ -251,24 +294,30 @@ export class CarteComponent implements AfterViewInit{
   }
 
 
+  // Zommer sur la position du user
   resetView(): void {
     console.log("back to user");
     this.getUserLocation();
   }
+  // Supprimez tous les marqueurs ou couches, sauf le fond de carte
   clearMap(): void {
     if (this.map) {
       this.map.eachLayer((layer) => {
         if (!(layer instanceof L.TileLayer)) {
-          this.map!.removeLayer(layer); // Supprimez tous les marqueurs ou couches, sauf le fond de carte
+          this.map!.removeLayer(layer); 
         }
       });
     }
   }
+
+  // Réinitialiser la liste des marqueurs de département
   removeDepartmentMarkers(): void {
     this.departmentMarkers.forEach(marker => {
       this.map!.removeLayer(marker);
     });
-    this.departmentMarkers = []; // Réinitialiser la liste des marqueurs de département
+    this.departmentMarkers = [];
   }
+
+  
 
 }

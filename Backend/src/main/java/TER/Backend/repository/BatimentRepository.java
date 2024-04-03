@@ -15,6 +15,7 @@ public interface BatimentRepository extends JpaRepository<Batiment, Long> {
 
     Batiment findByNom(String nom);
     Batiment findByReference(String reference);
+    @Query("SELECT b FROM Batiment b WHERE b.type = :type")
     List<Batiment> findByType(String type);
     /*@Query("SELECT b.nom, c.lat, c.lon FROM Batiment b JOIN b.coordonnees c")
     List<Object[]> findAllBatimentsWithCoordonnees();*/
@@ -33,6 +34,8 @@ public interface BatimentRepository extends JpaRepository<Batiment, Long> {
     @Query("SELECT b FROM Batiment b JOIN b.lieu l WHERE l.region = :region")
     List<Batiment> findByRegion(@Param("region") String region);
     List<Batiment> findByNomContainingIgnoreCase(String nom);
+    List<Batiment> findByTypeContaining(String type);
+
     
 
     @Override

@@ -10,22 +10,19 @@ import { BatimentService } from '../carte/batiment.service';
 })
 
 export class FiltersComponent implements OnInit{
-  hideFilters() {
-    const filtersWindow = document.getElementById("filters-window");
-    // @ts-ignore
-    filtersWindow.style.display = "none";
-  }
-  clearSelection(): void {
-    this.selectedType = ''; // Réinitialisez la valeur de la sélection à une chaîne vide
+  
+  clearSelection(): void { // Fonction annuler
+    this.selectedType = ''; 
     this.selectedDepartement = '';
     this.selectedRegion = '';
+    this.hideFilters();
+    this.batimentService.triggerMapReload();
   }
-
-
-
+ 
   regions: string[] = [];
-  departements: string[] = []; // Initialisation de la propriété departements
+  departements: string[] = []; 
   types: string[] = [];
+  // event emitter pour envoyer les valeurs sélectionnées
   @Output() typeSelected: EventEmitter<string> = new EventEmitter<string>();
   @Output() departementSelected: EventEmitter<string> = new EventEmitter<string>();
   @Output() regionSelected: EventEmitter<string> = new EventEmitter<string>();
@@ -43,7 +40,9 @@ export class FiltersComponent implements OnInit{
     this.filterService.getAllDepartements().subscribe(departements => this.departements = departements);
   }
 
-
+  hideFilters() {
+    this.filterService.hideFilters();
+  }
 
   onTypeSelected(): void {
     if (this.selectedType !== null) { // Vérifiez si la valeur est différente de null

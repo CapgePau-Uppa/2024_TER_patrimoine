@@ -5,17 +5,20 @@ import { CarteComponent } from './carte.component';
 import { DetailsModule } from "../details/details.module";
 import { FiltersModule } from '../filters/filters.module';
 import {ButtonModule} from "../button/button.module";
+import { NavbarModule } from '../navbar/navbar.module';
 import {RouterLink} from "@angular/router";
 
 
 @NgModule({
-  declarations: [ CarteComponent ],
+  declarations: [ CarteComponent,
+   ],
     imports: [
         CommonModule,
         HttpClientModule,
         DetailsModule,
         FiltersModule,
         ButtonModule,
+        NavbarModule,
         RouterLink
     ],
   exports: [ CarteComponent ]

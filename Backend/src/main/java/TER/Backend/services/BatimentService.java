@@ -102,7 +102,7 @@ public class BatimentService {
         return batimentRepository.findByType(type);
     }
     public List<BatimentDTO> getBatimentsByType(String type) {
-        List<Batiment> batiments = batimentRepository.findByType(type);
+        List<Batiment> batiments = batimentRepository.findByTypeContaining(type);
         return batiments.stream()
                         .map(batiment -> new BatimentDTO(batiment))
                         .collect(Collectors.toList());
