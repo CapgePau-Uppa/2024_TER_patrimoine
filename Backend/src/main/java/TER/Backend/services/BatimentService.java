@@ -152,6 +152,12 @@ public class BatimentService {
                         .map(batiment -> new BatimentDTO(batiment))
                         .collect(Collectors.toList());
     }
+
+    //recuperation liste statuts des batiments
+    public List<String> findAllStatuts() {
+        return batimentRepository.findDistinctStatut();
+    }
+    
     
 
     

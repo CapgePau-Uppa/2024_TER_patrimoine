@@ -1,5 +1,7 @@
 package TER.Backend;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,9 +13,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import TER.Backend.entities.Suggestion;
 import TER.Backend.security.entity.User;
 import TER.Backend.security.service.UserService;
 import TER.Backend.services.BatimentService;
+import TER.Backend.services.SuggestionService;
 
 
 @SpringBootApplication
@@ -27,10 +31,127 @@ public class BackendApplication{ //implements CommandLineRunner
         UserService userService = context.getBean(UserService.class);
         PasswordEncoder passwordEncoder = context.getBean(PasswordEncoder.class);
         BatimentService batimentService = context.getBean(BatimentService.class);
+        SuggestionService suggestionService = context.getBean(SuggestionService.class);
         boolean ok=true;
         Scanner scanner = new Scanner(System.in);
 
-        while(ok){
+        while (ok){
+            System.out.println("1. Créer une nouvelle suggestion");
+            System.out.println("2. Supprimer une suggestion");
+            System.out.println("3. Afficher toutes les suggestions");
+            System.out.println("4. Afficher une suggestion par id");
+            System.out.println("5. Quitter");
+            System.out.print("Votre choix : ");
+            int choix = scanner.nextInt();
+            scanner.nextLine();
+            switch (choix) {
+                case 1:
+                    createSuggestion(scanner, suggestionService);
+                    break;
+                case 2:
+                    deleteSuggestion(scanner, suggestionService);
+                    break;
+                case 3:
+                    getAllSuggestions(suggestionService);
+                    break;
+                case 4:
+                    getSuggestionById(scanner, suggestionService);
+                    break;
+                case 5:
+                    ok = false;
+                    break;
+                default:
+                    System.out.println("Choix invalide");
+            }
+        }
+        scanner.close();
+    }
+
+    private static void getSuggestionById(Scanner scanner, SuggestionService suggestionService) {
+        System.out.print("Entrez l'ID de la suggestion à afficher : ");
+        Long id = scanner.nextLong();
+        scanner.nextLine(); // Consommer le retour chariot
+        System.out.println(suggestionService.getSuggestionById(id));
+    }
+
+    private static void getAllSuggestions(SuggestionService suggestionService) {
+        System.out.println("Liste des suggestions : ");
+        suggestionService.getAllSuggestions().forEach(System.out::println);
+    }
+
+    private static void deleteSuggestion(Scanner scanner, SuggestionService suggestionService) {
+        System.out.print("Entrez l'ID de la suggestion à supprimer : ");
+        Long id = scanner.nextLong();
+        scanner.nextLine();
+        suggestionService.deleteSuggestion(id);
+        System.out.println("Suggestion supprimée avec succès");
+    }
+
+    private static void createSuggestion(Scanner scanner, SuggestionService suggestionService) {
+        System.out.print("Nom du bâtiment : ");
+        String nomBatiment = scanner.nextLine();
+        System.out.print("Type du bâtiment : ");
+        String type = scanner.nextLine();
+        System.out.print("Statut du bâtiment : ");
+        String statut = scanner.nextLine();
+        System.out.print("Description du bâtiment : ");
+        String description = scanner.nextLine();
+        System.out.print("Région : ");
+        String region = scanner.nextLine();
+
+        System.out.print("Commune : ");
+        String commune = scanner.nextLine();
+
+        System.out.print("Département : ");
+        String departement = scanner.nextLine();
+
+        System.out.print("Adresse : ");
+        String adresse = scanner.nextLine();
+
+        System.out.print("Latitude : ");
+        String latString = scanner.nextLine();
+
+
+        System.out.print("Longitude : ");
+        String lonString = scanner.nextLine();
+        
+
+        System.out.print("Nom de l'utilisateur : ");
+        String nomUser = scanner.nextLine();
+
+        System.out.print("Prénom de l'utilisateur : ");
+        String prenomUser = scanner.nextLine();
+
+        System.out.print("Email de l'utilisateur : ");
+        String emailUser = scanner.nextLine();
+
+        // Créer une instance de Suggestion avec les informations récupérées
+        Suggestion suggestion = new Suggestion();
+        suggestion.setNomBatiment(nomBatiment);
+        suggestion.setType(type);
+        suggestion.setStatut(statut);
+        suggestion.setDescription(description);
+        //suggestion.setImage(image);
+        suggestion.setDateCreation(LocalDateTime.now());
+        suggestion.setRegion(region);
+        suggestion.setCommune(commune);
+        suggestion.setDepartement(departement);
+        suggestion.setAdresse(adresse);
+        suggestion.setLat(Double.parseDouble(latString));
+        suggestion.setLon(Double.parseDouble(lonString));
+        suggestion.setNomUser(nomUser);
+        suggestion.setPrenomUser(prenomUser);
+        suggestion.setEmailUser(emailUser);
+
+        // Ensuite, appeler la méthode saveSuggestion du service
+        suggestionService.saveSuggestion(suggestion);
+        System.out.println("Suggestion créée avec succès !");
+        
+    }
+
+
+
+        /*while(ok){
         System.out.println("1. Inscription utilisateur");
         System.out.println("2. Créer un administrateur");
         System.out.println("3. Se connecter");
@@ -41,7 +162,7 @@ public class BackendApplication{ //implements CommandLineRunner
         System.out.println("8. Quitter");
         System.out.print("Votre choix : ");
         int choix = scanner.nextInt();
-        scanner.nextLine(); // Consommer le retour chariot
+        scanner.nextLine(); 
 
         switch (choix) {
             case 1:
@@ -96,6 +217,7 @@ public class BackendApplication{ //implements CommandLineRunner
         context.close();
     }
 
+    
     private static void rechercherBatimentParRegion(Scanner scanner, BatimentService batimentService) {
         System.out.print("Nom de la région : ");
         String nomRegion = scanner.nextLine();
@@ -182,7 +304,7 @@ public class BackendApplication{ //implements CommandLineRunner
             System.out.println("Longitude : " + longitude);
             System.out.println("---------------------------------------------");
         });
-    }
+    }*/
 }
 
 

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import TER.Backend.api.dto.BatimentDTO;
-import TER.Backend.entities.Batiment;
 import TER.Backend.services.BatimentService;
 
 @RestController
@@ -124,6 +123,12 @@ public class BatimentAPI {
         return batimentService.getBatimentsByDepartement(dep);
     }
     
+    //Statut
+    @GetMapping("/list-statut")
+    public List<String> getAllStatuts() {
+        return batimentService.findAllStatuts();
+        
+    }
     
     
     

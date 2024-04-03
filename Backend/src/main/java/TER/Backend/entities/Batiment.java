@@ -24,7 +24,7 @@ public class Batiment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     //Remplissage automatiques par l'API ou manuel lors de la création d'un nouveau batiment
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String reference;
     @Column(nullable = false, length = 2000)
     private String nom;

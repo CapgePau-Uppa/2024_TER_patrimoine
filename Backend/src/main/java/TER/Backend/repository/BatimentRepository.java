@@ -57,6 +57,9 @@ public interface BatimentRepository extends JpaRepository<Batiment, Long> {
     //Tous les Departements
     @Query("SELECT DISTINCT l.departement FROM Lieu l")
     List<String> findDistinctDepartements();
+    //Tous les types de statuts
+    @Query("SELECT DISTINCT b.statut FROM Batiment b")
+    List<String> findDistinctStatut();
     //Affichage des marqueurs sur la carte par département
     //@Query("SELECT l.departement, COUNT(b), MIN(c.lat), MIN(c.lon) FROM Batiment b JOIN b.lieu l JOIN b.coordonnees c GROUP BY l.departement")
     @Query("SELECT l.departement, COUNT(b.id), c.lat, c.lon FROM Batiment b " +
@@ -64,6 +67,7 @@ public interface BatimentRepository extends JpaRepository<Batiment, Long> {
        "JOIN b.coordonnees c " +
        "GROUP BY l.departement")
     List<Object[]> countAndFirstBuildingCoordinatesByDepartement();
+    
 
 
 }
