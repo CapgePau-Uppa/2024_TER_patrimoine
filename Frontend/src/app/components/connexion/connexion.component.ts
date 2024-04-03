@@ -51,8 +51,12 @@ export class ConnexionComponent implements OnInit{
             this.role = response.role;
             console.log('Rôle de l\'utilisateur :', this.role);
           if (this.role === 'ADMIN') {
+            this.globalService.globalVariable = 2;
+            this.globalService.isConnected = true;
             this.router.navigate(['../home-admin']);
           } else if (this.role === 'USER') {
+            this.globalService.globalVariable = 1;
+            this.globalService.isConnected = true;
             this.router.navigate(['../']);
           }
         }, (error) => {
@@ -110,78 +114,6 @@ export class ConnexionComponent implements OnInit{
       this.container.nativeElement.classList.remove('right-panel-active');
     }
   
-  //Solution qui ne marche pas
-/* 
-  valider(): void {
-    const userDTO: UserDTO = {
-      email: this.email,
-      mdp: this.mdp,
-    };
-
-    this.connexionService.login(userDTO).subscribe(
-      response => {
-        this.globalService.isConnected = true;
-        this.router.navigate(['../home-admin']);
-        console.log('Connexion réussie', response);
-      },
-      error => {
-        // Gérer les erreurs de connexion ici
-        console.error('Erreur de connexion', error);
-      }
-    );
-  }
-*/
-  //Test pour voir la page de connexion
-  /*valider() {
-    // Vérifiez si les champs sont remplis
-    console.log("validate2");
-
-
-    /*if (this.identifiant == "fatoumamhdi@gmail.com" && this.mdp == "123456") {
-      this.globalService.globalVariable = 2;
-      this.globalService.isConnected = true;
-      this.router.navigate(['../home-admin']);
-    }
-
-    if (this.identifiant == "sabr.lavergne@gmail.com" && this.mdp == "123456") {
-      this.globalService.globalVariable = 1;
-      this.globalService.isConnected = true;
-      this.router.navigate(['../']);
-    }*/
-
-
-    /*if (this.identifiant && this.mdp) {
-      console.log("validate");
-      this.message = '';
-      this.connexionService.getConnexion().subscribe(
-        (data) => {
-          const role = "USER";
-
-          if (role === "USER") {
-            // Connexion d'un utilisateur
-            this.globalService.globalVariable = 1;
-            this.globalService.isConnected = true;
-            this.router.navigate(['../']);
-          } else if (role === "ADMIN") {
-            // Connexion d'un administrateur
-            this.globalService.globalVariable = 2;
-            this.globalService.isConnected = true;
-            this.router.navigate(['../home-admin']);
-          } else {
-            // Rôle non reconnu
-            this.message = '*Rôle non reconnu.';
-          }
-        },
-        (error) => {
-          // Gérez les erreurs ici
-          console.error(error);
-          this.message = '*Une erreur s\'est produite lors de la connexion.';
-        }
-      );
-    } else {
-      this.message = '*Les deux champs sont requis.';
-    }
-  }
-  */
+  
 }
 

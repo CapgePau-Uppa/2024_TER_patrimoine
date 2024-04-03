@@ -37,7 +37,8 @@ public class BackendApplication{ //implements CommandLineRunner
         System.out.println("4. Rechercher un bâtiment");
         System.out.println("5. Nombre de bâtiments par département");
         System.out.println("6. Trouver le role d'un utilisateurs");
-        System.out.println("7. Quitter");
+        System.out.println("7. Trouver le type d'un bâtiment");
+        System.out.println("8. Quitter");
         System.out.print("Votre choix : ");
         int choix = scanner.nextInt();
         scanner.nextLine(); // Consommer le retour chariot
@@ -68,6 +69,9 @@ public class BackendApplication{ //implements CommandLineRunner
                 rechercherRole(scanner, userService);
                 break;
             case 7:
+                rechercherType(scanner, batimentService);
+                break;
+            case 8:
                 ok=false;
                 break;
                 
@@ -78,6 +82,16 @@ public class BackendApplication{ //implements CommandLineRunner
     }
         scanner.close();
         context.close();
+    }
+
+    private static void rechercherType(Scanner scanner, BatimentService batimentService) {
+        System.out.print("Type du bâtiment : ");
+        String typeBatiment = scanner.nextLine();
+        System.out.println("Résultats de la recherche : ");
+        batimentService.getBatimentsByType(typeBatiment).forEach(System.out::println);
+        int count = batimentService.getBatimentsByType(typeBatiment).size();
+        System.out.println("Nombre de bâtiments de type " + typeBatiment + " : " + count);
+        throw new UnsupportedOperationException("Unimplemented method 'rechercherType'");
     }
 
     private static void rechercherRole(Scanner scanner, UserService userService) {

@@ -20,7 +20,7 @@ export class CarteComponent implements AfterViewInit{
   constructor(private batimentService: BatimentService) { }
 
 
-  // Function to initialize the map
+  // Initialisation de la carte
   ngAfterViewInit(): void {
     if (typeof this.map === 'undefined') {
       this.createMap();
@@ -28,6 +28,7 @@ export class CarteComponent implements AfterViewInit{
       //this.loadBatiments();
       this.addClusteringMarkers();
     }
+    // Filtre par type, departement
     this.batimentService.selectedType$.subscribe(type => {
       if (type) {
         this.loadBatimentsParType(type);
@@ -47,55 +48,51 @@ export class CarteComponent implements AfterViewInit{
   }
 
 
-  // Function to create the map
+  // Création de la carte
   createMap() {
     const franceBounds: L.LatLngBoundsExpression = [
-      [41.325, -5.0], // South-west corner of France
-      [51.124, 9.662] // North-east corner of France
+      [41.325, -5.0], // Sud-ouest 
+      [51.124, 9.662] // Nord-est
     ];
 
-    // Create the map
     this.map = L.map('map', {
-      maxBounds: franceBounds, // Limit the map bounds to France
-      maxBoundsViscosity: 1.0, // Ensure the bounds are respected when panning
-      zoomSnap: 0.1, // Smoothly zoom to fit the bounds
-      minZoom: 6, // Minimum zoom level to prevent showing other countries
-      maxZoom: 19 // Maximum zoom level to prevent showing other countries when zooming out
-    }).fitBounds(franceBounds); // Fit the map to the bounds of France
+      maxBounds: franceBounds, // Maximum on vois la france
+      maxBoundsViscosity: 1.0, 
+      zoomSnap: 0.1, 
+      minZoom: 6, 
+      maxZoom: 19 
+    }).fitBounds(franceBounds); 
 
-    // Add the main layer
+    // Layer principale
     const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       minZoom: 2,
       maxZoom: 19,
     });
-
-    // Add the main layer to the map
     mainLayer.addTo(this.map);
 
-    // Add atiment layer to the map
+    // Layer des batiments
     this.buildingMarkersLayer = L.layerGroup().addTo(this.map);
 
 
   }
 
-  // Function to get the user location
+  // Géo-localisation de l'utilisateur
   getUserLocation() {
-    // Create the icon
+    //icon
     const menIcon = L.icon({
       iconUrl: '../assets/icones/men.png',
       iconSize: [22, 50],
       popupAnchor: [0, -30]
     });
 
-    // Get the user location
+    // Get user localisation
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         const userLat = position.coords.latitude;
         const userLng = position.coords.longitude;
-
         this.map!.setView([userLat, userLng], 16);
 
-        // Add the marker
+        // Ajout des markers
         L.marker([userLat, userLng], { icon: menIcon }).addTo(this.map!).bindPopup('Votre position').openPopup();
 
       }, error => {
@@ -150,7 +147,7 @@ export class CarteComponent implements AfterViewInit{
   }
 
 
-  // Function to load all batiments
+  // Tous les batiments
   loadBatiments(): void {
     this.batimentService.getBatiments().subscribe(data => {
       this.batiments = data;
@@ -158,13 +155,13 @@ export class CarteComponent implements AfterViewInit{
     });
   }
   loadBatimentsParType(selectedType: string): void{
-    //this.loadBatiments();
     this.clearMap();
+    this.buildingMarkersLayer.clearLayers();
     this.batimentService.getBatimentsByType(selectedType).subscribe(data => {
       this.batiments = data;
-      this.addMarkers();
       console.log(this.batiments);
       console.log(selectedType);
+      this.addMarkers();
     });
 
   }
@@ -173,21 +170,19 @@ export class CarteComponent implements AfterViewInit{
     this.clearMap();
     this.batimentService.getBatimentsByDepartement(selectedDepartement).subscribe(data => {
       this.batiments = data;
-      this.addMarkers();
       console.log(this.batiments);
       console.log(selectedDepartement);
+      this.addMarkers();
     });
 
   }
 
-  // Function to add a marker
+  // Ajout des markers
   addMarkers(): void {
-    // Add a marker for each building
     this.batiments.forEach(batiment => {
-      // Create the marker
       const marker = L.marker([batiment.lat, batiment.lon]).addTo(this.buildingMarkersLayer);
 
-      // Create the card content
+      // Contenue de la card
       const cardContent = `
         <table>
         <tr>
@@ -202,21 +197,17 @@ export class CarteComponent implements AfterViewInit{
       </table>
       `;
 
-      // Add the popup and the tooltip
+      // Popup
       marker.bindPopup(cardContent);
       marker.bindTooltip(batiment.nom);
-
-      // When we click on the marker, the details appear
+      //Tooltip
       marker.on('click', () => {
         marker.openPopup();
       });
 
-      // When we hover over the marker, only the name appears
       marker.on('mouseover', () => {
         marker.openTooltip();
       });
-
-      // When we move the mouse out of the marker, the tooltip closes
       marker.on('mouseout', () => {
         marker.closeTooltip();
       });
