@@ -1,50 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SuggestDataService } from "../../services/suggest-data.service";
 import { Building } from "../../building.model";
-import { HomeAdminService } from './home-admin-service.model';
-import { SuggestionDTO } from '../add-bat/suggestion-dto.model';
 
 @Component({
   selector: 'app-home-admin',
   templateUrl: './home-admin.component.html',
   styleUrl: './home-admin.component.css'
 })
-export class HomeAdminComponent implements OnInit{
+export class HomeAdminComponent {
+  constructor(public suggestDataService: SuggestDataService) { }
 
-
-  buildings: SuggestionDTO[] = [];
-  buildingInfo: SuggestionDTO | null = null;
-
-  constructor(private homeAdminService: HomeAdminService) { }
-
-  ngOnInit(): void {
-    this.loadAllBuildings();
-  }
-
-  loadAllBuildings(): void {
-    this.homeAdminService.getAllSuggestions().subscribe((data: SuggestionDTO[]) => {
-      this.buildings = data;
-    });
-  }
-
-  getBuildingInformation(id: number): void {
-    this.homeAdminService.getSuggestionById(id).subscribe((data: SuggestionDTO) => {
-      this.buildingInfo = data;
-    });
-  }
-
-  annuler() {
-    throw new Error('Method not implemented.');
-    }
-    valider() {
-    throw new Error('Method not implemented.');
-    }
-    modifier() {
-    throw new Error('Method not implemented.');
-    }
-
-
-  /*buildings: Building[] = [];
+  buildings: Building[] = [];
   buildingInfo: Building | null = null;
 
   ngOnInit() {
@@ -70,5 +36,4 @@ export class HomeAdminComponent implements OnInit{
   annuler() {
 
   }
-   */
 }
