@@ -14,7 +14,6 @@ import { FormsModule } from "@angular/forms";
     CommonModule,
     NavbarModule,
     ButtonModule,
-    NgOptimizedImage,
     RouterLink,
     FormsModule
   ],

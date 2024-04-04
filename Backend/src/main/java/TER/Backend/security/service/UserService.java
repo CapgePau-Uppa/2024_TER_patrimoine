@@ -1,9 +1,12 @@
 package TER.Backend.security.service;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import TER.Backend.api.dto.SuggestionDTO;
 import TER.Backend.api.dto.UserDTO;
 import TER.Backend.security.entity.User;
 import TER.Backend.security.entity.User.Role;
@@ -24,6 +27,10 @@ public class UserService{
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+    public UserDTO getByEmail(String email) {
+    User user = userRepository.findByEmail(email);
+    return new UserDTO(user);
+}
 
     public UserDTO connexion(String email, String mdp){
         User user = userRepository.findByEmail(email);

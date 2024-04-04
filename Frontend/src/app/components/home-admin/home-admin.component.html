@@ -16,7 +16,7 @@
   <div id="container">
 
     <div id="information" *ngIf="buildingInfo">
-      <p>Suggestion de {{ buildingInfo.nomUser }} ({{ buildingInfo.emailUser }})</p>
+      <p>Suggestion de : {{ buildingInfo.nomUser }} {{ buildingInfo.prenomUser }}</p>
 
       <div class="form">
         <label for="batName">Nom du bâtiment</label>
@@ -26,6 +26,11 @@
       <div class="form">
         <label for="batType">Type de bâtiment</label>
         <input type="text" id="batType" [(ngModel)]="buildingInfo.batType" disabled>
+      </div>
+
+      <div class="form">
+        <label for="batType">Statut </label>
+        <input type="text" id="batType" [(ngModel)]="buildingInfo.statut" disabled>
       </div>
 
       <div class="form">

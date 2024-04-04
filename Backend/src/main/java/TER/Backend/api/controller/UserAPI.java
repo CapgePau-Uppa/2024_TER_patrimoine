@@ -61,8 +61,24 @@ public class UserAPI {
         return ResponseEntity.ok(response);
     } else {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("error", "Email non trouvé"));
+    }}
+
+    // find user by email
+    @GetMapping("/user")
+    public ResponseEntity<Map<String, String>> getUserByEmail(@RequestParam String email) {
+        UserDTO user = userService.getByEmail(email);
+        if (user != null) {
+            Map<String, String> response = new HashMap<>();
+            response.put("email", user.getEmail());
+            response.put("nom", user.getNom());
+            response.put("prenom", user.getPrenom());
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 }
-}
-    
+
+
+  
 

@@ -25,5 +25,8 @@ export class ConnexionService {
     return this.http.get<any>(`${this.baseUrl}/auth/role?email=${email}`);
   }
 
+  getUserByEmail(email: string): Observable<UserDTO> {
+    return this.http.get<UserDTO>(`${this.baseUrl}/auth/user?email=${email}`);
+  }
 
 }
