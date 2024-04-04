@@ -9,7 +9,7 @@
     <div *ngFor="let building of buildings">
       <app-suggestion [batName]="building.nomBatiment"
                       [ngClass]="{'selected': building === buildingInfo}"
-                      (click)="getBuildingInformation(building.id)"></app-suggestion>
+                      (click)="building?.id && getBuildingInformation(building.id)"></app-suggestion>
     </div>
   </aside>
   
@@ -17,7 +17,7 @@
   <div id="container">
 
     <div id="information" *ngIf="buildingInfo">
-      <p>Suggestion de {{ buildingInfo.nomUser }} {{ buildingInfo.emailUser }}</p>
+      <p>Suggestion de {{ buildingInfo.nomUser }} ({{ buildingInfo.emailUser }})</p>
 
       <div class="form">
         <label for="batName">Nom du bâtiment</label>
@@ -51,7 +51,7 @@
       </div>
 
       <div class="option">
-        <app-button [buttonClass]="'btn-blue'" (click)="annuler()">
+        <app-button [buttonClass]="'btn-blue'" (click)="buildingInfo && annuler(buildingInfo.id)">
           <img src="../assets/icones/annuler.png" alt="Annuler">
         </app-button>
         <p>Supprimer</p>

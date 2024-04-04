@@ -14,7 +14,7 @@ export class HomeAdminComponent implements OnInit{
 
   buildings: SuggestionDTO[] = [];
   buildingInfo: SuggestionDTO | null = null;
-
+  
   constructor(private homeAdminService: HomeAdminService) { }
 
   ngOnInit(): void {
@@ -28,19 +28,35 @@ export class HomeAdminComponent implements OnInit{
   }
 
   getBuildingInformation(id: number): void {
+    const info = document.getElementById("container");
+    // @ts-ignore
+    info.style.display = "flex";
     this.homeAdminService.getSuggestionById(id).subscribe((data: SuggestionDTO) => {
       this.buildingInfo = data;
+      console.log(this.buildingInfo); 
     });
   }
+  annuler(id: number): void {
+      if (confirm('Êtes-vous sûr de vouloir supprimer cette suggestion?')) {
+        this.homeAdminService.deleteSuggestion(id).subscribe(() => {
+          const info = document.getElementById("container");
+          // @ts-ignore
+          info.style.display = "none";
+          this.loadAllBuildings();
+        });
+    }}
 
-  annuler() {
-    throw new Error('Method not implemented.');
-    }
+    
     valider() {
     throw new Error('Method not implemented.');
     }
     modifier() {
-    throw new Error('Method not implemented.');
+      const inputs = document.querySelectorAll('.form input');
+      inputs.forEach(input => {
+        input.removeAttribute('disabled');
+      });
+
+      
     }
 
 

@@ -24,4 +24,9 @@ export class HomeAdminService {
         return this.http.get<SuggestionDTO>(`${this.baseUrl}/suggestion/suggestion-by-id/${id}`);
     }
 
+    //Supprimer batiment:
+    deleteSuggestion(id: number): Observable<void> {
+        return this.http.delete<void>(`${this.baseUrl}/suggestion/delete-suggestion?id=${id}`);
+    }
+
 }

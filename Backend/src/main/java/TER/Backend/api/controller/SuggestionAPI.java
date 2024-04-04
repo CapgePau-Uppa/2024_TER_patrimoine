@@ -39,9 +39,9 @@ public class SuggestionAPI {
 
     // Get suggestion by id
     @GetMapping("/suggestion-by-id/{id}")
-public SuggestionDTO getSuggestionById(@PathVariable Long id) {
-    return suggestionService.getSuggestionById(id);
-}
+    public SuggestionDTO getSuggestionById(@PathVariable Long id) {
+        return suggestionService.getSuggestionById(id);
+    }
 
 
     // Get suggestion by date
