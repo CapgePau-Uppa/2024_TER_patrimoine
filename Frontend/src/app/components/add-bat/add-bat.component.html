@@ -1,4 +1,3 @@
-
 <app-navbar></app-navbar>
 
 <main>
@@ -9,35 +8,36 @@
 
       <div class="names">
         <div class="form" id="nameForm">
-          <label for="name">Prénom de l'utilisateur</label>
-          <input type="text" id="name" formControlName="name">
+          <label for="name">Nom Prénom</label>
+          <input type="text" id="name" formControlName="nomUser">
         </div>
 
         <div class="form">
-          <label for="surname">Nom de l'utilisateur</label>
-          <input type="text" id="surname" formControlName="surname">
+          <label for="surname">Adresse mail</label>
+          <input type="text" id="surname" formControlName="emailUser">
         </div>
       </div>
 
-      <!--<div class="checkbox">
-        <input type="checkbox" id="anonyme">
-        <label for="anonyme">Rester anonyme</label>
-      </div>-->
-
       <div class="form">
         <label for="batName">Nom du bâtiment</label>
-        <input type="text" id="batName" formControlName="batName">
+        <input type="text" id="batName" formControlName="nomBatiment">
       </div>
 
       <div class="form">
         <label for="batType">Type du bâtiment</label>
         <div class="dropdown">
-          <select id="batType" class="form-control" formControlName="batType">
-            <option value="00">Tous les types</option>
-            <option value="maison">Maison</option>
-            <option value="appartement">Appartement</option>
-            <option value="terrain">Terrain</option>
-            <option value="école">École</option>
+          <select id="batType" class="form-control"  formControlName="type">
+            <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+          </select>
+          <img ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
+        </div>
+    
+      </div>
+      <div class="form">
+        <label for="batStatut">Statut du bâtiment</label>
+        <div class="dropdown">
+          <select id="batStatut" class="form-control" formControlName="statut">
+            <option *ngFor="let statut of statuts" [value]="statut">{{ statut }}</option>
           </select>
           <img ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
         </div>
@@ -45,14 +45,15 @@
 
       <div class="form">
         <label for="batAddr">Adresse du bâtiment</label>
-        <input type="text" id="batAddr" formControlName="batAddr">
+        <input type="text" id="batAddr" formControlName="adresse">
       </div>
 
       <div class="button-container">
         <app-button text="Annuler" [buttonClass]="'btn-light'" routerLink="../"></app-button>
-        <app-button type="submit" text="Valider" [buttonClass]="'btn-blue'" routerLink="../"></app-button>
+        <app-button type="submit" text="Valider" [buttonClass]="'btn-blue'"></app-button>
       </div>
+
+
     </form>
-    <!--<div id="picture">Photo</div>-->
   </div>
 </main>

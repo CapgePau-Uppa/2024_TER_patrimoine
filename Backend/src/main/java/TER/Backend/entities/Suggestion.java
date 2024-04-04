@@ -27,9 +27,9 @@ public class Suggestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String nomBatiment;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String type;
     @Column(nullable = true)
     private String statut; // Faire un menu déroulant de la liste des statuts
@@ -37,15 +37,15 @@ public class Suggestion {
     private String description;
     @Column(nullable = true)
     private String image;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private LocalDateTime dateCreation;
 
     //lieu (menu déroulant pour les régions, départements et communes)
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String region;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String commune;    
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String departement;
 
     //coordonnées ou adresse
@@ -57,11 +57,11 @@ public class Suggestion {
     private Double lon;
 
     //Donnees utilisateur
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String nomUser;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String prenomUser;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String emailUser;
 
     public Suggestion(LocalDateTime dateCreation) {
