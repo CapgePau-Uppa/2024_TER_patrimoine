@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SuggestDataService } from "../../services/suggest-data.service";
 import { Building } from "../../building.model";
-import { HomeAdminService } from './home-admin-service.model';
-import { SuggestionDTO } from '../add-bat/suggestion-dto.model';
 
 @Component({
   selector: 'app-home-admin',
   templateUrl: './home-admin.component.html',
   styleUrl: './home-admin.component.css'
 })
-export class HomeAdminComponent implements OnInit{
+export class HomeAdminComponent {
+  constructor(public suggestDataService: SuggestDataService) { }
 
 
   buildings: SuggestionDTO[] = [];
@@ -86,5 +85,4 @@ export class HomeAdminComponent implements OnInit{
   annuler() {
 
   }
-   */
 }
