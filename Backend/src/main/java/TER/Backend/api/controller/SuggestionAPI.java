@@ -38,7 +38,7 @@ public class SuggestionAPI {
 
     // Get suggestion by id
     @GetMapping("/suggestion-by-id/{id}")
-    public SuggestionDTO getSuggestionById(@PathVariable Long id) {
+    public SuggestionDTO getSuggestionById(@RequestParam Long id) {
         return suggestionService.getSuggestionById(id);
     }
 
@@ -56,7 +56,7 @@ public class SuggestionAPI {
     }
 
     // Delete suggestion
-    @DeleteMapping("/delete-suggestion")
+    @DeleteMapping("/delete-suggestion/{id}")
     public void deleteSuggestion(@RequestParam("id") Long id) {
         suggestionService.deleteSuggestion(id);
     }
