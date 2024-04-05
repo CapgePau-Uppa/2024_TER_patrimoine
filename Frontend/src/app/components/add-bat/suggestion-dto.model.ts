@@ -1,5 +1,6 @@
 // suggestion-dto.model.ts
 export interface SuggestionDTO {
+    id: number;
     nomBatiment: string;
     type: string;
     statut: string;

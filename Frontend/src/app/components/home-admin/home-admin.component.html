@@ -7,7 +7,7 @@
   <aside>
     <h1>Suggestions</h1>
     <div *ngFor="let building of buildings">
-      <app-suggestion [batName]="building.batName"
+      <app-suggestion [batName]="building.nomBatiment"
                       [ngClass]="{'selected': building === buildingInfo}"
                       (click)="building?.id && getBuildingInformation(building.id)"></app-suggestion>
     </div>
@@ -20,12 +20,12 @@
 
       <div class="form">
         <label for="batName">Nom du bâtiment</label>
-        <input type="text" id="batName" [(ngModel)]="buildingInfo.batName" disabled>
+        <input type="text" id="batName" [(ngModel)]="buildingInfo.nomBatiment" disabled>
       </div>
 
       <div class="form">
         <label for="batType">Type de bâtiment</label>
-        <input type="text" id="batType" [(ngModel)]="buildingInfo.batType" disabled>
+        <input type="text" id="batType" [(ngModel)]="buildingInfo.type" disabled>
       </div>
 
       <div class="form">
@@ -35,12 +35,12 @@
 
       <div class="form">
         <label for="batAddress">Adresse</label>
-        <input type="text" id="batAddress" [(ngModel)]="buildingInfo.batAddr" disabled>
+        <input type="text" id="batAddress" [(ngModel)]="buildingInfo.adresse" disabled>
       </div>
 
     </div>
 
-    <!--<div id="buttons">
+    <div id="buttons">
       <div class="option">
         <app-button [buttonClass]="'btn-blue'" (click)="valider()">
           <i class="fa-solid fa-check"></i>
@@ -61,13 +61,14 @@
         </app-button>
         <p>Supprimer</p>
       </div>
-    </div>-->
+    </div>
 
+    <!--
     <div id="buttons">
 
       <img src="../assets/icones/valider.png" alt="Valider" (click)="valider()">
 
-    </div>
+    </div>-->
   </div>
 
 </main>
