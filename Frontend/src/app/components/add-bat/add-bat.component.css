@@ -1,6 +1,8 @@
+body {
+  background: #f6f5f7;
+}
 
 main {
-  background-color: #FDF9EF;
   padding: 40px;
   position: relative;
   height: 93.5vh;
