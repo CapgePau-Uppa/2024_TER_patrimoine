@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,7 @@ public class SuggestionAPI {
 
     // Get suggestion by id
     @GetMapping("/suggestion-by-id/{id}")
-    public SuggestionDTO getSuggestionById(@RequestParam Long id) {
+    public SuggestionDTO getSuggestionById(@PathVariable Long id) {
         return suggestionService.getSuggestionById(id);
     }
 
@@ -56,7 +57,7 @@ public class SuggestionAPI {
     }
 
     // Delete suggestion
-    @DeleteMapping("/delete-suggestion/{id}")
+    @DeleteMapping("/delete-suggestion")
     public void deleteSuggestion(@RequestParam("id") Long id) {
         suggestionService.deleteSuggestion(id);
     }

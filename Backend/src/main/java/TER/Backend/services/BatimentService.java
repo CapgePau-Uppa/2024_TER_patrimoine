@@ -158,6 +158,25 @@ public class BatimentService {
         return batimentRepository.findDistinctStatut();
     }
     
+    //Filtre combiné
+    public List<BatimentDTO> getBatimentsByTypeAndRegion(String type, String region) {
+        List<Batiment> batiments = batimentRepository.findByTypeAndRegion(type, region);
+        return batiments.stream()
+                        .map(batiment -> new BatimentDTO(batiment))
+                        .collect(Collectors.toList());
+    }
+    public List<BatimentDTO> getBatimentsByTypeAndDepartement(String type, String departement) {
+        List<Batiment> batiments = batimentRepository.findByTypeAndDepartement(type, departement);
+        return batiments.stream()
+                        .map(batiment -> new BatimentDTO(batiment))
+                        .collect(Collectors.toList());
+    }
+    public List<BatimentDTO> getBatimentsByTypeAndCommune(String type, String commune) {
+        List<Batiment> batiments = batimentRepository.findByTypeAndCommune(type, commune);
+        return batiments.stream()
+                        .map(batiment -> new BatimentDTO(batiment))
+                        .collect(Collectors.toList());
+    }
     
 
     

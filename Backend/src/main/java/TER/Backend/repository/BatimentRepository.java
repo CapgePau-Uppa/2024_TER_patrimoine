@@ -36,6 +36,14 @@ public interface BatimentRepository extends JpaRepository<Batiment, Long> {
     List<Batiment> findByNomContainingIgnoreCase(String nom);
     List<Batiment> findByTypeContaining(String type);
 
+    //Filtre combiné
+    @Query("SELECT b FROM Batiment b JOIN b.lieu l WHERE l.region = :region AND b.type = :type")
+    List<Batiment> findByTypeAndRegion(@Param("type") String type, @Param("region") String region);
+    @Query("SELECT b FROM Batiment b JOIN b.lieu l WHERE l.departement = :departement AND b.type = :type")
+    List<Batiment> findByTypeAndDepartement(@Param("type") String type, @Param("departement") String departement);
+    @Query("SELECT b FROM Batiment b JOIN b.lieu l WHERE l.commune = :commune AND b.type = :type")
+    List<Batiment> findByTypeAndCommune(@Param("type") String type, @Param("commune") String commune);
+
     
 
     @Override
