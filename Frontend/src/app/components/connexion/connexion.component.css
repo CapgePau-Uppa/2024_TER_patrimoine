@@ -1,6 +1,8 @@
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
+
+/* ------ RÉGLAGES DE BASE ------ */
 * {
 	box-sizing: border-box;
 }
@@ -23,7 +25,6 @@ h3 {
   margin-bottom: 10%;
 }
 
-
 p {
 	font-size: 14px;
 	font-weight: 100;
@@ -31,20 +32,19 @@ p {
 	letter-spacing: 0.5px;
 	margin: 20px 0 30px;
 }
+
+i{
+  font-size: 11px;
+  font : grey;
+  letter-spacing: 0.5px;
+}
+
 .message {
 	font-size: small;
 	color: red;
 	margin-bottom: 0;
 	margin-top: 0;
   }
-
-i{
-  font-size: 11px;
-  font : grey;
-  letter-spacing: 0.5px;
-
-
-}
 
 span {
 	font-size: 12px;
@@ -57,47 +57,32 @@ a {
 	margin: 15px 0;
 }
 
+
+/* ------ BOUTONS ------ */
+app-button {
+  margin-top: 20px;
+}
+
 button {
-  margin-top: 5%;
-	border-radius: 20px;
-	border: 1px solid #262f34;
-	background-color: #262f34;
-	color: #FFFFFF;
+	color: #f6f5f7;
 	font-size: 12px;
 	font-weight: bold;
 	padding: 12px 45px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
-	transition: transform 80ms ease-in;
-}
-button:hover{
-  border: 1px solid #30414bf5;
-	background-color: #30414bf5;
-
-}
-
-button:active {
-	transform: scale(0.95);
-}
-
-button:focus {
-	outline: none;
-}
-
-button.ghost {
-	background-color: transparent;
-	border-color: #FFFFFF;
+  background-color: transparent;
   border : none;
   margin: -10px 0 0 0;
-
 }
+
 button.ghost:hover{
   text-decoration: underline;
-
 }
 
+
+/* ------ FORMULAIRE ------ */
 form {
-	background-color: #FFFFFF;
+	background-color: #f6f5f7;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -108,18 +93,21 @@ form {
 }
 
 input {
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	margin: 10px 0;
-	width: 100%;
+  border: 3px solid #262f34;
+  background-color: #f6f5f7;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin: 10px 0;
+  width: 100%;
 }
 
+
+/* ------ LAYOUTS FORMULAIRE ------ */
 .container {
-	background-color: #fff;
+	background-color: #f6f5f7;
 	border-radius: 10px;
-  	box-shadow: 0 14px 28px rgba(0,0,0,0.25),
-			0 10px 10px rgba(0,0,0,0.22);
+  	box-shadow: 0 14px 28px rgba(38, 47, 52, .25),
+			0 10px 10px rgba(38, 47, 52, .22);
 	position: relative;
 	overflow: hidden;
 	width: 768px;
@@ -159,6 +147,8 @@ input {
 	animation: show 0.6s;
 }
 
+
+/* ------ ANIMATIONS & TRANSITIONS ------ */
 @keyframes show {
 	0%, 49.99% {
 		opacity: 0;
@@ -171,6 +161,8 @@ input {
 	}
 }
 
+
+/* ------ LAYOUT CARDS ------ */
 .overlay-container {
 	position: absolute;
 	top: 0;
@@ -187,13 +179,12 @@ input {
 }
 
 .overlay {
-	background: #FDF9EF;
-	background: -webkit-linear-gradient(to right, #262f34,#114968);
-	background: linear-gradient(to right, #262f34,#114968);
+	background: #f6f5f7;
+	background: linear-gradient(to right, #03293f,#114968);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
-	color: #FFFFFF;
+	color: #f6f5f7;
 	position: relative;
 	left: -100%;
 	height: 100%;
@@ -243,7 +234,7 @@ input {
 }
 
 .social-container a {
-	border: 1px solid #DDDDDD;
+	border: 1px solid #f6f5f7;
 	border-radius: 50%;
 	display: inline-flex;
 	justify-content: center;

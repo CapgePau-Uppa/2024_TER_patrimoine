@@ -17,6 +17,7 @@ aside {
   border-right: 3px solid #262f34;
   width: 30%;
   height: 100%;
+  box-shadow: 5px 0 10px rgba(0,0,0,0.5);
 }
 
 h1 {

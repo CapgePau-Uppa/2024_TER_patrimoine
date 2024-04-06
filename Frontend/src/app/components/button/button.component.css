@@ -1,41 +1,48 @@
+
+/* ------ BOUTON LIGHT ------ */
 .btn-light {
   display : block;
   height: 40px;
   width: auto;
   padding: 0 40px 0 40px;
   border-radius: 20px;
-  background-color: #ffffff;
+  background-color: #f6f5f7;
   border: 3px solid #262f34;
 }
 
 .btn-light:hover {
   background-color: #262f34;
-  color: #ffffff;
+  color: #f6f5f7;
 }
 
 .btn-primary:focus {
-  box-shadow: 0 0 0 0.25rem rgba(38,47,52,.5);
+  box-shadow: 0 0 0 0.25rem rgba(38, 47, 52, .5);
 }
 
+
+/* ------ BOUTON BLEU ------ */
 .btn-blue {
   display : block;
   height: 40px;
   width: auto;
   padding: 0 40px 0 40px;
   border-radius: 20px;
-  background-color: #59c0fb;
-  border: 3px solid #2a678e;
+  background-color: #114968;
+  border: 3px solid #114968;
+  color: #f6f5f7;
 }
 
 .btn-blue:hover {
-  background-color: #2a678e;
-  color: #ffffff;
+  background-color: #369cd6;
+  color: #262f34;
 }
 
 .btn-primary:focus {
-  box-shadow: 0 0 0 0.25rem rgba(42,103,142,.5);
+  box-shadow: 0 0 0 0.25rem rgba(17, 73, 104, .5);
 }
 
+
+/* ------ TEXTE ------ */
 text {
   text-align: center;
   vertical-align: middle;
