@@ -130,6 +130,19 @@ public class BatimentAPI {
         
     }
     
+    //Filtre combiné
+    @GetMapping("/batiments-par-type-region")
+    public List<BatimentDTO> getBatimentsByTypeAndRegion(@RequestParam("type") String type, @RequestParam("region") String region) {
+        return batimentService.getBatimentsByTypeAndRegion(type, region);
+    }
+    @GetMapping("/batiments-par-type-departement")
+    public List<BatimentDTO> getBatimentsByTypeAndDepartement(@RequestParam("type") String type, @RequestParam("departement") String departement) {
+        return batimentService.getBatimentsByTypeAndDepartement(type, departement);
+    }
+    @GetMapping("/batiments-par-type-commune")
+    public List<BatimentDTO> getBatimentsByTypeAndCommune(@RequestParam("type") String type, @RequestParam("commune") String commune) {
+        return batimentService.getBatimentsByTypeAndCommune(type, commune);
+    }
     
     
 }

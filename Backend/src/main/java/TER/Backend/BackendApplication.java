@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import TER.Backend.entities.Batiment;
 import TER.Backend.entities.Suggestion;
 import TER.Backend.security.entity.User;
 import TER.Backend.security.service.UserService;
@@ -40,7 +41,8 @@ public class BackendApplication{ //implements CommandLineRunner
             System.out.println("2. Supprimer une suggestion");
             System.out.println("3. Afficher toutes les suggestions");
             System.out.println("4. Afficher une suggestion par id");
-            System.out.println("5. Quitter");
+            System.out.println("5. Type et region d'un bâtiment");
+            System.out.println("6. Quitter");
             System.out.print("Votre choix : ");
             int choix = scanner.nextInt();
             scanner.nextLine();
@@ -58,6 +60,9 @@ public class BackendApplication{ //implements CommandLineRunner
                     getSuggestionById(scanner, suggestionService);
                     break;
                 case 5:
+                    findByTypeRegion(scanner, batimentService);
+                    break;
+                case 6:
                     ok = false;
                     break;
                 default:
@@ -67,10 +72,18 @@ public class BackendApplication{ //implements CommandLineRunner
         scanner.close();
     }
 
+    private static void findByTypeRegion(Scanner scanner, BatimentService batimentService) {
+        System.out.print("Region ");
+        String region = scanner.nextLine();
+        System.out.print("Type ");
+        String type = scanner.nextLine();
+        batimentService.getBatimentsByTypeAndCommune(type, region).forEach(System.out::println);
+    }
+
     private static void getSuggestionById(Scanner scanner, SuggestionService suggestionService) {
         System.out.print("Entrez l'ID de la suggestion à afficher : ");
         Long id = scanner.nextLong();
-        scanner.nextLine(); // Consommer le retour chariot
+        scanner.nextLine();
         System.out.println(suggestionService.getSuggestionById(id));
     }
 
@@ -125,7 +138,6 @@ public class BackendApplication{ //implements CommandLineRunner
         System.out.print("Email de l'utilisateur : ");
         String emailUser = scanner.nextLine();
 
-        // Créer une instance de Suggestion avec les informations récupérées
         Suggestion suggestion = new Suggestion();
         suggestion.setNomBatiment(nomBatiment);
         suggestion.setType(type);
@@ -143,7 +155,6 @@ public class BackendApplication{ //implements CommandLineRunner
         suggestion.setPrenomUser(prenomUser);
         suggestion.setEmailUser(emailUser);
 
-        // Ensuite, appeler la méthode saveSuggestion du service
         suggestionService.saveSuggestion(suggestion);
         System.out.println("Suggestion créée avec succès !");
         
