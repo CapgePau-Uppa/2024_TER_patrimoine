@@ -41,6 +41,14 @@ export class BatimentService {
     return this.http.get<BatimentDTO[]>(`${this.baseUrl}/batiment/batiments-par-region?region=${region}`);
   }
 
+  getBatimentsByTypeAndRegion(type: string, region: string): Observable<BatimentDTO[]> {
+    return this.http.get<BatimentDTO[]>(`${this.baseUrl}/batiment/batiments-par-type-region?type=${type}&region=${region}`);
+  }
+
+  getBatimentsByTypeAndDepartement(type: string, dep: string): Observable<BatimentDTO[]> {
+    return this.http.get<BatimentDTO[]>(`${this.baseUrl}/batiment/batiments-par-type-departement?type=${type}&departement=${dep}`);
+  }
+
 
   private selectedTypeSource = new BehaviorSubject<string | null>(null);
   selectedType$ = this.selectedTypeSource.asObservable();

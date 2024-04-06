@@ -18,6 +18,7 @@ public class BatimentDTO {
     private String image;
     private String commune;
     private String departement;
+    private String region;
     private Double lat;
     private Double lon;
 
@@ -31,6 +32,7 @@ public class BatimentDTO {
         departement = batiment.getLieu().getDepartement();
         lat= batiment.getCoordonnees().getLat();
         lon = batiment.getCoordonnees().getLon();
+        region = batiment.getLieu().getRegion();
     }
     
 }

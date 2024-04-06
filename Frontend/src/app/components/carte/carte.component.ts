@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, OnDestroy, booleanAttribute} from '@angular/core';
 import * as L from 'leaflet';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest } from 'rxjs';
 import { BatimentDTO } from './batiment-dto.model';
 import { BatimentService } from './batiment.service';
 import { FilterService } from '../filters/filters-service.model';
@@ -19,6 +19,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
   buildingMarkersLayer: any;
   previousDepartmentMarker: any;
 
+  
   private reloadSubscription!: Subscription;
 
   constructor(private batimentService: BatimentService, private filterService: FilterService) { }
@@ -37,16 +38,32 @@ export class CarteComponent implements AfterViewInit, OnInit{
       //this.loadBatiments();
       this.addClusteringMarkers();
     }
+    
     // Filtre par type, departement
-    this.batimentService.selectedType$.subscribe(type => {
-      if (type) {
-        this.loadBatimentsParType(type);
-      }if(type='')
-      {
-        //this.loadBatiments();
-        this.addClusteringMarkers();
-      }
-    });
+    combineLatest([this.batimentService.selectedType$, this.batimentService.selectedRegion$, this.batimentService.selectedDepartement$])
+      .subscribe(([type, region, departement]) => {
+        if (type && region) {
+          this.loadBatimentsParTypeEtRegion(type, region);
+        } else if(type && departement) {
+          this.loadBatimentsParTypeEtDepartement(type, departement);
+          
+        }
+        else if (type) {
+          this.loadBatimentsParType(type);
+        }
+        else if (region) {
+          this.loadBatimentsParRegion(region);
+        }
+        else if (departement) {
+          this.loadBatimentsParDepartements(departement);
+        }
+        else {
+          this.buildingMarkersLayer.clearLayers();
+          this.addClusteringMarkers();
+        }
+        
+      });
+    /* Ancienne version : Filtre non-combiné
     this.batimentService.selectedDepartement$.subscribe(dep => {
       if (dep) {
         this.loadBatimentsParDepartements(dep);
@@ -62,7 +79,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
       {
         this.addClusteringMarkers();
       }
-    });
+    });*/
     this.batimentService.selectedNom$.subscribe(nom => {
       if (nom) {
         this.loadBatimentsParNom(nom);
@@ -191,10 +208,41 @@ export class CarteComponent implements AfterViewInit, OnInit{
       console.log(selectedType);
       this.addMarkers();
     });
+    
     this.hideFilters();
     // Zoomer en arrière    
     this.map!.setZoom(6);
 
+
+  }
+  loadBatimentsParTypeEtRegion(selectedType: string, selectedRegion: string): void{
+    this.removeDepartmentMarkers();
+    this.buildingMarkersLayer.clearLayers();
+    this.batimentService.getBatimentsByTypeAndRegion(selectedType, selectedRegion).subscribe(data => {
+      this.batiments = data;
+      console.log(this.batiments);
+      console.log(selectedType);
+      console.log(selectedRegion);
+      this.addMarkers();
+    });
+    this.hideFilters();
+    // Zoomer en arrière    
+    this.map!.setZoom(6);
+
+  }
+  loadBatimentsParTypeEtDepartement(selectedType: string, selectedDepartement: string): void{
+    this.removeDepartmentMarkers();
+    this.buildingMarkersLayer.clearLayers();
+    this.batimentService.getBatimentsByTypeAndDepartement(selectedType, selectedDepartement).subscribe(data => {
+      this.batiments = data;
+      console.log(this.batiments);
+      console.log(selectedType);
+      console.log(selectedDepartement);
+      this.addMarkers();
+    });
+    this.hideFilters();
+    // Zoomer en arrière    
+    this.map!.setZoom(6);
 
   }
 
@@ -321,3 +369,5 @@ export class CarteComponent implements AfterViewInit, OnInit{
   
 
 }
+
+

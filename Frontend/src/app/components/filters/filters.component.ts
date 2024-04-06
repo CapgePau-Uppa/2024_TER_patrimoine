@@ -11,14 +11,34 @@ import { BatimentService } from '../carte/batiment.service';
 
 export class FiltersComponent implements OnInit{
   
-  clearSelection(): void { // Fonction annuler
-    this.selectedType = ''; 
-    this.selectedDepartement = '';
-    this.selectedRegion = '';
-    this.hideFilters();
-    this.batimentService.triggerMapReload();
+  clearSelection(menu: string): void { //Annuler
+    switch (menu) {
+      case 'type':
+        this.selectedType = '';
+        this.batimentService.setSelectedType(null);
+        break;
+      case 'region':
+        this.selectedRegion = '';
+        this.batimentService.setSelectedRegion(null);
+        break;
+      case 'departement':
+        this.selectedDepartement = '';
+        this.batimentService.setSelectedDepartement(null);
+        break;
+      case 'all':
+        this.selectedType = '';
+        this.batimentService.setSelectedType(null);
+        this.selectedRegion = '';
+        this.batimentService.setSelectedRegion(null);
+        this.selectedDepartement = '';
+        this.batimentService.setSelectedDepartement(null);
+        this.hideFilters();
+        //this.batimentService.triggerMapReload(); //Sert pour le rechargement de la page (à utiliser plus tard mais pas ici)
+        break;
+      default:
+        break;
+    }
   }
- 
   regions: string[] = [];
   departements: string[] = []; 
   types: string[] = [];
@@ -35,34 +55,32 @@ export class FiltersComponent implements OnInit{
   constructor(private filterService: FilterService, private batimentService: BatimentService) { }
 
   ngOnInit(): void {
-    this.filterService.getAllTypes().subscribe(types => this.types = types);
-    this.filterService.getAllRegions().subscribe(regions => this.regions = regions);
-    this.filterService.getAllDepartements().subscribe(departements => this.departements = departements);
+    this.filterService.getAllTypes().subscribe(types => this.types = types.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })).slice(5));
+    
+    this.filterService.getAllRegions().subscribe(regions => this.regions = regions.sort());
+    this.filterService.getAllDepartements().subscribe(departements => this.departements = departements.sort());
   }
-
+  // Mettre une majuscule à la première lettre
+  majuscule(word: string): string {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
   hideFilters() {
     this.filterService.hideFilters();
   }
 
   onTypeSelected(): void {
-    if (this.selectedType !== null) { // Vérifiez si la valeur est différente de null
       this.batimentService.setSelectedType(this.selectedType);
-    }
   }
 
   onDepartementSelected(): void {
-    if (this.selectedDepartement !== null) {
       this.batimentService.setSelectedDepartement(this.selectedDepartement);
-    }
   }
 
   onRegionSelected(): void {
-    if (this.selectedRegion !== null) {
       this.batimentService.setSelectedRegion(this.selectedRegion);
-    }
   }
 
-
+  
 
 }
 
