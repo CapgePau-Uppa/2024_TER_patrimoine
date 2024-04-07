@@ -4,6 +4,7 @@ import { NavbarModule } from "../navbar/navbar.module";
 import { CarteModule } from "../carte/carte.module";
 import { HomeComponent } from "./home.component";
 import { FiltersModule } from "../filters/filters.module";
+import { ButtonModule } from '../button/button.module';
 
 
 
@@ -13,7 +14,8 @@ import { FiltersModule } from "../filters/filters.module";
         CommonModule,
         NavbarModule,
         CarteModule,
-        FiltersModule
+        FiltersModule,
+        ButtonModule
     ],
   exports: [ HomeComponent ]
 })
