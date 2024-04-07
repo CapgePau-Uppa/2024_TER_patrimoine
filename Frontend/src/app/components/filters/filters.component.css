@@ -40,10 +40,23 @@ h1 {
   height: fit-content;
 }
 
-img {
+.drop-arrow {
   margin-left: -40px;
   pointer-events: none;
 }
+
+.btn-clear {
+  background-color: transparent;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.clear-img {
+  margin-left: 10px;
+  margin-right: -30px;
+}
+
 
 .button-container {
   display: flex;
@@ -52,6 +65,7 @@ img {
   padding-top: 30px;
   margin: 0 20% 0 20%;
 }
+
 
 
 

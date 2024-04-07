@@ -4,46 +4,58 @@
 
   <!-- Building type dropdown -->
   <div class="form-group">
-    <label for="buildingType">Rechercher par Type</label>
+    <label for="buildingType">Rechercher par type</label>
     <div class="dropdown">
       <select id="buildingType" class="form-control" [(ngModel)]="selectedType" (change)="onTypeSelected()">
         <option *ngFor="let type of types" [value]="type">{{ majuscule(type.toLowerCase()) }}</option>
       </select>
-      <img ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
+
+      <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
+
+      <button class="btn-clear" (click)="clearSelection('region')">
+        <img class="clear-img" src="../../assets/icones/clear-filter.png" alt="Effacer filtre" height="15" width="15">
+      </button>
     </div>
-    <button class="btn btn-clear" (click)="clearSelection('type')">x</button>
+
   </div>
 
   <!-- Region dropdown -->
   <div class="form-group">
-    <label for="region">Rechercher par Région</label>
+    <label for="region">Rechercher par région</label>
     <div class="dropdown">
       <select id="region" class="form-control" [(ngModel)]="selectedRegion" (change)="onRegionSelected()">
         <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
       </select>
-      <img ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
-      <button class="btn btn-clear" (click)="clearSelection('region')">x</button>
+
+      <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
+
+      <button class="btn-clear" (click)="clearSelection('region')">
+        <img class="clear-img" src="../../assets/icones/clear-filter.png" alt="Effacer filtre" height="15" width="15">
+      </button>
 
     </div>
   </div>
 
   <!-- Departement dropdown -->
   <div class="form-group">
-    <label for="departement">Rechercher par Département</label>
+    <label for="departement">Rechercher par département</label>
     <div class="dropdown">
         <select id="departement" class="form-control" [(ngModel)]="selectedDepartement" (change)="onDepartementSelected()">
           <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
         </select>
-      <img ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
-      <button class="btn btn-clear" (click)="clearSelection('departement')">x</button>
 
+      <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
+
+      <button class="btn-clear" (click)="clearSelection('region')">
+        <img class="clear-img" src="../../assets/icones/clear-filter.png" alt="Effacer filtre" height="15" width="15">
+      </button>
+    
     </div>
   </div>
 
 
   <div class="button-container">
     <app-button text="Annuler" [buttonClass]="'btn-light'" (click)="clearSelection('all')"></app-button>
-    <!--<app-button text="Valider" [buttonClass]="'btn-blue'" (click)="hideFilters()"></app-button>-->
   </div>
 
 </div>

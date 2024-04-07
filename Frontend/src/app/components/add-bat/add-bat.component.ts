@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SuggestDataService } from "../../services/suggest-data.service";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 import { AddBatService } from './add-bat-service.model';
 import { SuggestionDTO } from './suggestion-dto.model';
 import { Router } from '@angular/router';
@@ -30,6 +30,7 @@ export class AddBatComponent implements OnInit{
       adresse: [''],
       nomUser: ['', Validators.required],
       prenomUser: ['', Validators.required],
+      checkboxStatus: [false],
     });
 
     this.addBatService.getAllTypes().subscribe(types => this.types = types.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })).slice(5));
@@ -47,7 +48,6 @@ export class AddBatComponent implements OnInit{
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
   
-
   onSubmit(): void {
     if (this.myForm.valid) {
       const suggestion: SuggestionDTO = this.myForm.value;
@@ -69,7 +69,6 @@ export class AddBatComponent implements OnInit{
     }
   }
   
-
   getErrorMessage(field: string): string | undefined {
     if (this.myForm?.get(field)?.hasError('required')) {
       return 'Ce champ est requis';
@@ -81,4 +80,30 @@ export class AddBatComponent implements OnInit{
 
   }
 
+  getCoordinates(): void {
+    const checkboxStatus = this.myForm.get('checkboxStatus')?.value ?? false;
+    let inputElement = document.getElementById('batAddr') as HTMLInputElement;
+
+
+    if (checkboxStatus) {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+              const latitude = position.coords.latitude;
+              const longitude = position.coords.longitude;
+
+              inputElement.value = `${latitude}, ${longitude}`;
+              inputElement.readOnly = true;
+              
+          }, (error) => {
+              console.error('Erreur de géolocalisation :', error);
+          });
+      } else {
+          console.error("La géolocalisation n'est pas supportée par votre navigateur.");
+      }
+
+    } else {
+      inputElement.value = '';
+      inputElement.readOnly = false;
+    }
+  }
 }

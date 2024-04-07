@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<!--<app-navbar></app-navbar>-->
 
 <main>
   <h1>Signaler un nouveau bâtiment</h1>
@@ -6,6 +6,7 @@
   <div class="container">
     <form (ngSubmit)="onSubmit()" [formGroup]="myForm">
 
+      <!-- Prénom Nom -->
       <div class="names">
         <div class="form" id="nameForm">
           <label for="name">Nom</label>
@@ -18,11 +19,13 @@
         </div>
       </div>
 
+      <!-- Nom du bâtiment -->
       <div class="form">
         <label for="batName">Nom du bâtiment</label>
         <input type="text" id="batName" formControlName="nomBatiment">
       </div>
 
+      <!-- Type du bâtiment -->
       <div class="form">
         <label for="batType">Type du bâtiment</label>
         <div class="dropdown">
@@ -31,8 +34,9 @@
           </select>
           <img ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
         </div>
-    
       </div>
+
+      <!-- Statut du bâtiment -->
       <div class="form">
         <label for="batStatut">Statut du bâtiment</label>
         <div class="dropdown">
@@ -43,11 +47,19 @@
         </div>
       </div>
 
+      <!-- Adresse du bâtiment -->
       <div class="form">
         <label for="batAddr">Adresse du bâtiment</label>
         <input type="text" id="batAddr" formControlName="adresse">
       </div>
 
+      <!-- Checkbox coordonnées -->
+      <div>
+        <input type="checkbox" id="checkbox" formControlName="checkboxStatus" (change)="getCoordinates()">
+        <label for="checkbox">Récupérer les coordonnées</label>
+      </div>
+
+      <!-- Boutons -->
       <div class="button-container">
         <app-button text="Annuler" [buttonClass]="'btn-light'" routerLink="../"></app-button>
         <app-button type="submit" text="Valider" [buttonClass]="'btn-blue'"></app-button>
