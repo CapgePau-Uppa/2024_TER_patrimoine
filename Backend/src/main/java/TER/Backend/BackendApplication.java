@@ -51,7 +51,7 @@ public class BackendApplication{ //implements CommandLineRunner
                     createSuggestion(scanner, suggestionService);
                     break;
                 case 2:
-                    deleteSuggestion(scanner, suggestionService);
+                    deleteSuggestion(batimentService);
                     break;
                 case 3:
                     getAllSuggestions(suggestionService);
@@ -92,12 +92,9 @@ public class BackendApplication{ //implements CommandLineRunner
         suggestionService.getAllSuggestions().forEach(System.out::println);
     }
 
-    private static void deleteSuggestion(Scanner scanner, SuggestionService suggestionService) {
-        System.out.print("Entrez l'ID de la suggestion à supprimer : ");
-        Long id = scanner.nextLong();
-        scanner.nextLine();
-        suggestionService.deleteSuggestion(id);
-        System.out.println("Suggestion supprimée avec succès");
+    private static void deleteSuggestion(BatimentService batimentService) {
+        System.out.print("Tous les statut : ");
+        batimentService.findAllStatuts().forEach(System.out::println);
     }
 
     private static void createSuggestion(Scanner scanner, SuggestionService suggestionService) {

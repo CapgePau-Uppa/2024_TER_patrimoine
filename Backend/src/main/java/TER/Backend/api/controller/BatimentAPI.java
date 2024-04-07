@@ -3,6 +3,7 @@ package TER.Backend.api.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -124,11 +125,33 @@ public class BatimentAPI {
     }
     
     //Statut
-    @GetMapping("/list-statut")
+    @GetMapping("/list-statut-all")
     public List<String> getAllStatuts() {
         return batimentService.findAllStatuts();
         
     }
+    //Statut sans les doubles statuts
+    @GetMapping("/list-statut")
+        public List<String> getAllStatutsDouble() { 
+            List<String> allStatuts = batimentService.findAllStatuts();
+            Set<String> uniqueStatuts = new LinkedHashSet<>();
+
+            for (String statut : allStatuts) {
+                if (statut != null) {
+                    String[] splitStatuts = statut.split("[;,]+"); // Enlever les ';' ','
+                    for (String splitStatut : splitStatuts) {
+                        if (splitStatut.trim().length() > 0) {
+                            uniqueStatuts.add(splitStatut.trim().toLowerCase()); // Enlever les espaces et mettre en minuscule pour mieux eviter les doublons
+                        }
+                    }
+                }
+            }
+            List<String> sortedUniqueStatuts = new ArrayList<>(uniqueStatuts);
+            Collections.sort(sortedUniqueStatuts);
+
+            return sortedUniqueStatuts;
+        }
+
     
     //Filtre combiné
     @GetMapping("/batiments-par-type-region")

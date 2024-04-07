@@ -27,7 +27,7 @@
         <label for="batType">Type du bâtiment</label>
         <div class="dropdown">
           <select id="batType" class="form-control"  formControlName="type">
-            <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+            <option *ngFor="let type of types" [value]="type">{{ majuscule(type.toLowerCase()) }}</option>
           </select>
           <img ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
         </div>
@@ -37,7 +37,7 @@
         <label for="batStatut">Statut du bâtiment</label>
         <div class="dropdown">
           <select id="batStatut" class="form-control" formControlName="statut">
-            <option *ngFor="let statut of statuts" [value]="statut">{{ statut }}</option>
+            <option *ngFor="let statut of statuts" [value]="statut">{{ majuscule(statut) }}</option>
           </select>
           <img ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
         </div>

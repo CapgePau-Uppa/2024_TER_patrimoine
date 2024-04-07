@@ -32,15 +32,19 @@ export class AddBatComponent implements OnInit{
       prenomUser: ['', Validators.required],
     });
 
-    this.addBatService.getAllTypes().subscribe(types => this.types = types);
-    this.addBatService.getAllStatuts().subscribe(statuts => this.statuts = statuts);
-
+    this.addBatService.getAllTypes().subscribe(types => this.types = types.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })).slice(5));
+    this.addBatService.getAllStatuts().subscribe(statuts => this.statuts = statuts.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
+    
     //Recuperation de l'utilisateur connecté
     this.utilisateurConnecte = this.userService.getUser();
     const { nom, prenom, email } = this.utilisateurConnecte;
     console.log('Nom:', nom);
     console.log('Prénom:', prenom);
     console.log('Email:', email);
+  }
+
+  majuscule(word: string): string {
+    return word.charAt(0).toUpperCase() + word.slice(1);
   }
   
 
