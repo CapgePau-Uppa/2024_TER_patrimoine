@@ -19,7 +19,7 @@ export class HomeAdminService {
         return this.http.get<SuggestionDTO[]>(`${this.baseUrl}/suggestion/all-suggestions`);
       }
 
-    // Information batiment
+    // Informations batiment
     getSuggestionById(id: number): Observable<SuggestionDTO> {
         return this.http.get<SuggestionDTO>(`${this.baseUrl}/suggestion/suggestion-by-id/${id}`);
     }
@@ -27,6 +27,11 @@ export class HomeAdminService {
     //Supprimer batiment:
     deleteSuggestion(id: number): Observable<void> {
         return this.http.delete<void>(`${this.baseUrl}/suggestion/delete-suggestion?id=${id}`);
+    }
+
+    // Valider batiment
+    saveSuggestion(suggestion: any) {
+        return this.http.post<any>(`${this.baseUrl}/suggestion/save-suggestion-as-batiment`, suggestion);
     }
 
 }

@@ -9,7 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import TER.Backend.api.dto.SuggestionDTO;
+import TER.Backend.entities.Batiment;
+import TER.Backend.entities.Coordonnees;
+import TER.Backend.entities.Lieu;
 import TER.Backend.entities.Suggestion;
+import TER.Backend.repository.BatimentRepository;
+import TER.Backend.repository.CoordonneesRepository;
+import TER.Backend.repository.LieuRepository;
 import TER.Backend.repository.SuggestionsRepository;
 
 @Service
@@ -17,6 +23,13 @@ public class SuggestionService {
 
     @Autowired
     private SuggestionsRepository suggestionsRepository;
+
+    @Autowired
+    private BatimentRepository batimentRepository;
+    @Autowired
+    private LieuRepository lieuRepository;
+    @Autowired
+    private CoordonneesRepository coordonneesRepository;
 
     public SuggestionService(SuggestionsRepository suggestionsRepository) {
         this.suggestionsRepository = suggestionsRepository;
@@ -76,7 +89,35 @@ public class SuggestionService {
                         .collect(Collectors.toList());
     }
 
-    
+    // Sauvegarder une suggestion en batiment
+    public void saveSuggestionAsBatiment(Suggestion suggestion) {
+        //Sauvegarder le lieu
+        Lieu lieu = new Lieu();
+        lieu.setRegion(suggestion.getRegion());
+        lieu.setDepartement(suggestion.getDepartement());
+        lieu.setCommune(suggestion.getCommune());
+        lieuRepository.save(lieu);
+
+        // Sauvegarder les coordonnées
+        Coordonnees coordonnees = new Coordonnees();
+        coordonnees.setLat(suggestion.getLat());
+        coordonnees.setLon(suggestion.getLon());
+        coordonneesRepository.save(coordonnees);
+        
+        // Créer le Batiment
+        Batiment batiment = new Batiment();
+        batiment.setReference("PS000"+ suggestion.getId());
+        batiment.setNom(suggestion.getNomBatiment());
+        batiment.setType(suggestion.getType());
+        batiment.setStatut(suggestion.getStatut());
+        batiment.setDescription(suggestion.getDescription());
+        batiment.setImage("../assets/img/default.png");
+        batiment.setEtoile(0);
+        batiment.setLieu(lieu);
+        batiment.setCoordonnees(coordonnees);
+
+        batimentRepository.save(batiment);
+    }
 
     
     

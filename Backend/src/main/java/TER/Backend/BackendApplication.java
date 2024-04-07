@@ -13,8 +13,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import TER.Backend.api.dto.SuggestionDTO;
 import TER.Backend.entities.Batiment;
 import TER.Backend.entities.Suggestion;
+import TER.Backend.repository.SuggestionsRepository;
 import TER.Backend.security.entity.User;
 import TER.Backend.security.service.UserService;
 import TER.Backend.services.BatimentService;
@@ -33,6 +35,7 @@ public class BackendApplication{ //implements CommandLineRunner
         PasswordEncoder passwordEncoder = context.getBean(PasswordEncoder.class);
         BatimentService batimentService = context.getBean(BatimentService.class);
         SuggestionService suggestionService = context.getBean(SuggestionService.class);
+        SuggestionsRepository suggestionsRepository = context.getBean(SuggestionsRepository.class);
         boolean ok=true;
         Scanner scanner = new Scanner(System.in);
 
@@ -54,7 +57,7 @@ public class BackendApplication{ //implements CommandLineRunner
                     deleteSuggestion(batimentService);
                     break;
                 case 3:
-                    getAllSuggestions(suggestionService);
+                    getAllSuggestions(scanner,suggestionService, suggestionsRepository);
                     break;
                 case 4:
                     getSuggestionById(scanner, suggestionService);
@@ -87,9 +90,17 @@ public class BackendApplication{ //implements CommandLineRunner
         System.out.println(suggestionService.getSuggestionById(id));
     }
 
-    private static void getAllSuggestions(SuggestionService suggestionService) {
+    private static void getAllSuggestions(Scanner scanner,SuggestionService suggestionService, SuggestionsRepository suggestionsRepository) {
         System.out.println("Liste des suggestions : ");
-        suggestionService.getAllSuggestions().forEach(System.out::println);
+        List<Suggestion> suggestions= suggestionsRepository.findAll();
+        suggestions.forEach(System.out::println);
+        System.out.println("choissisez une suggestion");
+        int nbr = scanner.nextInt();
+        scanner.nextLine();
+        Suggestion suggestionToTest = suggestions.get(nbr);
+        suggestionService.saveSuggestionAsBatiment(suggestionToTest);
+        System.out.println("Suggestion enregistrée comme bâtiment avec succès !" + suggestionToTest);
+
     }
 
     private static void deleteSuggestion(BatimentService batimentService) {

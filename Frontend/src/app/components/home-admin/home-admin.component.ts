@@ -12,6 +12,7 @@ export class HomeAdminComponent implements OnInit{
 
   buildings: SuggestionDTO[] = [];
   buildingInfo: SuggestionDTO | null = null;
+  suggestion: any = {};
   
   constructor(private homeAdminService: HomeAdminService) { }
 
@@ -34,7 +35,7 @@ export class HomeAdminComponent implements OnInit{
       console.log(this.buildingInfo); 
     });
   }
-  annuler(id: number): void {
+  supprimer(id: number): void {
       if (confirm('Êtes-vous sûr de vouloir supprimer cette suggestion?')) {
         this.homeAdminService.deleteSuggestion(id).subscribe(() => {
           const info = document.getElementById("container");
@@ -45,9 +46,25 @@ export class HomeAdminComponent implements OnInit{
     }}
 
     
-    valider() {
-    throw new Error('Method not implemented.');
-    }
+    valider(): void {
+      if (this.buildingInfo) {
+        this.homeAdminService.saveSuggestion(this.buildingInfo).subscribe(
+          (data) => {
+            
+            console.log('Batiment enregistrée: ', data);
+            if (this.buildingInfo?.id) {
+              this.supprimer(this.buildingInfo.id);
+            } else {
+              console.error("l'id est null");
+            }
+            alert('Suggestion enregistrée comme un bâtiment avec succès !');
+          },
+          (error) => {
+            console.error('Erreur lors de l\'enregistrement de la suggestion comme un bâtiment : ', error);
+          }
+        );
+      }}
+    
     modifier() {
       const inputs = document.querySelectorAll('.form input');
       inputs.forEach(input => {
