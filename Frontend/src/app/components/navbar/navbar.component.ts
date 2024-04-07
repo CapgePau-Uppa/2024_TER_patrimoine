@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { GlobalService } from "../../services/global.service";
 import { BatimentService } from '../carte/batiment.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +21,9 @@ export class NavbarComponent {
 // Utilisez une référence locale pour accéder à l'entrée
   @ViewChild('rechercheInput') rechercheInput!: ElementRef<HTMLInputElement>;
 
-  constructor(public globalService: GlobalService, private batimentService: BatimentService) {
+  constructor(public globalService: GlobalService, 
+              private batimentService: BatimentService, 
+              private router: Router) {
     this.placeholderText = "Rechercher...";
     
   }
@@ -123,5 +126,11 @@ export class NavbarComponent {
       // @ts-ignore
       menu.style.display = "none";
     }
+  }
+
+  deconnect() {
+    this.globalService.globalVariable = 0;
+    this.globalService.isConnected = false;
+    this.router.navigate(['../']);
   }
 }

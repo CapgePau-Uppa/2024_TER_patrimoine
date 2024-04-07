@@ -43,16 +43,16 @@
 <div class="menu" id="menu">
 
   <!-- COMPTE -->
-  <div class="menu-option">
+  <a class="menu-option" routerLink="../account">
     <img ngSrc='../../assets/icones/compte.png' alt="Mon compte" height="24" width="24">
-    <a routerLink="../account">Mon compte</a>
-  </div>
+    <p>Mon compte</p>
+  </a>
 
   <!-- PARAMETRES -->
-  <div class="menu-option">
-    <img ngSrc='../../assets/icones/parametres.png' alt="Parametres" height="24" width="24">
-    <a routerLink="settings">Paramètres</a>
-  </div>
+  <a class="menu-option" (click)="deconnect()">
+    <img ngSrc='../../assets/icones/exit.png' alt="Deconnexion" height="24" width="24">
+    <p>Se déconnecter</p>
+  </a>
 </div>
 
 <app-filters></app-filters>

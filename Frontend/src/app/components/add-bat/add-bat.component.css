@@ -36,6 +36,7 @@ label {
   font-size: 19px;
   font-family: "Roboto", sans-serif;
   color: #262f34;
+  margin-left: 10px;;
 }
 
 input{
@@ -90,7 +91,7 @@ app-button {
 }
 
 #checkbox {
-  margin: 0 20px;
+  margin: 0 10px;
   width: 20px;
   height: 20px;
   cursor: pointer;

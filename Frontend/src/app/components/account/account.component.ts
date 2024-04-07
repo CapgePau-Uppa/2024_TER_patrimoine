@@ -18,9 +18,4 @@ export class AccountComponent {
 
   constructor( private router: Router, public globalService: GlobalService) {}
 
-  deconnect() {
-    this.globalService.globalVariable = 0;
-    this.globalService.isConnected = false;
-    this.router.navigate(['../']);
-  }
 }

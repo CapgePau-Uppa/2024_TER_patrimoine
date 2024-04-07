@@ -70,6 +70,7 @@ app-filters {
   display: flex;
 }
 
+
 /* -------- MENU DEROULANT -------- */
 .menu {
   display: none;
@@ -80,7 +81,7 @@ app-filters {
   right: 0px;
   width: auto;
   background-color: #262f34;
-  padding: 10px 20px;
+  padding: 0px 20px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
@@ -89,21 +90,19 @@ app-filters {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-
-.menu a {
-  display: block;
+  padding: 10px 0;
   color: white;
   text-decoration: none;
-  padding: 10px 0;
 }
 
 .menu img {
   margin-right: 10px;
+  margin-top: -15px;
 }
 
 .menu a:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 a {
