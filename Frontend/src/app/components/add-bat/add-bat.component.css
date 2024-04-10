@@ -1,4 +1,184 @@
-body {
+
+main {
+  background: #f6f5f7;
+  padding: 40px;
+  position: relative;
+  height: 87.6vh;
+  z-index: 1;
+}
+h1 {
+  font-family: "Roboto", sans-serif;
+  color: #262f34;
+  text-align: center;
+  margin-top: -20px;
+}
+.container{
+  position: absolute;
+  top : 50%;
+  left : 50%; 
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  width: 120vh;
+}
+
+/*En tete */
+.en-tete {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  margin-top: 10px;
+}
+.card1, .card2, .card3, .card4{
+  margin-top: 25px;
+}
+.en-tete h4 {
+  font-family: "Roboto", sans-serif;
+  color: #262f34;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.etapes {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.etape {
+  background-color: rgb(129, 129, 129);
+  color: rgb(255, 255, 255); 
+  font-weight: bold ;
+  border-radius: 50%;
+  margin-right: 20px; 
+  margin-left: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.etapes .etape.complete {
+  background-color: green;
+}
+
+/*Card */
+.card{
+  position: relative;
+  justify-content: center;
+  width: 100%;
+  height: 70vh;
+  /*margin: 0 0 0 0;*/
+  padding: 15px;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  color: #262f34;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 20px; 
+}
+.grid-item {
+  background-color: #ffff;
+  padding-left: 30px;
+  
+}
+.grid-container.e2{
+  margin-left: 20px;
+}
+.grid-item.img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+.inputs{
+  display: flex;
+  flex-direction: column;
+}
+.inputs label, .inputs-radio label{
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  color: #262f34;
+  margin : 10px 0 10px 0;
+}
+.inputs input, .inputs select , .inputs option{
+  border: 2px solid #262f34;
+  border-radius: 10px;
+  padding: 10px;
+
+}
+.inputs textarea {
+  border: 2px solid #262f34;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+}
+.button-container {
+  position: absolute; 
+  bottom: 0; 
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  
+}
+.button-container button{
+  flex-grow: 0;
+  margin: 20px;
+}
+.inputs-radio-coord, .inputs-radio-add{
+  border: 2px solid #262f34;
+  border-radius: 10px;
+  height: 47px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  
+}
+.inputs-radio-coord {
+  margin-bottom: 46px;
+}
+
+.add{
+  margin-top: -45px;
+}
+.label-coord-addresse{
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  color: #262f34;
+  margin : 10px 0 10px 0;
+  
+}
+
+.img{
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;
+  height: 100%;
+}
+.img img{
+  width: 90%;
+  height: 100%;
+}
+
+.img label, .img button{
+  display: inline-block;
+  margin : 20px;
+}
+/*body {
   background: #f6f5f7;
 }
 
@@ -84,7 +264,6 @@ app-button {
   margin-left: 20px;
 }
 
-/* ------- CHECKBOX ------- */
 .checkbox-container {
   display: flex;
   align-items: center;
@@ -96,3 +275,4 @@ app-button {
   height: 20px;
   cursor: pointer;
 }
+*/

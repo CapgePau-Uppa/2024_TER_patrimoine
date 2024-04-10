@@ -1,12 +1,137 @@
-<!--<app-navbar></app-navbar>-->
+<app-navbar></app-navbar>
 
 <main>
   <h1>Signaler un nouveau bâtiment</h1>
 
   <div class="container">
     <form (ngSubmit)="onSubmit()" [formGroup]="myForm">
+      <!-- ETAPE 1 -->
+      <div class="card" >
+        <div class="en-tete">
+        <div class="etapes">
+            <div class="etape" [ngClass]="{ 'complete': etapeCourante >= 0 }">1</div>
+            <div class="etape" [ngClass]="{ 'complete': etapeCourante >= 1 }">2</div>
+            <div class="etape"[ngClass]="{ 'complete': etapeCourante >= 2 }">3</div>
+            <div class="etape" [ngClass]="{ 'complete': etapeCourante >= 3 }">4</div>
+        </div>
+        <h4>{{ etapesTitre[etapeCourante] }}</h4>
+      </div>
+        <div class="card1" *ngIf="etapeCourante === 0">
+        <div class="grid-container">
+            <div class="grid-item">
+                <div class="inputs">
+                    <label for="nomBatiment">Nom :</label>
+                    <input type="text" id="batName" formControlName="nomBatiment" placeholder="Nom du bâtiment">
+                </div>
+                <div class="inputs">
+                  <label for="type">Type :</label>
+                  <select id="batType" class="form-control"  formControlName="type">
+                    <option *ngFor="let type of types" [value]="type">{{ majuscule(type.toLowerCase()) }}</option>
+                  </select>
+                </div>
+                <div class="inputs">
+                    <label for="statut">Statut :</label>
+                    <select id="batStatut" class="form-control" formControlName="statut">
+                      <option *ngFor="let statut of statuts" [value]="statut">{{ majuscule(statut) }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid-item">
+                <div class="inputs">
+                    <label for="description" >Description : </label>
+                    <textarea name="description" id="batDescription" formControlName="description" cols="30" rows="9"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="button-container">
+            <button disabled>Précedent</button>
+            <button (click)="etapeSuivante()">Suivant</button> 
+        </div>
+      </div>
+    
 
-      <!-- Prénom Nom -->
+    <!-- ETAPE 2 -->
+    <div class="card2" *ngIf="etapeCourante === 1">
+        <div class="grid-container e2">
+          <div class="grid-item">
+              <div class="inputs">
+                  <label for="region" >Région :</label>
+                  <select id="batRegion" class="form-control" formControlName="region">
+                    <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+                  </select>
+              </div>
+              <div class="inputs">
+                  <label for="departement" >Département : </label>
+                  <select  id="batDepartement" class="form-control" formControlName="departement">
+                    <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
+                  </select>
+              </div>
+              <div class="inputs">
+                  <label for="commune">Commune :</label>
+                  <select id="batCommune" class="form-control" formControlName="commune">
+                    <option *ngFor="let commune of communes" [value]="commune">{{ commune }}</option>
+                  </select>
+              </div>
+          </div>
+          <div class="grid-item">
+            <div class="coord" >
+              <input type="radio" value="coord" formControlName="checkboxStatus" (change)="getCoordinates()">
+              <label class="label-coord-addresse" for="coord" >Coordonnées</label>
+              <input class="inputs-radio-coord" #lat formControlName="lat" type="text" name="lat" id="lat" placeholder="Latitude"  >
+              <input class="inputs-radio-coord" #lon formControlName="lon" type="text" name="lon" id="lon" placeholder="Longitude">
+          </div>
+          <div class="add">
+              <input type="radio" value="adresse" formControlName="checkboxStatus" (change)="getCoordinates()">
+              <label class="label-coord-addresse" for="adresse">Adresse :</label>
+              <input class="inputs-radio-add" #adresse formControlName="adresse" type="text" name="adresse" id="adresse" placeholder="Ajoutez une adresse">
+          </div>
+          
+          </div>
+      </div>
+        <div class="button-container">
+            <button (click)="etapePrecedente()">Précédent</button>
+            <button (click)="etapeSuivante()">Suivant</button> 
+        </div>
+    </div>
+
+    <!-- ETAPE 3 -->
+    <div class="card3" *ngIf="etapeCourante === 2">
+        <div class="img">
+          <label for="image">Ajouter une image :</label>
+          <button  name="image" id="image">Add File</button> 
+      </div>
+        <div class="button-container">
+            <button (click)="etapePrecedente()">Précedent</button>
+            <button (click)="etapeSuivante()">Suivant</button> 
+        </div>
+    </div>
+
+    <!-- ETAPE 4 -->
+    <div class="card4" *ngIf="etapeCourante === 3">
+          <div class="grid-container">
+            <div class="grid-item img">
+                <img src="../../../assets/img/chateau.png" alt="">
+            </div>
+            <div class="grid-item">
+              <p>Nom : {{ myForm.value.nomBatiment }}</p>
+              <p>Type : {{ myForm.value.type }}</p>
+              <p>Statut : {{ myForm.value.statut }}</p>
+              <p>Lieu : {{ myForm.value.region }}, {{ myForm.value.departement }} {{ myForm.value.commune }}</p>
+              <p>Coordonnées/Adresse :{{ myForm.value.lat }} {{ myForm.value.lon }} {{ myForm.value.adresse }}</p>
+            </div>
+        </div>
+        
+        <div class="button-container">
+            <button (click)="etapePrecedente()">Précedent</button>
+            <app-button type="submit" text="Valider" [buttonClass]="'btn-blue'"></app-button>
+          </div>
+    </div>
+  </div>
+    </form>
+  </div>
+</main>
+
+<!--
       <div class="names">
         <div class="form" id="nameForm">
           <label for="name">Nom</label>
@@ -19,13 +144,11 @@
         </div>
       </div>
 
-      <!-- Nom du bâtiment -->
       <div class="form">
         <label for="batName">Nom du bâtiment</label>
         <input type="text" id="batName" formControlName="nomBatiment">
       </div>
 
-      <!-- Type du bâtiment -->
       <div class="form">
         <label for="batType">Type du bâtiment</label>
         <div class="dropdown">
@@ -36,7 +159,6 @@
         </div>
       </div>
 
-      <!-- Statut du bâtiment -->
       <div class="form">
         <label for="batStatut">Statut du bâtiment</label>
         <div class="dropdown">
@@ -47,25 +169,18 @@
         </div>
       </div>
 
-      <!-- Adresse du bâtiment -->
       <div class="form">
         <label for="batAddr">Adresse du bâtiment</label>
         <input type="text" id="batAddr" formControlName="adresse">
       </div>
 
-      <!-- Checkbox coordonnées -->
       <div class="checkbox-container">
         <input type="checkbox" id="checkbox" formControlName="checkboxStatus" (change)="getCoordinates()">
         <label for="checkbox">Récupérer les coordonnées</label>
-      </div>
+      </div>-->
 
-      <!-- Boutons -->
+      <!-- 
       <div class="button-container">
         <app-button text="Annuler" [buttonClass]="'btn-light'" routerLink="../"></app-button>
         <app-button type="submit" text="Valider" [buttonClass]="'btn-blue'"></app-button>
-      </div>
-
-
-    </form>
-  </div>
-</main>
+      </div> -->

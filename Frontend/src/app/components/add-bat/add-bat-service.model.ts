@@ -25,6 +25,18 @@ export class AddBatService {
         return this.http.get<string[]>(`${this.baseUrl}/batiment/list-statut`);
     }
 
+    getAllRegions(): Observable<string[]> {
+      return this.http.get<string[]>(`${this.baseUrl}/batiment/list-region`);
+    }
+
+    getAllDepartements(): Observable<string[]> {
+        return this.http.get<string[]>(`${this.baseUrl}/batiment/list-departement`);
+    }
+
+    getAllCommunes(): Observable<string[]> {
+        return this.http.get<string[]>(`${this.baseUrl}/batiment/list-commune`);
+    }
+
 
     //Ajouter batiment
 

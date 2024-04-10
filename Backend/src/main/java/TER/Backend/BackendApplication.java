@@ -41,7 +41,7 @@ public class BackendApplication{ //implements CommandLineRunner
 
         while (ok){
             System.out.println("1. Créer une nouvelle suggestion");
-            System.out.println("2. Supprimer une suggestion");
+            System.out.println("2. Liste commune");
             System.out.println("3. Afficher toutes les suggestions");
             System.out.println("4. Afficher une suggestion par id");
             System.out.println("5. Type et region d'un bâtiment");
@@ -105,7 +105,7 @@ public class BackendApplication{ //implements CommandLineRunner
 
     private static void deleteSuggestion(BatimentService batimentService) {
         System.out.print("Tous les statut : ");
-        batimentService.findAllStatuts().forEach(System.out::println);
+        batimentService.findAllCommunes().forEach(System.out::println);
     }
 
     private static void createSuggestion(Scanner scanner, SuggestionService suggestionService) {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SuggestDataService } from "../../services/suggest-data.service";
 import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 import { AddBatService } from './add-bat-service.model';
@@ -13,36 +13,65 @@ import { GlobalService } from 'src/app/services/global.service';
   templateUrl: './add-bat.component.html',
   styleUrls: ['./add-bat.component.css']
 })
-export class AddBatComponent implements OnInit{
+export class AddBatComponent implements OnInit {
   myForm!: FormGroup;
   types!: string[];
   statuts!: string[];
+  regions!: string[];
+  departements!: string[];
+  communes!: string[];
   utilisateurConnecte!: UserDTO;
+
+  @ViewChild('lat') latInputElement!: ElementRef<HTMLInputElement>;
+  @ViewChild('lon') lonInputElement!: ElementRef<HTMLInputElement>;
+  @ViewChild('adresse') adresseInputElement!: ElementRef<HTMLInputElement>;
+
 
   constructor(private formBuilder: FormBuilder, private addBatService: AddBatService,
     private router: Router, private userService: UserService, private globalService: GlobalService) { }
 
+    //Formulaire
   ngOnInit(): void {
-    this.myForm = this.formBuilder.group({
-      nomBatiment: ['', Validators.required],
-      type: ['', Validators.required],
-      statut: ['', Validators.required],
-      adresse: [''],
-      nomUser: ['', Validators.required],
-      prenomUser: ['', Validators.required],
-      checkboxStatus: [false],
-    });
-
-    this.addBatService.getAllTypes().subscribe(types => this.types = types.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })).slice(5));
-    this.addBatService.getAllStatuts().subscribe(statuts => this.statuts = statuts.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
-    
-    //Recuperation de l'utilisateur connecté
+    //Recuperation de informations de l'utilisateur connecté
     this.utilisateurConnecte = this.userService.getUser();
     const { nom, prenom, email } = this.utilisateurConnecte;
     console.log('Nom:', nom);
     console.log('Prénom:', prenom);
     console.log('Email:', email);
+    //Initialisation du formulaire
+    this.myForm = this.formBuilder.group({
+      nomBatiment: ['', Validators.required],
+      type: ['', Validators.required],
+      statut: ['', Validators.required],
+      region: ['', Validators.required],
+      departement: ['', Validators.required],
+      commune: [''],
+      adresse: [''],
+      lat: [''],
+      lon: [''],
+      description: [''],
+      nomUser: [nom, Validators.required],      
+      prenomUser: [prenom, Validators.required], 
+      emailUser: [email, Validators.required],
+      checkboxStatus: [Validators.required],
+    });
+
+
+    //Récupération des données pour les listes déroulantes
+    this.addBatService.getAllTypes().subscribe(types => this.types = types.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })).slice(5));
+    this.addBatService.getAllStatuts().subscribe(statuts => this.statuts = statuts.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
+    this.addBatService.getAllRegions().subscribe(regions => this.regions = regions.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
+    this.addBatService.getAllDepartements().subscribe(departements => this.departements = departements.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
+    this.addBatService.getAllCommunes().subscribe(communes => this.communes = communes.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
+    
+ 
+    console.log("Avant l'appel à getCoordinates()");
+    this.getCoordinates();
+
   }
+
+
+  
 
   majuscule(word: string): string {
     return word.charAt(0).toUpperCase() + word.slice(1);
@@ -81,18 +110,26 @@ export class AddBatComponent implements OnInit{
   }
 
   getCoordinates(): void {
+    const inputElement = this.latInputElement.nativeElement;
+    const inputElement2 = this.lonInputElement.nativeElement;
+    const inputElement3 = this.adresseInputElement.nativeElement;
     const checkboxStatus = this.myForm.get('checkboxStatus')?.value ?? false;
-    let inputElement = document.getElementById('batAddr') as HTMLInputElement;
-
-
-    if (checkboxStatus) {
+    
+    if (checkboxStatus ==='coord') {
       if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition((position) => {
               const latitude = position.coords.latitude;
               const longitude = position.coords.longitude;
-
-              inputElement.value = `${latitude}, ${longitude}`;
-              inputElement.readOnly = true;
+              inputElement.value = `${latitude}`;
+              inputElement2.value = `${longitude}`;
+              inputElement3.disabled = true;
+              inputElement.disabled = false;
+              inputElement2.disabled = false;
+              this.myForm.patchValue({
+                lat: latitude,
+                lon: longitude,
+                adresse: ''
+            });
               
           }, (error) => {
               console.error('Erreur de géolocalisation :', error);
@@ -100,10 +137,44 @@ export class AddBatComponent implements OnInit{
       } else {
           console.error("La géolocalisation n'est pas supportée par votre navigateur.");
       }
+    } else if (checkboxStatus === 'adresse'){
+      const adresseValue = this.myForm.get('adresse')?.value;
+      this.myForm.patchValue({
+        lat: '',
+        lon: '',
+        adresse: adresseValue
+    });
+      inputElement3.disabled = false;
+      inputElement.disabled = true;
+      inputElement2.disabled = true;  
+      
+    }
+    else{
+    }
+    
+  }
+  
 
-    } else {
-      inputElement.value = '';
-      inputElement.readOnly = false;
+  /*New modif */
+  // Etape
+  etapeCourante: number = 0;
+  etapesTitre: string[] = ['Informations', 'Lieu', 'Image(s)', 'Validation'];
+
+
+  afficherEtape(etapeIndex: number) {
+    this.etapeCourante = etapeIndex;
+    
+  }
+
+  etapeSuivante() {
+    if (this.etapeCourante < 3) {
+      this.etapeCourante++;
+    }
+  }
+
+  etapePrecedente() {
+    if (this.etapeCourante > 0) {
+      this.etapeCourante--;
     }
   }
 }

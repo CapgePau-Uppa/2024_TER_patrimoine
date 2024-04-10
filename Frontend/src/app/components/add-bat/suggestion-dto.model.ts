@@ -6,15 +6,16 @@ export interface SuggestionDTO {
     statut: string;
     adresse: string;
     nomUser: string;
-    prenomUser: string;
-    emailUser: string;
-    /*description: string;
-    image: string;
-    dateCreation: Date;
     region: string;
     commune: string;
     departement: string;
     lat: number;
-    lon: number;*/
+    lon: number;
+    prenomUser: string;
+    emailUser: string;
+    description: string;
+    /*image: string;
+    dateCreation: Date;
+    */
   }
   
