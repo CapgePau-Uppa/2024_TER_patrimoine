@@ -110,3 +110,28 @@ h1 {
   background-color: #2a678e;
   color: #ffffff;
 }
+
+/*Modif actuel*/
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; 
+  width: 100%;
+}
+.grid-item {
+  background-color: #f0f0f0;
+  padding: 0;
+  text-align: center;
+}
+.grid-item.image{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; 
+  height: 100%;
+}
+
+.grid-item.image img{
+  width: 100%;
+}

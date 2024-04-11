@@ -18,25 +18,34 @@
     <div id="information" *ngIf="buildingInfo">
       <p>Suggestion de : {{ buildingInfo.nomUser }} {{ buildingInfo.prenomUser }}</p>
 
-      <div class="form">
-        <label for="batName">Nom du bâtiment</label>
-        <input type="text" id="batName" [(ngModel)]="buildingInfo.nomBatiment" disabled>
-      </div>
+      <div class="grid-container">
+        <div class="grid-item image">
+          <img src="../../../assets/img/chateau.png" alt="">
+        </div>
 
-      <div class="form">
-        <label for="batType">Type de bâtiment</label>
-        <input type="text" id="batType" [(ngModel)]="buildingInfo.type" disabled>
-      </div>
+        <div class="grid-item">
+        <div class="form">
+          <label for="batName">Nom du bâtiment</label>
+          <input type="text" id="batName" [(ngModel)]="buildingInfo.nomBatiment" disabled>
+        </div>
 
-      <div class="form">
-        <label for="batStatut">Statut </label>
-        <input type="text" id="batStatut" [(ngModel)]="buildingInfo.statut" disabled>
-      </div>
+        <div class="form">
+          <label for="batType">Type de bâtiment</label>
+          <input type="text" id="batType" [(ngModel)]="buildingInfo.type" disabled>
+        </div>
 
-      <div class="form">
-        <label for="batAddress">Adresse</label>
-        <input type="text" id="batAddress" [(ngModel)]="buildingInfo.adresse" disabled>
-      </div>
+        <div class="form">
+          <label for="batStatut">Statut </label>
+          <input type="text" id="batStatut" [(ngModel)]="buildingInfo.statut" disabled>
+        </div>
+
+        <div class="form">
+          <label for="batAddress">Adresse</label>
+          <input type="text" id="batAddress" [(ngModel)]="buildingInfo.adresse" disabled>
+        </div>
+    </div>
+    </div>
+
 
     </div>
 
