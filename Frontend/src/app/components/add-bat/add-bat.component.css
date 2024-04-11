@@ -1,17 +1,18 @@
 
 main {
-  background: #f6f5f7;
   padding: 40px;
   position: relative;
   height: 87.6vh;
   z-index: 1;
 }
+
 h1 {
   font-family: "Roboto", sans-serif;
   color: #262f34;
   text-align: center;
   margin-top: -20px;
 }
+
 .container{
   position: absolute;
   top : 50%;
@@ -24,22 +25,22 @@ h1 {
   width: 120vh;
 }
 
-/*En tete */
+
+/* En tete */
 .en-tete {
   position: absolute;
-  top: 0;
+  top: 30px;
+  left: 30px;
+  right: 30px;
   z-index: 1;
-  width: 100%;
-  margin-top: 10px;
+  width: auto;
 }
-.card1, .card2, .card3, .card4{
-  margin-top: 25px;
-}
+
 .en-tete h4 {
   font-family: "Roboto", sans-serif;
   color: #262f34;
   text-align: center;
-  margin-top: 10px;
+  margin: 20px 0;
 }
 
 .etapes {
@@ -52,7 +53,7 @@ h1 {
 
 .etape {
   background-color: rgb(129, 129, 129);
-  color: rgb(255, 255, 255); 
+  color: #f6f5f7;
   font-weight: bold ;
   border-radius: 50%;
   margin-right: 20px; 
@@ -64,215 +65,119 @@ h1 {
   align-items: center;
   justify-content: center;
 }
+
 .etapes .etape.complete {
-  background-color: green;
+  background-color: #369cd6;
 }
 
-/*Card */
+
+/* Card */
 .card{
   position: relative;
   justify-content: center;
   width: 100%;
-  height: 70vh;
-  /*margin: 0 0 0 0;*/
-  padding: 15px;
-  border-radius: 10px;
-  background-color: rgb(255, 255, 255);
+  height: 60vh;
+  padding: 30px;
+  border-radius: 20px;
+  background-color: #f6f5f7;
   color: #262f34;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.card1, .card2, .card3, .card4{
+  margin: 100px 0;
+}
 
 
+/* grid */
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr; 
-  gap: 20px; 
+  gap: 30px; 
 }
-.grid-item {
-  background-color: #ffff;
-  padding-left: 30px;
-  
-}
-.grid-container.e2{
-  margin-left: 20px;
-}
+
 .grid-item.img{
   display: flex;
   align-items: center;
   justify-content: center;
-  
 }
+
+
+/* inputs, select, textarea, labels */
 .inputs{
   display: flex;
   flex-direction: column;
 }
-.inputs label, .inputs-radio label{
-  font-size: 18px;
+
+label, p {
+  font-size: 19px;
   font-family: "Roboto", sans-serif;
   color: #262f34;
-  margin : 10px 0 10px 0;
+  margin-left: 10px;
 }
-.inputs input, .inputs select , .inputs option{
+
+input, select, textarea {
+  color: #262f34;
   border: 2px solid #262f34;
   border-radius: 10px;
   padding: 10px;
+  margin: 10px 0;
+}
 
+#batDescription {
+  height: 240px;
 }
-.inputs textarea {
-  border: 2px solid #262f34;
-  border-radius: 10px;
-  font-size: 16px;
-  font-family: "Roboto", sans-serif;
+
+.radio-btn-label {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: -4px;
 }
+
+#lat {
+  margin-bottom: 38px;
+}
+
+
+/* radio-buttons */
+.radio-btn {
+  margin-right: 10px;
+}
+
+
+/* buttons */
 .button-container {
-  position: absolute; 
-  bottom: 0; 
-  left: 0;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  left: 30px;
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  
+  width: auto;
 }
-.button-container button{
-  flex-grow: 0;
-  margin: 20px;
-}
-.inputs-radio-coord, .inputs-radio-add{
-  border: 2px solid #262f34;
-  border-radius: 10px;
-  height: 47px;
-  padding: 10px;
+
+#valider-e1 {
   display: flex;
-  flex-direction: column;
-  
-}
-.inputs-radio-coord {
-  margin-bottom: 46px;
+  justify-content: flex-end;
+  width: 100%;
 }
 
-.add{
-  margin-top: -45px;
-}
-.label-coord-addresse{
-  font-size: 18px;
-  font-family: "Roboto", sans-serif;
-  color: #262f34;
-  margin : 10px 0 10px 0;
-  
-}
 
-.img{
+/* images */
+.img {
   display: flex;
   flex-direction: column; 
   justify-content: center; 
   align-items: center;
   height: 100%;
 }
+
+#image {
+  margin-top: 20px;
+}
+
 .img img{
   width: 90%;
   height: 100%;
-}
-
-.img label, .img button{
-  display: inline-block;
-  margin : 20px;
-}
-/*body {
-  background: #f6f5f7;
-}
-
-main {
-  padding: 40px;
-  position: relative;
-  height: 93.5vh;
-  z-index: 1;
-}
-
-h1 {
-  font-family: "Roboto", sans-serif;
-  color: #262f34;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.names {
-  display: flex;
-  flex-direction: row;
-}
-
-#nameForm {
-  margin-right: 40px;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-  width: 100%;
-}
-
-label {
-  font-size: 19px;
-  font-family: "Roboto", sans-serif;
-  color: #262f34;
-  margin-left: 10px;;
-}
-
-input{
-  border: 3px solid #262f34;
   border-radius: 10px;
-  padding: 10px;
 }
-
-.form select {
-  border: 3px solid #262f34;
-  border-radius: 10px;
-  height: 50px;
-  padding: 10px;
-}
-
-.dropdown {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-img {
-  margin-left: -40px;
-  pointer-events: none;
-}
-
-#picture {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 3px solid #262f34;
-  border-radius: 10px;
-  background-color: white;
-  width: 30%;
-  color: grey;
-}
-
-.button-container {
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 30px;
-}
-
-app-button {
-  margin-left: 20px;
-}
-
-.checkbox-container {
-  display: flex;
-  align-items: center;
-}
-
-#checkbox {
-  margin: 0 10px;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-}
-*/
