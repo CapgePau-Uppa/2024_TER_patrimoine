@@ -9,7 +9,7 @@ import { NgIf } from "@angular/common";
 })
 export class HomeComponent {
 
-  showInstallButton: boolean = true;
+  /*showInstallButton: boolean = true;
   private deferredPrompt: any;
 
   constructor(private zone: NgZone) {
@@ -41,5 +41,5 @@ export class HomeComponent {
       this.deferredPrompt = null;
       this.showInstallButton = false;
     }
-  }
+  }*/
 }

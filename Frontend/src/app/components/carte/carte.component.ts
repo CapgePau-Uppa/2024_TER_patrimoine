@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, OnDestroy, booleanAttribute} from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, OnDestroy, booleanAttribute, HostListener, NgZone} from '@angular/core';
 import * as L from 'leaflet';
 import { Subscription, combineLatest } from 'rxjs';
 import { BatimentDTO } from './batiment-dto.model';
@@ -18,12 +18,47 @@ export class CarteComponent implements AfterViewInit, OnInit{
   departmentMarkers: any[] = [];
   buildingMarkersLayer: any;
   previousDepartmentMarker: any;
+  showInstallButton: boolean = true;
+  private deferredPrompt: any;
 
   
   private reloadSubscription!: Subscription;
 
-  constructor(private batimentService: BatimentService, private filterService: FilterService) { }
+  constructor(private batimentService: BatimentService, private filterService: FilterService, private zone: NgZone) { 
+    // Installation de l'application
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.deferredPrompt = e;
+      this.showInstallButton = true;
+    });
+  }
+
+  // Installation de l'application
+  @HostListener('window:beforeinstallprompt', ['$event'])
+  onbeforeinstallprompt(e: Event) {
+    e.preventDefault();
+    this.deferredPrompt = e;
+  }
+
+  // Installation de l'application
+  async installPWA() {
+    console.log("Installation de l'application"); 
+
+    if (this.deferredPrompt) {
+      this.deferredPrompt.prompt();
+      const { outcome } = await this.deferredPrompt.userChoice;
+      
+      if (outcome === 'accepted') {
+        console.log("L'utilisateur à accepté l'installation de l'application");
+      } else {
+        console.log("L'utilisateur à refusé l'installation de l'application");
+      }
+      this.deferredPrompt = null;
+      this.showInstallButton = false;
+    }
+  }
  
+  // Initialisation
   ngOnInit(): void {
     this.reloadSubscription = this.batimentService.reloadMap$.subscribe(() => {
       this.clearMap(); // Supprimer tous les marqueurs ou couches, sauf le fond de carte
@@ -90,7 +125,6 @@ export class CarteComponent implements AfterViewInit, OnInit{
     });
   }
 
-
   // Création de la carte
   createMap() {
     const franceBounds: L.LatLngBoundsExpression = [
@@ -147,7 +181,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
     }
   }
 
-// Fonction pour afficher les marker par departements
+  // Fonction pour afficher les marker par departements
   addClusteringMarkers(): void {
     this.batimentService.getClusteringDepartement().subscribe(data => {
       data.forEach(department => {
@@ -178,6 +212,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
     });
   }
 
+  // Afficher les batiments par departement
   private showBuildingsByDepartment(department: string): void {
     this.buildingMarkersLayer.clearLayers();
     this.batimentService.getBatimentsClusteringByDepartement(department).subscribe(data => {
@@ -185,10 +220,11 @@ export class CarteComponent implements AfterViewInit, OnInit{
       this.addMarkers();
     });
   }
+
+  // Zoomer sur le département
   private zoomToDepartment(marker: any): void {
     this.map!.setView(marker.getLatLng(), 10);
   }
-
 
   // Tous les batiments
   loadBatiments(): void {
@@ -198,7 +234,8 @@ export class CarteComponent implements AfterViewInit, OnInit{
     });
   }
 
-  //FILTRE : par type, par departement, par region
+  // FILTRES : par type, par departement, par region
+  // Filtre par type
   loadBatimentsParType(selectedType: string): void{
     this.removeDepartmentMarkers();
     this.buildingMarkersLayer.clearLayers();
@@ -215,6 +252,8 @@ export class CarteComponent implements AfterViewInit, OnInit{
 
 
   }
+
+  // Filtre par type et region
   loadBatimentsParTypeEtRegion(selectedType: string, selectedRegion: string): void{
     this.removeDepartmentMarkers();
     this.buildingMarkersLayer.clearLayers();
@@ -230,6 +269,8 @@ export class CarteComponent implements AfterViewInit, OnInit{
     this.map!.setZoom(6);
 
   }
+
+  // Filtre par type et departement
   loadBatimentsParTypeEtDepartement(selectedType: string, selectedDepartement: string): void{
     this.removeDepartmentMarkers();
     this.buildingMarkersLayer.clearLayers();
@@ -246,6 +287,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
 
   }
 
+  // Filtre par departement
   loadBatimentsParDepartements(selectedDepartement: string): void{
     this.removeDepartmentMarkers();
     this.buildingMarkersLayer.clearLayers();
@@ -260,6 +302,8 @@ export class CarteComponent implements AfterViewInit, OnInit{
     this.map!.setZoom(6);
 
   }
+
+  // Filtre par region
   loadBatimentsParRegion(selectedRegion: string): void{
     this.removeDepartmentMarkers();
     this.buildingMarkersLayer.clearLayers();
@@ -276,6 +320,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
 
   }
 
+  // Filtre par nom
   loadBatimentsParNom(selectedNomSource: string): void{
     this.removeDepartmentMarkers();
     this.buildingMarkersLayer.clearLayers();
@@ -299,7 +344,8 @@ export class CarteComponent implements AfterViewInit, OnInit{
     this.map!.setZoom(6);
 
   }
-  //Cacher la fenêtre des filtres
+
+  // Cacher la fenêtre des filtres
   hideFilters(): void {
     this.filterService.hideFilters();
   }
@@ -341,12 +387,12 @@ export class CarteComponent implements AfterViewInit, OnInit{
     });
   }
 
-
-  // Zommer sur la position du user
+  // Zoommer sur la position du user
   resetView(): void {
     console.log("back to user");
     this.getUserLocation();
   }
+
   // Supprimez tous les marqueurs ou couches, sauf le fond de carte
   clearMap(): void {
     if (this.map) {
@@ -365,9 +411,6 @@ export class CarteComponent implements AfterViewInit, OnInit{
     });
     this.departmentMarkers = [];
   }
-
-  
-
 }
 
 

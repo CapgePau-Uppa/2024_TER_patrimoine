@@ -1,6 +1,15 @@
 <div class="map-wrapper">
     <div class="map-border">
-      <img src="assets/icones/location.png" alt="user-location" (click)="resetView()">
+      <div class="img-container">
+        <img src="assets/icones/location.png" alt="user-location" (click)="resetView()">
+        <p class="hover-text" id="zoom-info">Zoomer sur l'utilisateur</p>
+      </div>
+
+      <div class="img-container">
+        <img id="btn-pwa" src="assets/icones/pwa.png" alt="install-pwa" (click)="installPWA()">
+        <p class="hover-text" id="pwa-info">Installer en tant qu'application</p>
+      </div>
+
       <div id="map"></div>
     </div>
 </div>

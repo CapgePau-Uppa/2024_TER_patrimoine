@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { GlobalService } from "../../services/global.service";
 import { BatimentService } from '../carte/batiment.service';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -129,8 +129,10 @@ export class NavbarComponent {
   }
 
   deconnect() {
+    console.log("Deconnexion...");
     this.globalService.globalVariable = 0;
     this.globalService.isConnected = false;
     this.router.navigate(['../']);
+    console.log("globalVariable: " + this.globalService.globalVariable);
   }
 }

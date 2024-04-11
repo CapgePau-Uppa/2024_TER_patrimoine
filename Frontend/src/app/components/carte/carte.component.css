@@ -30,6 +30,37 @@ img {
   padding: 5px;
 }
 
+#btn-pwa {
+  top: 128px;
+}
+
+.hover-text {
+  position: absolute;
+  z-index: 900;
+  top: 85.5px;
+  left: 42px;
+  background: rgb(246, 245, 247);
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  color: #262f34;
+  width: auto;
+  transition: .5s ease;
+  opacity: 0;
+  font-size: 19px;
+  text-align: center;
+  padding: 0 10px;
+}
+
+#pwa-info {
+  top: 128.5px;
+}
+
+.img-container:hover .hover-text {
+  opacity: 1;
+}
+
+
 /* -------- BOUTON AJOUTER BATIMENT -------- */
 #btn-add-bat {
   display: none;
