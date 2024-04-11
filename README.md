@@ -25,4 +25,12 @@ _(Voir le wiki pour plus de détails)_
 * Les paramètres de connexion à la base de données MySQL peuvent être configurés dans le fichier application.properties du backend.
 
 ## Licence
-Ce projet est sous licence MIT.
+Ce projet est sous licence MIT. Voir fichier LICENCE pour plsu de détails.
+
+## Collaborateurs
+- Fatouma MAHDI MAHAMOUD
+- Sabrina LAVERGNE
+- Fabien LAMAS
+- Thibault KOLLEN
+- Ivan ALONSO
+- Thomas ANSELMI
