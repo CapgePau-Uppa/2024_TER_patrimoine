@@ -5,7 +5,6 @@
 
   <div class="container">
     <form (ngSubmit)="onSubmit()" [formGroup]="myForm">
-      <!-- ETAPE 1 -->
       <div class="card" >
         <div class="en-tete">
         <div class="etapes">
@@ -16,19 +15,23 @@
         </div>
         <h4>{{ etapesTitre[etapeCourante] }}</h4>
       </div>
-        <div class="card1" *ngIf="etapeCourante === 0">
+
+      <!-- ETAPE 1 -->
+      <div class="card1" *ngIf="etapeCourante === 0">
         <div class="grid-container">
             <div class="grid-item">
                 <div class="inputs">
                     <label for="nomBatiment">Nom :</label>
-                    <input type="text" id="batName" formControlName="nomBatiment" placeholder="Nom du bâtiment">
+                    <input type="text" id="batName" formControlName="nomBatiment">
                 </div>
+
                 <div class="inputs">
                   <label for="type">Type :</label>
                   <select id="batType" class="form-control"  formControlName="type">
                     <option *ngFor="let type of types" [value]="type">{{ majuscule(type.toLowerCase()) }}</option>
                   </select>
                 </div>
+
                 <div class="inputs">
                     <label for="statut">Statut :</label>
                     <select id="batStatut" class="form-control" formControlName="statut">
@@ -36,6 +39,7 @@
                     </select>
                 </div>
             </div>
+
             <div class="grid-item">
                 <div class="inputs">
                     <label for="description" >Description : </label>
@@ -43,16 +47,16 @@
                 </div>
             </div>
         </div>
+
         <div class="button-container">
-            <button disabled>Précedent</button>
-            <button (click)="etapeSuivante()">Suivant</button> 
+            <app-button id="valider-e1" (click)="etapeSuivante()" text="Suivant" [buttonClass]="'btn-blue'"></app-button>
         </div>
       </div>
     
 
     <!-- ETAPE 2 -->
     <div class="card2" *ngIf="etapeCourante === 1">
-        <div class="grid-container e2">
+        <div class="grid-container">
           <div class="grid-item">
               <div class="inputs">
                   <label for="region" >Région :</label>
@@ -60,12 +64,14 @@
                     <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
                   </select>
               </div>
+
               <div class="inputs">
                   <label for="departement" >Département : </label>
                   <select  id="batDepartement" class="form-control" formControlName="departement">
                     <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
                   </select>
               </div>
+
               <div class="inputs">
                   <label for="commune">Commune :</label>
                   <select id="batCommune" class="form-control" formControlName="commune">
@@ -73,24 +79,33 @@
                   </select>
               </div>
           </div>
+
           <div class="grid-item">
-            <div class="coord" >
-              <input type="radio" value="coord" formControlName="checkboxStatus" (change)="getCoordinates()">
-              <label class="label-coord-addresse" for="coord" >Coordonnées</label>
-              <input class="inputs-radio-coord" #lat formControlName="lat" type="text" name="lat" id="lat" placeholder="Latitude"  >
-              <input class="inputs-radio-coord" #lon formControlName="lon" type="text" name="lon" id="lon" placeholder="Longitude">
+
+            <div class="inputs" id="addresse">
+              <div class="radio-btn-label">
+                <input class="radio-btn" type="radio" value="adresse" formControlName="checkboxStatus" (change)="getCoordinates()">
+                <label for="adresse">Adresse :</label>
+              </div>
+              <input #adresse formControlName="adresse" type="text" name="adresse" id="adresse">
+            </div>
+
+            <div class="inputs" id="coord">
+              <div class="radio-btn-label">
+                <input class="radio-btn" type="radio" value="coord" formControlName="checkboxStatus" (change)="getCoordinates()">
+                <label for="coord" >Coordonnées :</label>
+              </div>
+
+              <input #lat formControlName="lat" type="text" name="lat" id="lat" placeholder="Latitude"  >
+              <input #lon formControlName="lon" type="text" name="lon" id="lon" placeholder="Longitude">
+            </div>
+
           </div>
-          <div class="add">
-              <input type="radio" value="adresse" formControlName="checkboxStatus" (change)="getCoordinates()">
-              <label class="label-coord-addresse" for="adresse">Adresse :</label>
-              <input class="inputs-radio-add" #adresse formControlName="adresse" type="text" name="adresse" id="adresse" placeholder="Ajoutez une adresse">
-          </div>
-          
-          </div>
-      </div>
+        </div>
+
         <div class="button-container">
-            <button (click)="etapePrecedente()">Précédent</button>
-            <button (click)="etapeSuivante()">Suivant</button> 
+            <app-button (click)="etapePrecedente()" text="Précédent" [buttonClass]="'btn-light'"></app-button>
+            <app-button (click)="etapeSuivante()" text="Suivant" [buttonClass]="'btn-blue'"></app-button>
         </div>
     </div>
 
@@ -98,11 +113,12 @@
     <div class="card3" *ngIf="etapeCourante === 2">
         <div class="img">
           <label for="image">Ajouter une image :</label>
-          <button  name="image" id="image">Add File</button> 
-      </div>
+          <app-button name="image" id="image" text="Ajouter une image" [buttonClass]="'btn-light'"></app-button>
+        </div>
+
         <div class="button-container">
-            <button (click)="etapePrecedente()">Précedent</button>
-            <button (click)="etapeSuivante()">Suivant</button> 
+          <app-button (click)="etapePrecedente()" text="Précédent" [buttonClass]="'btn-light'"></app-button>
+          <app-button (click)="etapeSuivante()" text="Suivant" [buttonClass]="'btn-blue'"></app-button>
         </div>
     </div>
 
@@ -122,65 +138,11 @@
         </div>
         
         <div class="button-container">
-            <button (click)="etapePrecedente()">Précedent</button>
-            <app-button type="submit" text="Valider" [buttonClass]="'btn-blue'"></app-button>
-          </div>
+          <app-button (click)="etapePrecedente()" text="Précédent" [buttonClass]="'btn-light'"></app-button>
+          <app-button type="submit" text="Valider" [buttonClass]="'btn-blue'"></app-button>
+        </div>
     </div>
   </div>
     </form>
   </div>
 </main>
-
-<!--
-      <div class="names">
-        <div class="form" id="nameForm">
-          <label for="name">Nom</label>
-          <input type="text" id="name" formControlName="nomUser" [(ngModel)]="utilisateurConnecte.nom" readonly>
-        </div>
-
-        <div class="form">
-          <label for="surname">Prenom</label>
-          <input type="text" id="surname" formControlName="prenomUser" [(ngModel)]="utilisateurConnecte.prenom" readonly>
-        </div>
-      </div>
-
-      <div class="form">
-        <label for="batName">Nom du bâtiment</label>
-        <input type="text" id="batName" formControlName="nomBatiment">
-      </div>
-
-      <div class="form">
-        <label for="batType">Type du bâtiment</label>
-        <div class="dropdown">
-          <select id="batType" class="form-control"  formControlName="type">
-            <option *ngFor="let type of types" [value]="type">{{ majuscule(type.toLowerCase()) }}</option>
-          </select>
-          <img ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
-        </div>
-      </div>
-
-      <div class="form">
-        <label for="batStatut">Statut du bâtiment</label>
-        <div class="dropdown">
-          <select id="batStatut" class="form-control" formControlName="statut">
-            <option *ngFor="let statut of statuts" [value]="statut">{{ majuscule(statut) }}</option>
-          </select>
-          <img ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
-        </div>
-      </div>
-
-      <div class="form">
-        <label for="batAddr">Adresse du bâtiment</label>
-        <input type="text" id="batAddr" formControlName="adresse">
-      </div>
-
-      <div class="checkbox-container">
-        <input type="checkbox" id="checkbox" formControlName="checkboxStatus" (change)="getCoordinates()">
-        <label for="checkbox">Récupérer les coordonnées</label>
-      </div>-->
-
-      <!-- 
-      <div class="button-container">
-        <app-button text="Annuler" [buttonClass]="'btn-light'" routerLink="../"></app-button>
-        <app-button type="submit" text="Valider" [buttonClass]="'btn-blue'"></app-button>
-      </div> -->
