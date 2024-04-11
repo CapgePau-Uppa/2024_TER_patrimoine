@@ -14,8 +14,8 @@ export interface SuggestionDTO {
     prenomUser: string;
     emailUser: string;
     description: string;
-    /*image: string;
+    image: string;
     dateCreation: Date;
-    */
+  
   }
   

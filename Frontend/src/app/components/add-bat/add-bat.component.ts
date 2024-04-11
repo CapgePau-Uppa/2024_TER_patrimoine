@@ -50,6 +50,7 @@ export class AddBatComponent implements OnInit {
       lat: [''],
       lon: [''],
       description: [''],
+      image: ["assets/img/chateau.png"],
       nomUser: [nom, Validators.required],      
       prenomUser: [prenom, Validators.required], 
       emailUser: [email, Validators.required],
@@ -98,16 +99,7 @@ export class AddBatComponent implements OnInit {
     }
   }
   
-  getErrorMessage(field: string): string | undefined {
-    if (this.myForm?.get(field)?.hasError('required')) {
-      return 'Ce champ est requis';
-    }
-    if (this.myForm?.get(field)?.hasError('email')) {
-      return 'Adresse e-mail invalide';
-    }
-    return;
 
-  }
 
   getCoordinates(): void {
     const inputElement = this.latInputElement.nativeElement;
@@ -153,7 +145,6 @@ export class AddBatComponent implements OnInit {
     }
     
   }
-  
 
   /*New modif */
   // Etape
