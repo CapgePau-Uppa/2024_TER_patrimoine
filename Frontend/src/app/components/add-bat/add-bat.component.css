@@ -76,7 +76,7 @@ h1 {
   position: relative;
   justify-content: center;
   width: 100%;
-  height: 60vh;
+  height: 75vh;
   padding: 30px;
   border-radius: 20px;
   background-color: #f6f5f7;
@@ -85,7 +85,7 @@ h1 {
 }
 
 .card1, .card2, .card3, .card4{
-  margin: 100px 0;
+  margin: 150px 0 100px 0;
 }
 
 
