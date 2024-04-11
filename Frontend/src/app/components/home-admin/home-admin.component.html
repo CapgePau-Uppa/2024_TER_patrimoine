@@ -18,32 +18,75 @@
     <div id="information" *ngIf="buildingInfo">
       <p>Suggestion de : {{ buildingInfo.nomUser }} {{ buildingInfo.prenomUser }}</p>
 
-      <div class="grid-container">
+      <div class="grid-container" [class.disabled]="!modificationActive">
         <div class="grid-item image">
           <img src="../../../assets/img/chateau.png" alt="">
         </div>
 
-        <div class="grid-item">
+        <div class="grid-item" *ngIf="etapeCourante === 0">
         <div class="form">
           <label for="batName">Nom du bâtiment</label>
-          <input type="text" id="batName" [(ngModel)]="buildingInfo.nomBatiment" disabled>
+          <input type="text" id="batName" [(ngModel)]="buildingInfo.nomBatiment" [disabled]="!modificationActive">
         </div>
 
         <div class="form">
           <label for="batType">Type de bâtiment</label>
-          <input type="text" id="batType" [(ngModel)]="buildingInfo.type" disabled>
+          <select id="batType" class="form-control"  [(ngModel)]="buildingInfo.type" [disabled]="!modificationActive">
+            <option *ngFor="let type of types" [value]="type">{{ majuscule(type.toLowerCase()) }}</option>
+          </select>
         </div>
 
         <div class="form">
           <label for="batStatut">Statut </label>
-          <input type="text" id="batStatut" [(ngModel)]="buildingInfo.statut" disabled>
+          <select id="batStatut" class="form-control"[(ngModel)]="buildingInfo.statut" [disabled]="!modificationActive">
+            <option *ngFor="let statut of statuts" [value]="statut">{{ majuscule(statut) }}</option>
+          </select>
         </div>
 
         <div class="form">
-          <label for="batAddress">Adresse</label>
-          <input type="text" id="batAddress" [(ngModel)]="buildingInfo.adresse" disabled>
+          <label for="description">Description</label>
+          <textarea id="batDescription" [(ngModel)]="buildingInfo.description"  cols="30" rows="6" [disabled]="!modificationActive"></textarea>
         </div>
+
+        <button (click)="etapeSuivante()">+</button> 
+        
     </div>
+    <div class="grid-item" *ngIf="etapeCourante === 1">
+      <div class="form">
+        <label for="region">Région</label>
+        <select id="batRegion" class="form-control" [(ngModel)]="buildingInfo.region" [disabled]="!modificationActive">
+          <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+        </select>
+      </div>
+
+      <div class="form">
+        <label for="departement">Département</label>
+        <select  id="batDepartement" class="form-control" [(ngModel)]="buildingInfo.departement" [disabled]="!modificationActive">
+          <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
+        </select>
+      </div>
+
+      <div class="form">
+        <label for="commune">Commune</label>
+          <select id="batCommune" class="form-control" [(ngModel)]="buildingInfo.commune" [disabled]="!modificationActive">
+          <option *ngFor="let commune of communes" [value]="commune">{{ commune }}</option>
+        </select>
+      </div>
+
+      <div class="form">
+        <label for="batAddress">Adresse</label>
+        <input type="text" id="batAddress" [(ngModel)]="buildingInfo.adresse" [disabled]="!modificationActive">
+      </div>
+      <div class="form">
+        <label for="coord">Coordonnées</label>
+        <div class="coord">
+          <input type="text" id="coord-lat" [(ngModel)]="buildingInfo.lat" [disabled]="!modificationActive">
+          <input type="text" id="coord-lon" [(ngModel)]="buildingInfo.lon" [disabled]="!modificationActive">
+        </div>
+      </div>
+      <button class="precedent" (click)="etapePrecedente()">-</button> 
+      <button class="suivant" (click)="etapeSuivante()">+</button> 
+  </div>
     </div>
 
 
@@ -56,14 +99,14 @@
         </app-button>
         <p>Valider</p>
       </div>
-
+  
       <div class="option">
         <app-button [buttonClass]="'btn-blue'" (click)="modifier()">
           <img src="../assets/icones/modifier.png" alt="Modifier">
         </app-button>
         <p>Modifier</p>
       </div>
-
+  
       <div class="option">
         <app-button [buttonClass]="'btn-blue'" (click)="buildingInfo && supprimer(buildingInfo.id)">
           <img src="../assets/icones/annuler.png" alt="Annuler">
@@ -71,13 +114,8 @@
         <p>Supprimer</p>
       </div>
     </div>
-
-    <!--
-    <div id="buttons">
-
-      <img src="../assets/icones/valider.png" alt="Valider" (click)="valider()">
-
-    </div>-->
   </div>
+
+  
 
 </main>
