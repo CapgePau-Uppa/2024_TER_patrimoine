@@ -2,7 +2,7 @@
 
 ## Description
 
-Ce projet est une application web permettant aux utilisateurs et adinistrateurs de visualiser, ajouter, modifier et supprimer les bâtiments historiques français.
+Ce projet est une application web permettant aux utilisateurs et administrateurs de visualiser, ajouter, modifier et supprimer les bâtiments historiques français.
 
 ## Fonctionnalités
 
@@ -31,7 +31,3 @@ Ce projet est sous licence [GNU](./LICENSE).
 ## Collaborateurs
 - Fatouma MAHDI MAHAMOUD
 - Sabrina LAVERGNE
-- Fabien LAMAS
-- Thibault KOLLEN
-- Ivan ALONSO
-- Thomas ANSELMI
