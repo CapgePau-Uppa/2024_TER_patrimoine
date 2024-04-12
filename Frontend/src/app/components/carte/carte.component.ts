@@ -4,6 +4,7 @@ import { Subscription, combineLatest } from 'rxjs';
 import { BatimentDTO } from './batiment-dto.model';
 import { BatimentService } from './batiment.service';
 import { FilterService } from '../filters/filters-service.model';
+import { AuthService, AuthState } from "../../services/auth.service";
 
 @Component({
   selector: 'app-carte',
@@ -20,11 +21,13 @@ export class CarteComponent implements AfterViewInit, OnInit{
   previousDepartmentMarker: any;
   showInstallButton: boolean = true;
   private deferredPrompt: any;
+  currentAuthState: AuthState = AuthState.Visiteur;
+  AuthState = AuthState;
 
   
   private reloadSubscription!: Subscription;
 
-  constructor(private batimentService: BatimentService, private filterService: FilterService, private zone: NgZone) { 
+  constructor(private authService: AuthService, private batimentService: BatimentService, private filterService: FilterService, private zone: NgZone) { 
     // Installation de l'application
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
@@ -63,7 +66,12 @@ export class CarteComponent implements AfterViewInit, OnInit{
     this.reloadSubscription = this.batimentService.reloadMap$.subscribe(() => {
       this.clearMap(); // Supprimer tous les marqueurs ou couches, sauf le fond de carte
       this.addClusteringMarkers(); // Appeler ngAfterViewInit() lorsque le sujet est déclenché
-    });  }
+    }); 
+
+    this.authService.authState$.subscribe(state => {
+      this.currentAuthState = state;
+    });
+  }
 
   // Initialisation de la carte
   ngAfterViewInit(): void {
@@ -218,6 +226,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
     this.batimentService.getBatimentsClusteringByDepartement(department).subscribe(data => {
       this.batiments = data;
       this.addMarkers();
+      //this.zoomToDepartment(department);
     });
   }
 
@@ -225,6 +234,11 @@ export class CarteComponent implements AfterViewInit, OnInit{
   private zoomToDepartment(marker: any): void {
     this.map!.setView(marker.getLatLng(), 10);
   }
+
+  /*// Zoomer sur le bâtiment
+  private zoomToBatiment(marker: any): void {
+    this.map!.setView(marker.getLatLng(), 10);
+  }*/
 
   // Tous les batiments
   loadBatiments(): void {

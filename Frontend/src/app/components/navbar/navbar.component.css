@@ -27,11 +27,12 @@
 }
 
 #opt-suggest {
-  display: none;
+  display: flex;
 }
 
 #opt-account {
-  display: none;
+  display: flex;
+  order: 3
 }
 
 
@@ -41,7 +42,7 @@
 }
 
 #searchBar {
-  display: none;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;

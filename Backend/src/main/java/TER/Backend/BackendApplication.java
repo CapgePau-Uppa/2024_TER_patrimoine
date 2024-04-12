@@ -29,6 +29,8 @@ public class BackendApplication{ //implements CommandLineRunner
     
 
     public static void main(String[] args) {
+        System.out.println("BACKEND DEMARRÉ");
+
         //SpringApplication.run(BackendApplication.class, args);
         ConfigurableApplicationContext context = SpringApplication.run(BackendApplication.class, args);
         UserService userService = context.getBean(UserService.class);

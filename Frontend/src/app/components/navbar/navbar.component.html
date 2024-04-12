@@ -1,59 +1,71 @@
 <div class="navbar">
 
+  <!-- ======= GLOBAL ======= -->
+  
   <!-- CARTE -->
   <div class="option">
-    <img ngSrc='../../../assets/icones/logo.png' alt="Accueil" routerLink="../" height="50" width="50">
+    <img ngSrc='../../../assets/icones/logo.png' alt="Accueil" routerLink="../" height="50" width="50" loading="lazy">
   </div>
 
 
-  <!-- SUGGESTION -->
-  <div class="option" id="opt-suggest" routerLink="/home-admin">
-    <img ngSrc='../../assets/icones/suggest.png' alt="Suggestion" height="24" width="24">
-    <span>Suggestions</span>
-  </div>
+  <!-- ======= VISITOR ======= -->
+
+  <!-- BOUTON CONNECTER -->
+  <a routerLink="connexion" id="btn-connect" *ngIf="currentAuthState === AuthState.Visiteur">
+    <app-button text="Se connecter" [buttonClass]="'btn-light'"></app-button>
+  </a>
 
 
-  <!-- BARRE DE RECHERCHE -->
-  <div id="searchBar">
+  <!-- ======= USER ======= -->
+
+  <!-- RECHERCHE & FILTRE -->
+  <div id="searchBar" *ngIf="currentAuthState === AuthState.User">
+    <!-- BARRE DE RECHERCHE -->
     <input #rechercheInput id="recherche" type="text" [placeholder]="placeholderText" [(ngModel)]="selectedNomSource" (change)="rechercher()">
-    <img id="clickSearch" ngSrc='../../assets/icones/searchbar.png' alt="Rechercher" routerLink="../" height="24" width="24">
+    <img id="clickSearch" ngSrc='../../assets/icones/searchbar.png' alt="Rechercher" routerLink="../" height="24" width="24" loading="lazy">
 
     <!-- FILTRES -->
     <a class="option" id="filters" (click)="toggleFilters()">
-      <img ngSrc='../../assets/icones/filter.png' alt="Filtres" height="24" width="24">
+      <img ngSrc='../../assets/icones/filter.png' alt="Filtres" height="24" width="24" loading="lazy">
       <span>Filtres</span>
     </a>
   </div>
 
 
+  <!-- ======= USER & ADMIN ======= -->
+
+
   <!-- MENU -->
-  <a class="option" id="opt-account" (click)="toggleMenu()">
-    <img ngSrc='../../assets/icones/menu.png' alt="Menu" height="40" width="40">
+  <a class="option" id="opt-account" (click)="toggleMenu()" *ngIf="currentAuthState !== AuthState.Visiteur">
+    <img ngSrc='../../assets/icones/menu.png' alt="Menu" height="40" width="40" loading="lazy">
   </a>
+  
+  <!-- MENU DEROULANT -->
+  <div class="menu" id="menu" *ngIf="currentAuthState !== AuthState.Visiteur">
+    <!-- COMPTE -->
+    <a class="menu-option" routerLink="../account">
+      <img ngSrc='../../assets/icones/compte.png' alt="Mon compte" height="24" width="24" loading="lazy">
+      <p>Mon compte</p>
+    </a>
 
+    <!-- SE DECONNECTER -->
+    <a class="menu-option" (click)="deconnexion()" routerLink="../">
+      <img ngSrc='../../assets/icones/exit.png' alt="Deconnexion" height="24" width="24" loading="lazy">
+      <p>Se déconnecter</p>
+    </a>
+  </div>
+  
 
-  <!-- BOUTON CONNECTER -->
-  <a routerLink="connexion" id="btn-connect">
-    <app-button text="Se connecter" [buttonClass]="'btn-light'"></app-button>
-  </a>
+  <!-- ======= ADMIN ======= -->
+
+  <!-- SUGGESTION -->
+  <div class="option" id="opt-suggest" routerLink="/home-admin" *ngIf="currentAuthState === AuthState.Admin">
+    <img ngSrc='../../assets/icones/suggest.png' alt="Suggestion" height="24" width="24" loading="lazy">
+    <span>Suggestions</span>
+  </div>
+
 </div>
 
-
-<!-- MENU DEROULANT -->
-<div class="menu" id="menu">
-
-  <!-- COMPTE -->
-  <a class="menu-option" routerLink="../account">
-    <img ngSrc='../../assets/icones/compte.png' alt="Mon compte" height="24" width="24">
-    <p>Mon compte</p>
-  </a>
-
-  <!-- PARAMETRES -->
-  <a class="menu-option" (click)="deconnect()">
-    <img ngSrc='../../assets/icones/exit.png' alt="Deconnexion" height="24" width="24">
-    <p>Se déconnecter</p>
-  </a>
-</div>
 
 <app-filters></app-filters>
 

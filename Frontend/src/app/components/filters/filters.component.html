@@ -10,10 +10,10 @@
         <option *ngFor="let type of types" [value]="type">{{ majuscule(type.toLowerCase()) }}</option>
       </select>
 
-      <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
+      <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
 
       <button class="btn-clear" (click)="clearSelection('type')">
-        <img class="clear-img" src="../../assets/icones/clear-filter.png" alt="Effacer filtre" height="15" width="15">
+        <img class="clear-img" src="../../assets/icones/clear-filter.png" alt="Effacer filtre" height="15" width="15" loading="lazy">
       </button>
     </div>
 
@@ -27,10 +27,10 @@
         <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
       </select>
 
-      <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
+      <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
 
       <button class="btn-clear" (click)="clearSelection('region')">
-        <img class="clear-img" src="../../assets/icones/clear-filter.png" alt="Effacer filtre" height="15" width="15">
+        <img class="clear-img" src="../../assets/icones/clear-filter.png" alt="Effacer filtre" height="15" width="15" loading="lazy">
       </button>
 
     </div>
@@ -44,10 +44,10 @@
           <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
         </select>
 
-      <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24">
+      <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
 
       <button class="btn-clear" (click)="clearSelection('departement')">
-        <img class="clear-img" src="../../assets/icones/clear-filter.png" alt="Effacer filtre" height="15" width="15">
+        <img class="clear-img" src="../../assets/icones/clear-filter.png" alt="Effacer filtre" height="15" width="15" loading="lazy">
       </button>
     
     </div>

@@ -1,16 +1,21 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { NgModule } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { GlobalService } from "../../services/global.service";
+import { Component, ElementRef, EventEmitter, Output, ViewChild, ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
+import { AuthService, AuthState } from "../../services/auth.service";
 import { BatimentService } from '../carte/batiment.service';
 import { Router } from "@angular/router";
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit, OnDestroy {
+
+  currentAuthState: AuthState = AuthState.Visiteur;
+  private authStateSubscription: Subscription;
+  AuthState = AuthState;
+
 
   //Pour le filtre rechercher
   @Output() nomRechercher: EventEmitter<string> = new EventEmitter<string>();
@@ -18,20 +23,32 @@ export class NavbarComponent {
   afficherAucunResultat: boolean = false;
   placeholderText: string = "Rechercher...";
 
-// Utilisez une référence locale pour accéder à l'entrée
+  // Utilisez une référence locale pour accéder à l'entrée
   @ViewChild('rechercheInput') rechercheInput!: ElementRef<HTMLInputElement>;
 
-  constructor(public globalService: GlobalService, 
-              private batimentService: BatimentService, 
-              private router: Router) {
-    this.placeholderText = "Rechercher...";
-    
+  constructor
+  (private authService: AuthService, private batimentService: BatimentService, private router: Router, private cdRef: ChangeDetectorRef) {
+    this.placeholderText = "Rechercher..."; 
+    this.authStateSubscription = new Subscription();
   }
 
   ngOnInit(): void {
     this.getDisplay("filters-window");
     this.getDisplay("menu");
-    this.toggleStatut();
+    this.authStateSubscription = this.authService.authState$.subscribe(
+      (state) => {
+        this.currentAuthState = state;
+        //this.currentAuthState = AuthState.Admin;
+        this.cdRef.detectChanges();
+        console.log("(NavInit) Updated state to:", state);
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    if (this.authStateSubscription) {
+      this.authStateSubscription.unsubscribe();
+    }
   }
 
   // Barre de recherche
@@ -60,7 +77,7 @@ export class NavbarComponent {
     return null;
   }
 
-  toggleStatut() {
+  /*toggleStatut() {
     let connection = this.globalService.isConnected;
     let statut = this.globalService.globalVariable;
 
@@ -98,7 +115,7 @@ export class NavbarComponent {
         btnConnect.style.display = "none";
       }
     }
-  }
+  }*/
 
   toggleFilters() {
     const filtersWindow = document.getElementById("filters-window");
@@ -128,11 +145,8 @@ export class NavbarComponent {
     }
   }
 
-  deconnect() {
-    console.log("Deconnexion...");
-    this.globalService.globalVariable = 0;
-    this.globalService.isConnected = false;
-    this.router.navigate(['../']);
-    console.log("globalVariable: " + this.globalService.globalVariable);
+  deconnexion() {
+    console.log("Déconnexion");
+    this.authService.deconnexion();
   }
 }

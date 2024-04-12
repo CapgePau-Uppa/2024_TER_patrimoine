@@ -63,7 +63,7 @@ img {
 
 /* -------- BOUTON AJOUTER BATIMENT -------- */
 #btn-add-bat {
-  display: none;
+  display: block;
   position: absolute;
   z-index: 2;
   bottom: 60px;

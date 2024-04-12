@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { GlobalService } from "../../services/global.service";
+import { AuthService, AuthState } from "../../services/auth.service";
 import { ConnexionService } from "./connexion.service";
 import { UserDTO } from './user-dto.model';
 import { UserService } from 'src/app/services/user.service';
@@ -20,7 +20,7 @@ export class ConnexionComponent implements OnInit {
   constructor(
     private router: Router,
     private connexionService: ConnexionService,
-    public globalService: GlobalService,
+    public authService: AuthService,
     private userService: UserService
   ) {}
 
@@ -47,21 +47,23 @@ export class ConnexionComponent implements OnInit {
           response => {
             this.role = response.role;
             console.log('Rôle de l\'utilisateur :', this.role); 
+
+            this.authService.login(this.role);
+            console.log("(connexionService) Updated state to:", this.role);
+
+
             if (this.role === 'ADMIN') {
-              this.globalService.globalVariable = 2;
-              this.globalService.isConnected = true;
               this.router.navigate(['../home-admin']);
             } else if (this.role === 'USER') {
-              this.globalService.globalVariable = 1;
-              this.globalService.isConnected = true;
               this.router.navigate(['../']);
             }
+
             // Enregistrer les informations de l'utilisateur connecté
             this.connexionService.getUserByEmail(email).subscribe(
               response => {
                 const utilisateurConnecte: UserDTO = new UserDTO(response.nom, response.prenom, email, '');
                 this.userService.setUser(utilisateurConnecte);
-                console.log(utilisateurConnecte)
+                console.log("utilisateur connecté : ", utilisateurConnecte)
               }, (error) => {
                 console.error('Erreur lors de la récupération du rôle :', error);
               });
@@ -94,10 +96,10 @@ export class ConnexionComponent implements OnInit {
         console.log('Inscription réussie', response);
         const utilisateurConnecte: UserDTO = new UserDTO(nom, prenom, email, '');
         this.userService.setUser(utilisateurConnecte);
-        this.globalService.globalVariable = 1;
-        this.globalService.isConnected = true;
+        this.authService.signupAndLogin(utilisateurConnecte);
         this.router.navigate(['../']);
       },
+
       error => {
         console.error('Erreur lors de l\'inscription', error);
         if (error.error && error.error.error) {

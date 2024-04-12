@@ -6,7 +6,8 @@ import { SuggestionDTO } from './suggestion-dto.model';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { UserDTO } from '../connexion/user-dto.model';
-import { GlobalService } from 'src/app/services/global.service';
+import { AuthService, AuthState } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-add-bat',
@@ -28,7 +29,7 @@ export class AddBatComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder, private addBatService: AddBatService,
-    private router: Router, private userService: UserService, private globalService: GlobalService) { }
+    private router: Router, private userService: UserService, private authService: AuthService) { }
 
     //Formulaire
   ngOnInit(): void {
@@ -84,9 +85,7 @@ export class AddBatComponent implements OnInit {
       this.addBatService.saveSuggestion(suggestion).subscribe(
         (data) => {
           console.log('Suggestion enregistrée avec succès : ', data);
-          alert('Suggestion enregistrée avec succès !');
-          this.globalService.globalVariable = 1;
-          this.globalService.isConnected = true;
+          //alert('Suggestion enregistrée avec succès !');
           this.router.navigate(['../']);
         },
         (error) => {

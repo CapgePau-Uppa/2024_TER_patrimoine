@@ -29,6 +29,7 @@
                   <label for="type">Type :</label>
                   <select id="batType" class="form-control"  formControlName="type">
                     <option *ngFor="let type of types" [value]="type">{{ majuscule(type.toLowerCase()) }}</option>
+                    <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
                   </select>
                 </div>
 
@@ -36,6 +37,7 @@
                     <label for="statut">Statut :</label>
                     <select id="batStatut" class="form-control" formControlName="statut">
                       <option *ngFor="let statut of statuts" [value]="statut">{{ majuscule(statut) }}</option>
+                      <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
                     </select>
                 </div>
             </div>
@@ -126,7 +128,7 @@
     <div class="card4" *ngIf="etapeCourante === 3">
           <div class="grid-container">
             <div class="grid-item img">
-                <img src={{myForm.value.image}} alt="ok">
+                <img src={{myForm.value.image}} alt="ok" loading="lazy">
             </div>
             <div class="grid-item">
               <p>Nom : {{ myForm.value.nomBatiment }}</p>
