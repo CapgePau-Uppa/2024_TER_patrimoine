@@ -2,7 +2,7 @@
 main {
   padding: 40px;
   position: relative;
-  height: 87.6vh;
+  height: 80vh;
   z-index: 1;
 }
 
@@ -28,19 +28,20 @@ h1 {
 
 /* En tete */
 .en-tete {
-  position: absolute;
+  position: flex;
   top: 30px;
   left: 30px;
   right: 30px;
   z-index: 1;
   width: auto;
+  height: auto;
 }
 
 .en-tete h4 {
   font-family: "Roboto", sans-serif;
   color: #262f34;
   text-align: center;
-  margin: 20px 0;
+  margin: 20px 0 0 0;
 }
 
 .etapes {
@@ -48,7 +49,6 @@ h1 {
   text-align: center;
   align-items: center;
   justify-content: center;
-
 }
 
 .etape {
@@ -76,16 +76,12 @@ h1 {
   position: relative;
   justify-content: center;
   width: 100%;
-  height: 75vh;
+  height: auto;
   padding: 30px;
   border-radius: 20px;
   background-color: #f6f5f7;
   color: #262f34;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.card1, .card2, .card3, .card4{
-  margin: 150px 0 100px 0;
 }
 
 
@@ -94,6 +90,7 @@ h1 {
   display: grid;
   grid-template-columns: 1fr 1fr; 
   gap: 30px; 
+  margin: 40px 0 30px 0;
 }
 
 .grid-item.img{
@@ -107,13 +104,43 @@ h1 {
 .inputs{
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 }
 
-label, p {
+.dropdown{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: fit-content;
+  margin-bottom: 20px;
+}
+
+.radio-input{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  vertical-align: middle;
+  margin-bottom: 20px;
+}
+
+#adresse, #lat, #lon {
+  width: 100%;
+}
+
+#lon {
+  margin-left: 22px;
+  width: 96%;
+}
+
+::placeholder, p, label {
   font-size: 19px;
   font-family: "Roboto", sans-serif;
   color: #262f34;
   margin-left: 10px;
+}
+
+label {
+  margin-bottom: 10px;
 }
 
 input, select, textarea {
@@ -125,17 +152,13 @@ input, select, textarea {
 }
 
 #batDescription {
-  height: 240px;
+  height: 225px;
 }
 
 .radio-btn-label {
   display: flex;
   flex-direction: row;
   margin-bottom: -4px;
-}
-
-#lat {
-  margin-bottom: 38px;
 }
 
 
@@ -147,13 +170,14 @@ input, select, textarea {
 
 /* buttons */
 .button-container {
-  position: absolute;
+  position: flex;
   bottom: 30px;
   right: 30px;
   left: 30px;
   display: flex;
   justify-content: space-between;
   width: auto;
+  height: auto;
 }
 
 #valider-e1 {
@@ -164,21 +188,18 @@ input, select, textarea {
 
 
 /* images */
-.img {
+.image-btn-container {
   display: flex;
   flex-direction: column; 
   justify-content: center; 
   align-items: center;
   height: 100%;
+  margin: 40px 0 30px 0;
 }
 
-#image {
-  margin-top: 20px;
-}
-
-.img img{
+#show-img {
   width: 90%;
-  height: 100%;
+  height: 90%;
   border-radius: 10px;
 }
 

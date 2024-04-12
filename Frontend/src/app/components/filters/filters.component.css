@@ -22,13 +22,6 @@ h1 {
   margin-bottom: 20px;
 }
 
-label {
-  font-size: 19px;
-  font-family: "Roboto", sans-serif;
-  color: #262f34;
-  margin-left: 10px;
-}
-
 select {
   color: #262f34;
   border: 2px solid #262f34;
@@ -61,10 +54,9 @@ select {
 
 .button-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding-top: 30px;
-  margin: 0 20% 0 20%;
+  padding: 30px 30px 0 30px;
 }
 
 

@@ -7,8 +7,8 @@
         <form (ngSubmit)="valider()">
           <h3>Connexion</h3>
 
-          <input type="email" placeholder="Email" [(ngModel)]="model.email" name="email" required />
-          <input type="password" placeholder="Password" [(ngModel)]="model.mdp" name="mdp" required />
+          <input type="email" placeholder="Adresse mail" [(ngModel)]="model.email" name="email" required />
+          <input type="password" placeholder="Mot de passe" [(ngModel)]="model.mdp" name="mdp" required />
           <p class="message" *ngIf="model.message">{{ model.message }}</p>
 
           <app-button type="submit" text="Se connecter" [buttonClass]="'btn-blue'"></app-button>

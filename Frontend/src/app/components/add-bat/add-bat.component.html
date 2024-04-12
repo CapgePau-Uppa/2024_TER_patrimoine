@@ -21,31 +21,29 @@
         <div class="grid-container">
             <div class="grid-item">
                 <div class="inputs">
-                    <label for="nomBatiment">Nom :</label>
-                    <input type="text" id="batName" formControlName="nomBatiment">
+                    <input type="text" id="batName" formControlName="nomBatiment" placeholder="Nom du bâtiment">
                 </div>
 
-                <div class="inputs">
-                  <label for="type">Type :</label>
-                  <select id="batType" class="form-control"  formControlName="type">
+                <div class="dropdown">
+                  <select id="batType" class="form-control" formControlName="type">
+                    <option class="placeholder" value="" disabled selected>Type du bâtiment</option>
                     <option *ngFor="let type of types" [value]="type">{{ majuscule(type.toLowerCase()) }}</option>
-                    <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
                   </select>
+                  <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
                 </div>
 
-                <div class="inputs">
-                    <label for="statut">Statut :</label>
+                <div class="dropdown">
                     <select id="batStatut" class="form-control" formControlName="statut">
+                      <option class="placeholder" value="" disabled selected>Statut du bâtiment</option>
                       <option *ngFor="let statut of statuts" [value]="statut">{{ majuscule(statut) }}</option>
-                      <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
                     </select>
+                    <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
                 </div>
             </div>
 
             <div class="grid-item">
                 <div class="inputs">
-                    <label for="description" >Description : </label>
-                    <textarea name="description" id="batDescription" formControlName="description" cols="30" rows="9"></textarea>
+                    <textarea name="description" id="batDescription" formControlName="description" cols="30" rows="9" placeholder="Description"></textarea>
                 </div>
             </div>
         </div>
@@ -60,45 +58,44 @@
     <div class="card2" *ngIf="etapeCourante === 1">
         <div class="grid-container">
           <div class="grid-item">
-              <div class="inputs">
-                  <label for="region" >Région :</label>
+              <div class="dropdown">
                   <select id="batRegion" class="form-control" formControlName="region">
+                    <option class="placeholder" value="" disabled selected>Région du bâtiment</option>
                     <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
                   </select>
+                  <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
               </div>
 
-              <div class="inputs">
-                  <label for="departement" >Département : </label>
+              <div class="dropdown">
                   <select  id="batDepartement" class="form-control" formControlName="departement">
+                    <option class="placeholder" value="" disabled selected>Département du bâtiment</option>
                     <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
                   </select>
+                  <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
               </div>
 
-              <div class="inputs">
-                  <label for="commune">Commune :</label>
+              <div class="dropdown">
                   <select id="batCommune" class="form-control" formControlName="commune">
+                    <option class="placeholder" value="" disabled selected>Commune du bâtiment</option>
                     <option *ngFor="let commune of communes" [value]="commune">{{ commune }}</option>
                   </select>
+                  <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
               </div>
           </div>
 
           <div class="grid-item">
 
-            <div class="inputs" id="addresse">
-              <div class="radio-btn-label">
-                <input class="radio-btn" type="radio" value="adresse" formControlName="checkboxStatus" (change)="getCoordinates()">
-                <label for="adresse">Adresse :</label>
-              </div>
-              <input #adresse formControlName="adresse" type="text" name="adresse" id="adresse">
+            <div class="radio-input" id="addresse">
+              <input class="radio-btn" type="radio" value="adresse" formControlName="checkboxStatus" (change)="getCoordinates()">
+              <input #adresse formControlName="adresse" type="text" name="adresse" id="adresse" placeholder="Adresse">
             </div>
 
-            <div class="inputs" id="coord">
-              <div class="radio-btn-label">
-                <input class="radio-btn" type="radio" value="coord" formControlName="checkboxStatus" (change)="getCoordinates()">
-                <label for="coord" >Coordonnées :</label>
-              </div>
+            <div class="radio-input" id="coord">
+              <input class="radio-btn" type="radio" value="coord" formControlName="checkboxStatus" (change)="getCoordinates()">
+              <input #lat formControlName="lat" type="text" name="lat" id="lat" placeholder="Latitude">
+            </div> 
 
-              <input #lat formControlName="lat" type="text" name="lat" id="lat" placeholder="Latitude"  >
+            <div class="inputs">
               <input #lon formControlName="lon" type="text" name="lon" id="lon" placeholder="Longitude">
             </div>
 
@@ -113,9 +110,9 @@
 
     <!-- ETAPE 3 -->
     <div class="card3" *ngIf="etapeCourante === 2">
-        <div class="img">
+        <div class="image-btn-container">
           <label for="image">Ajouter une image :</label>
-          <app-button name="image" id="image" text="Ajouter une image" [buttonClass]="'btn-light'"></app-button>
+          <app-button name="image" id="image-btn" text="Ajouter une image" [buttonClass]="'btn-light'"></app-button>
         </div>
 
         <div class="button-container">
@@ -127,9 +124,10 @@
     <!-- ETAPE 4 -->
     <div class="card4" *ngIf="etapeCourante === 3">
           <div class="grid-container">
-            <div class="grid-item img">
-                <img src={{myForm.value.image}} alt="ok" loading="lazy">
+            <div class="grid-item">
+                <img id="show-img" src={{myForm.value.image}} alt="ok" loading="lazy">
             </div>
+            
             <div class="grid-item">
               <p>Nom : {{ myForm.value.nomBatiment }}</p>
               <p>Type : {{ myForm.value.type }}</p>

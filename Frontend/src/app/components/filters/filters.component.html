@@ -4,9 +4,9 @@
 
   <!-- Building type dropdown -->
   <div class="form-group">
-    <label for="buildingType">Rechercher par type</label>
     <div class="dropdown">
       <select id="buildingType" class="form-control" [(ngModel)]="selectedType" (change)="onTypeSelected()">
+        <option class="placeholder" value="" disabled selected>Rechercher par type</option>
         <option *ngFor="let type of types" [value]="type">{{ majuscule(type.toLowerCase()) }}</option>
       </select>
 
@@ -21,9 +21,9 @@
 
   <!-- Region dropdown -->
   <div class="form-group">
-    <label for="region">Rechercher par région</label>
     <div class="dropdown">
       <select id="region" class="form-control" [(ngModel)]="selectedRegion" (change)="onRegionSelected()">
+        <option class="placeholder" value="" disabled selected>Rechercher par région</option>
         <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
       </select>
 
@@ -38,9 +38,9 @@
 
   <!-- Departement dropdown -->
   <div class="form-group">
-    <label for="departement">Rechercher par département</label>
     <div class="dropdown">
         <select id="departement" class="form-control" [(ngModel)]="selectedDepartement" (change)="onDepartementSelected()">
+          <option class="placeholder" value="" disabled selected>Rechercher par département</option>
           <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
         </select>
 
@@ -56,6 +56,7 @@
 
   <div class="button-container">
     <app-button text="Annuler" [buttonClass]="'btn-light'" (click)="clearSelection('all')"></app-button>
+    <app-button text="Appliquer" [buttonClass]="'btn-blue'"></app-button>
   </div>
 
 </div>
