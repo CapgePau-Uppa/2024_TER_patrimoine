@@ -5,18 +5,20 @@
 <main>
 
   <aside>
-    <h1>Suggestions</h1>
+    <a (click)="switchToSuggestion()">Suggestion</a>
+    <a (click)="switchToHistorique()">Historique</a>
     <div *ngFor="let building of buildings">
       <app-suggestion [batName]="building.nomBatiment"
                       [ngClass]="{'selected': building === buildingInfo}"
-                      (click)="building?.id && getBuildingInformation(building.id)"></app-suggestion>
+                      (click)="building?.id && getBuildingInformation(building.id)">
+      </app-suggestion>
     </div>
   </aside>
 
+  
   <div id="container">
-
     <div id="information" *ngIf="buildingInfo">
-      <p>Suggestion de : {{ buildingInfo.nomUser }} {{ buildingInfo.prenomUser }}</p>
+      <p>Suggestion de : {{ buildingInfo.nomUser }} {{ buildingInfo.prenomUser }} {{buildingInfo.dateCreation}}</p>
 
       <div class="grid-container" [class.disabled]="!modificationActive">
         <div class="grid-item image">
@@ -91,31 +93,50 @@
 
 
     </div>
-
-    <div id="buttons">
-      <div class="option">
-        <app-button [buttonClass]="'btn-blue'" (click)="valider()">
-          <img src="../assets/icones/valider.png" alt="Modifier" loading="lazy">
-        </app-button>
-        <p>Valider</p>
+    <div *ngIf="isSuggestionView"> 
+      <div id="buttons">
+        <div class="option">
+          <app-button [buttonClass]="'btn-blue'" (click)="valider()">
+            <img src="../assets/icones/valider.png" alt="Modifier" loading="lazy">
+          </app-button>
+          <p>Valider</p>
+        </div>
+    
+        <div class="option">
+          <app-button [buttonClass]="'btn-blue'" (click)="modifier()">
+            <img src="../assets/icones/modifier.png" alt="Modifier" loading="lazy">
+          </app-button>
+          <p>Modifier</p>
+        </div>
+    
+        <div class="option">
+          <app-button [buttonClass]="'btn-blue'" (click)="buildingInfo && supprimer(buildingInfo.id)">
+            <img src="../assets/icones/annuler.png" alt="Annuler" loading="lazy">
+          </app-button>
+          <p>Supprimer</p>
+        </div>
       </div>
-  
+    </div>
+    <div *ngIf="!isSuggestionView">
       <div class="option">
-        <app-button [buttonClass]="'btn-blue'" (click)="modifier()">
-          <img src="../assets/icones/modifier.png" alt="Modifier" loading="lazy">
+        <app-button [buttonClass]="'btn-blue'" (click)="restaurer()">
+          <img src="../assets/icones/modifier.png" alt="Restaurer" loading="lazy">
         </app-button>
-        <p>Modifier</p>
-      </div>
-  
-      <div class="option">
-        <app-button [buttonClass]="'btn-blue'" (click)="buildingInfo && supprimer(buildingInfo.id)">
-          <img src="../assets/icones/annuler.png" alt="Annuler" loading="lazy">
-        </app-button>
-        <p>Supprimer</p>
+        <p>Restaurer</p>
       </div>
     </div>
   </div>
 
-  
+
+<!--
+<div *ngIf="!isSuggestionView">
+  <div id="container">
+    <div id="information" *ngIf="buildingInfo">
+      <p>Suggestion de : {{ buildingInfo.nomUser }} {{ buildingInfo.prenomUser }} {{buildingInfo.dateCreation}}</p>
+    </div>
+  </div>
+</div>
+
+-->
 
 </main>

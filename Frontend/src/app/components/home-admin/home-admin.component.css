@@ -155,3 +155,13 @@ h1 {
   width: 100px;
   margin-right: 10px;
 }
+
+.bouton-aside{
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+}
+.bouton-aside a{
+  margin: 10px;
+  cursor: pointer;
+}

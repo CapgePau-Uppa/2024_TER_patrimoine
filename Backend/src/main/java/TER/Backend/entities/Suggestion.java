@@ -28,8 +28,6 @@ public class Suggestion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = true)
-    private String reference;
-    @Column(nullable = true)
     private String nomBatiment;
     @Column(nullable = true)
     private String type;
@@ -74,10 +72,8 @@ public class Suggestion {
     @Column(nullable = true)
     private String emailAdmin;
 
-    public Suggestion(LocalDateTime dateCreation, EtatSuggestion etat, String reference) {
+    public Suggestion(LocalDateTime dateCreation) {
         this.dateCreation = LocalDateTime.now();
-        this.etat = EtatSuggestion.EN_ATTENTE;
-        this.reference = "PS000"+ this.id;
     }
 
     @PrePersist

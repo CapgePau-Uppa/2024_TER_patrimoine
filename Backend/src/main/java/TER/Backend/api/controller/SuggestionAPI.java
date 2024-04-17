@@ -86,24 +86,24 @@ public class SuggestionAPI {
     /*Historique */
 
     // Get all suggestions validées ou en attente
-    @GetMapping("/historique")
+    @GetMapping("/historique/all-suggestions")
     public List<SuggestionDTO> getAllValideeSuggestions() {
         return suggestionService.getAllSuggestionsByEtat(EtatSuggestion.VALIDEE);
     }
 
 
     // Modifier une suggestion pour la mettre dans l'historique
-    @PutMapping("/historique/{id}")
-    public ResponseEntity<?> updateSuggestion(@PathVariable Long id,
+    @PutMapping("/historique/validation-suggestion")
+    public ResponseEntity<?> updateSuggestion(@RequestParam Long id,
                                               @RequestParam String emailAdmin) {
         suggestionService.updateSuggestion(id, emailAdmin);
         return ResponseEntity.ok().build();
     }
 
-    // Restore une suggestion de l'historique
+    // Restaurer une suggestion de l'historique
 
-    @PutMapping("/restore/{id}")
-    public ResponseEntity<?> restoreSuggestion(@PathVariable Long id) {
+    @PutMapping("/historique/restauration-suggestion")
+    public ResponseEntity<?> restoreSuggestion(@RequestParam Long id) {
         suggestionService.restoreSuggestion(id);
         return ResponseEntity.ok().build();
     }

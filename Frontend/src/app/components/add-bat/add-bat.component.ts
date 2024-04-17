@@ -74,13 +74,11 @@ export class AddBatComponent implements OnInit {
 
   }
 
-
-  
-
   majuscule(word: string): string {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
   
+  // Enregistrement de la suggestion
   onSubmit(): void {
     if (this.myForm.valid) {
       const suggestion: SuggestionDTO = this.myForm.value;
@@ -101,7 +99,7 @@ export class AddBatComponent implements OnInit {
   }
   
 
-
+  // Récupération des coordonnées de l'utilisateur
   getCoordinates(): void {
     const inputElement = this.latInputElement.nativeElement;
     const inputElement2 = this.lonInputElement.nativeElement;
@@ -149,8 +147,6 @@ export class AddBatComponent implements OnInit {
   // Etape
   etapeCourante: number = 0;
   etapesTitre: string[] = ['Informations', 'Lieu', 'Image(s)', 'Validation'];
-
-
   afficherEtape(etapeIndex: number) {
     this.etapeCourante = etapeIndex;
     
@@ -168,6 +164,8 @@ export class AddBatComponent implements OnInit {
     }
   }
 
+  /*Méthodes pour les listes de département et region */
+  // Chargement des départements en fonction de la région sélectionnée
   onRegionChange(event: Event): void {
     let target = event.target as HTMLSelectElement; 
     let region = target.value; 
@@ -181,7 +179,7 @@ export class AddBatComponent implements OnInit {
     });
   }
   
-
+  // Chargement des communes en fonction du département sélectionné
   onDepartementChange(event: Event): void {
     let target = event.target as HTMLSelectElement;
     let departement = target.value; 

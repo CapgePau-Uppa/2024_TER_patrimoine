@@ -39,6 +39,7 @@ public class SuggestionService {
 
     // Save suggestion
     public Suggestion saveSuggestion(Suggestion suggestion) {
+        suggestion.setEtat(EtatSuggestion.EN_ATTENTE);
         return suggestionRepository.save(suggestion);
     }
 
@@ -119,7 +120,7 @@ public class SuggestionService {
         
         // Créer le Batiment
         Batiment batiment = new Batiment();
-        batiment.setReference(suggestion.getReference());
+        batiment.setReference("PS000"+suggestion.getId());
         batiment.setNom(suggestion.getNomBatiment());
         batiment.setType(suggestion.getType());
         batiment.setStatut(suggestion.getStatut());

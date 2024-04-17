@@ -15,6 +15,8 @@ export interface SuggestionDTO {
     emailUser: string;
     description: string;
     image: string;
+    etat: string;
+    emailAdmin: string;
     dateCreation: Date;
   
   }
