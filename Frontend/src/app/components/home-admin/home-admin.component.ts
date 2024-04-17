@@ -85,8 +85,20 @@ export class HomeAdminComponent implements OnInit{
       modificationActive: boolean = false;
 
       modifier() {
-        // enlever la classe 'disabled' des champs
+        // Pour enlever la classe 'disabled' des champs
         this.modificationActive = !this.modificationActive;
+      }
+      onRegionChange(region: string): void {
+        // Chargement des départements en fonction de la région sélectionnée
+        this.addBatService.getAllDepartementsByRegion(region).subscribe(departements => {
+          this.departements = departements;
+        });
+      }
+      onDepartementChange(departement: string): void {
+        // Chargement des communes en fonction du département sélectionné
+        this.addBatService.getAllCommunesByDepartement(departement).subscribe(communes => {
+          this.communes = communes;
+        });
       }
 
       
@@ -101,7 +113,7 @@ export class HomeAdminComponent implements OnInit{
     }
 
     etapeSuivante() {
-      if (this.etapeCourante < 2) {
+      if (this.etapeCourante < 1) {
         this.etapeCourante++;
       }
     }

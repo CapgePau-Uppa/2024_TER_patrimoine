@@ -133,6 +133,9 @@ public class BatimentService {
     public List<String> findAllCommunes() {
         return batimentRepository.findDistinctCommunes();
     }
+    public List<String> getCommunesByDepartement(String departement) {
+        return lieuRepository.findDistinctCommunesByDepartement(departement);
+    }
 
     public List<BatimentDTO> getBatimentsByCommune(String commune) {
         List<Batiment> batiments = batimentRepository.findByCommune(commune);
@@ -145,6 +148,9 @@ public class BatimentService {
     public List<String> findAllDepartements() {
         return batimentRepository.findDistinctDepartements();
     }
+    public List<String> getDepartementsByRegion(String region) {
+        return lieuRepository.findDistinctDepartementsByRegion(region);
+    }
 
     public List<BatimentDTO> getBatimentsByDepartement(String dep) {
         List<Batiment> batiments = batimentRepository.findByDepartement(dep);
@@ -152,6 +158,8 @@ public class BatimentService {
                         .map(batiment -> new BatimentDTO(batiment))
                         .collect(Collectors.toList());
     }
+
+
 
     //recuperation liste statuts des batiments
     public List<String> findAllStatuts() {

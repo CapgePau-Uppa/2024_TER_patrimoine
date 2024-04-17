@@ -97,6 +97,11 @@ public class BatimentAPI {
         
     }
 
+    @GetMapping("/communes-par-departement")
+    public List<String> getCommunesByDepartement(@RequestParam("departement") String dep) {
+        return batimentService.getCommunesByDepartement(dep);
+    }
+
     @GetMapping("/batiments-par-commune")
     public List<BatimentDTO> getBatimentsByCommune(@RequestParam("commune") String commune) {
         return batimentService.getBatimentsByCommune(commune);
@@ -117,6 +122,10 @@ public class BatimentAPI {
     public List<String> getAllDepartements() {
         return batimentService.findAllDepartements();
         
+    }
+    @GetMapping("/departements-par-region")
+    public List<String> getDepartementsByRegion(@RequestParam("region") String region) {
+        return batimentService.getDepartementsByRegion(region);
     }
 
     @GetMapping("/batiments-par-departement")

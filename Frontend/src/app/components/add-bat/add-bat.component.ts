@@ -22,6 +22,8 @@ export class AddBatComponent implements OnInit {
   departements!: string[];
   communes!: string[];
   utilisateurConnecte!: UserDTO;
+  departementsEnabled: boolean = false;
+  communesEnabled: boolean = false;
 
   @ViewChild('lat') latInputElement!: ElementRef<HTMLInputElement>;
   @ViewChild('lon') lonInputElement!: ElementRef<HTMLInputElement>;
@@ -63,8 +65,8 @@ export class AddBatComponent implements OnInit {
     this.addBatService.getAllTypes().subscribe(types => this.types = types.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })).slice(5));
     this.addBatService.getAllStatuts().subscribe(statuts => this.statuts = statuts.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
     this.addBatService.getAllRegions().subscribe(regions => this.regions = regions.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
-    this.addBatService.getAllDepartements().subscribe(departements => this.departements = departements.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
-    this.addBatService.getAllCommunes().subscribe(communes => this.communes = communes.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
+    //this.addBatService.getAllDepartements().subscribe(departements => this.departements = departements.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
+    //this.addBatService.getAllCommunes().subscribe(communes => this.communes = communes.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
     
  
     console.log("Avant l'appel à getCoordinates()");
@@ -144,8 +146,6 @@ export class AddBatComponent implements OnInit {
     }
     
   }
-
-  /*New modif */
   // Etape
   etapeCourante: number = 0;
   etapesTitre: string[] = ['Informations', 'Lieu', 'Image(s)', 'Validation'];
@@ -166,5 +166,29 @@ export class AddBatComponent implements OnInit {
     if (this.etapeCourante > 0) {
       this.etapeCourante--;
     }
+  }
+
+  onRegionChange(event: Event): void {
+    let target = event.target as HTMLSelectElement; 
+    let region = target.value; 
+    this.addBatService.getAllDepartementsByRegion(region).subscribe(departements => {
+      this.departements = departements;
+      this.departementsEnabled = true;
+      this.myForm.get('departement')?.reset('');
+      this.myForm.get('commune')?.reset('');
+      this.communes = [];
+      this.communesEnabled = false;
+    });
+  }
+  
+
+  onDepartementChange(event: Event): void {
+    let target = event.target as HTMLSelectElement;
+    let departement = target.value; 
+    this.addBatService.getAllCommunesByDepartement(departement).subscribe(communes => {
+      this.communes = communes;
+      this.communesEnabled = true;
+      this.myForm.get('commune')?.reset('');
+    });
   }
 }

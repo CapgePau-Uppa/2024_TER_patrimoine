@@ -58,30 +58,31 @@
     <div class="card2" *ngIf="etapeCourante === 1">
         <div class="grid-container">
           <div class="grid-item">
-              <div class="dropdown">
-                  <select id="batRegion" class="form-control" formControlName="region">
-                    <option class="placeholder" value="" disabled selected>Région du bâtiment</option>
-                    <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
-                  </select>
-                  <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
-              </div>
-
-              <div class="dropdown">
-                  <select  id="batDepartement" class="form-control" formControlName="departement">
-                    <option class="placeholder" value="" disabled selected>Département du bâtiment</option>
-                    <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
-                  </select>
-                  <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
-              </div>
-
-              <div class="dropdown">
-                  <select id="batCommune" class="form-control" formControlName="commune">
-                    <option class="placeholder" value="" disabled selected>Commune du bâtiment</option>
-                    <option *ngFor="let commune of communes" [value]="commune">{{ commune }}</option>
-                  </select>
-                  <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
-              </div>
+            <div class="dropdown">
+              <select id="batRegion" class="form-control" formControlName="region" (change)="onRegionChange($event)">
+                <option class="placeholder" value="" selected>Région du bâtiment</option>
+                <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+              </select>
+              <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
+            </div>
+          
+            <div class="dropdown">
+              <select  id="batDepartement" class="form-control" formControlName="departement" [disabled]="!departementsEnabled" (change)="onDepartementChange($event)">
+                <option class="placeholder" value="" selected>Département du bâtiment</option>
+                <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
+              </select>
+              <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
+            </div>
+          
+            <div class="dropdown">
+              <select id="batCommune" class="form-control" formControlName="commune" [disabled]="!communesEnabled">
+                <option class="placeholder" value="" selected>Commune du bâtiment</option>
+                <option *ngFor="let commune of communes" [value]="commune">{{ commune }}</option>
+              </select>
+              <img class="drop-arrow" ngSrc='../../assets/icones/arrow.png' alt="Fleche" height="24" width="24" loading="lazy">
+            </div>
           </div>
+          
 
           <div class="grid-item">
 

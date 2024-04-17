@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import TER.Backend.api.dto.SuggestionDTO;
 import TER.Backend.entities.Batiment;
 import TER.Backend.entities.Suggestion;
+import TER.Backend.repository.LieuRepository;
 import TER.Backend.repository.SuggestionsRepository;
 import TER.Backend.security.entity.User;
 import TER.Backend.security.service.UserService;
@@ -38,6 +39,7 @@ public class BackendApplication{ //implements CommandLineRunner
         BatimentService batimentService = context.getBean(BatimentService.class);
         SuggestionService suggestionService = context.getBean(SuggestionService.class);
         SuggestionsRepository suggestionsRepository = context.getBean(SuggestionsRepository.class);
+        LieuRepository lieuRepository = context.getBean(LieuRepository.class);
         boolean ok=true;
         Scanner scanner = new Scanner(System.in);
 
@@ -59,7 +61,7 @@ public class BackendApplication{ //implements CommandLineRunner
                     deleteSuggestion(batimentService);
                     break;
                 case 3:
-                    getAllSuggestions(scanner,suggestionService, suggestionsRepository);
+                    getAllSuggestions(scanner, lieuRepository);
                     break;
                 case 4:
                     getSuggestionById(scanner, suggestionService);
@@ -92,16 +94,17 @@ public class BackendApplication{ //implements CommandLineRunner
         System.out.println(suggestionService.getSuggestionById(id));
     }
 
-    private static void getAllSuggestions(Scanner scanner,SuggestionService suggestionService, SuggestionsRepository suggestionsRepository) {
-        System.out.println("Liste des suggestions : ");
-        List<Suggestion> suggestions= suggestionsRepository.findAll();
-        suggestions.forEach(System.out::println);
-        System.out.println("choissisez une suggestion");
-        int nbr = scanner.nextInt();
-        scanner.nextLine();
-        Suggestion suggestionToTest = suggestions.get(nbr);
-        suggestionService.saveSuggestionAsBatiment(suggestionToTest);
-        System.out.println("Suggestion enregistrée comme bâtiment avec succès !" + suggestionToTest);
+    private static void getAllSuggestions(Scanner scanner, LieuRepository lieuRepository) {
+        System.out.println("Veuillez entrer une région : ");
+        String region = scanner.nextLine();
+
+        List<String> departements = lieuRepository.findDistinctDepartementsByRegion(region);
+        int nbr = departements.size();
+        System.out.println("Départements pour la région " + region + " : ");
+        for (String departement : departements) {
+            System.out.println(departement);
+        }
+        System.out.println("Nombre de départements : " + nbr);
 
     }
 

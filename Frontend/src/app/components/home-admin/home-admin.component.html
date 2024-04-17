@@ -54,14 +54,14 @@
     <div class="grid-item" *ngIf="etapeCourante === 1">
       <div class="form">
         <label for="region">Région</label>
-        <select id="batRegion" class="form-control" [(ngModel)]="buildingInfo.region" [disabled]="!modificationActive">
+        <select id="batRegion" class="form-control" [(ngModel)]="buildingInfo.region" [disabled]="!modificationActive" (change)="onRegionChange(buildingInfo.region)">
           <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
         </select>
       </div>
 
       <div class="form">
         <label for="departement">Département</label>
-        <select  id="batDepartement" class="form-control" [(ngModel)]="buildingInfo.departement" [disabled]="!modificationActive">
+        <select  id="batDepartement" class="form-control" [(ngModel)]="buildingInfo.departement" [disabled]="!modificationActive" (change)="onDepartementChange(buildingInfo.departement)">
           <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
         </select>
       </div>

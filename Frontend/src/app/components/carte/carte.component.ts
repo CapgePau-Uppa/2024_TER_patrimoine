@@ -144,7 +144,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
       maxBounds: franceBounds, // Maximum on vois la france
       maxBoundsViscosity: 1.0, 
       zoomSnap: 0.1, 
-      minZoom: 6, 
+      minZoom: 5.5, 
       maxZoom: 19 
     }).fitBounds(franceBounds); 
 
@@ -208,12 +208,14 @@ export class CarteComponent implements AfterViewInit, OnInit{
         let marker = L.marker([department.lat, department.lon], { icon: customIcon }).addTo(this.map!);
         marker.on('click', () => {
           this.showBuildingsByDepartment(department.departement);
+          this.zoomToDepartment(marker);
           if (this.previousDepartmentMarker) {
             this.map!.addLayer(this.previousDepartmentMarker);
           }
-          this.map!.removeLayer(marker);
+          console.log("Marker"+marker);
+          console.log("Marker coordinates: ", marker.getLatLng());
+          this.map!.removeLayer(marker); //Ne repond pas
           this.previousDepartmentMarker = marker;
-          this.zoomToDepartment(marker);
         });
         this.departmentMarkers.push(marker);
       });
