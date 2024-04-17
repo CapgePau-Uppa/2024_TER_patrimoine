@@ -129,6 +129,7 @@ public class SuggestionService {
         batiment.setEtoile(0);
         batiment.setLieu(lieu);
         batiment.setCoordonnees(coordonnees);
+        batiment.setSuggestion(suggestion);
 
         batimentRepository.save(batiment);
     }
