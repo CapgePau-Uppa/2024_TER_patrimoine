@@ -39,14 +39,15 @@ export class FiltersComponent implements OnInit{
         break;
     }
   }
+
   regions: string[] = [];
   departements: string[] = []; 
   types: string[] = [];
+
   // event emitter pour envoyer les valeurs sélectionnées
   @Output() typeSelected: EventEmitter<string> = new EventEmitter<string>();
   @Output() departementSelected: EventEmitter<string> = new EventEmitter<string>();
   @Output() regionSelected: EventEmitter<string> = new EventEmitter<string>();
-
 
   selectedRegion: string = '';
   selectedDepartement: string = '';
@@ -56,7 +57,6 @@ export class FiltersComponent implements OnInit{
 
   ngOnInit(): void {
     this.filterService.getAllTypes().subscribe(types => this.types = types.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })).slice(5));
-    
     this.filterService.getAllRegions().subscribe(regions => this.regions = regions.sort());
     this.filterService.getAllDepartements().subscribe(departements => this.departements = departements.sort());
   }
@@ -78,6 +78,13 @@ export class FiltersComponent implements OnInit{
 
   onRegionSelected(): void {
       this.batimentService.setSelectedRegion(this.selectedRegion);
+  }
+
+  valider() {
+    this.onTypeSelected();
+    this.onDepartementSelected();
+    this.onRegionSelected();
+    this.hideFilters();
   }
 
   

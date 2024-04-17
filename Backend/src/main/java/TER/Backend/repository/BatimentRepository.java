@@ -70,7 +70,8 @@ public interface BatimentRepository extends JpaRepository<Batiment, Long> {
     List<String> findDistinctStatut();
     //Affichage des marqueurs sur la carte par département
     //@Query("SELECT l.departement, COUNT(b), MIN(c.lat), MIN(c.lon) FROM Batiment b JOIN b.lieu l JOIN b.coordonnees c GROUP BY l.departement")
-    @Query("SELECT l.departement, COUNT(b.id), c.lat, c.lon FROM Batiment b " +
+    //@Query("SELECT l.departement, COUNT(b.id), c.lat, c.lon FROM Batiment b " +
+    @Query("SELECT l.departement, COUNT(b.id), AVG(c.lat), AVG(c.lon) FROM Batiment b " +
        "JOIN b.lieu l " +
        "JOIN b.coordonnees c " +
        "GROUP BY l.departement")

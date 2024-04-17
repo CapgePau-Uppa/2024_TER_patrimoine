@@ -235,10 +235,11 @@ export class CarteComponent implements AfterViewInit, OnInit{
     this.map!.setView(marker.getLatLng(), 10);
   }
 
-  /*// Zoomer sur le bâtiment
-  private zoomToBatiment(marker: any): void {
-    this.map!.setView(marker.getLatLng(), 10);
-  }*/
+  // Zoomer sur le bâtiment
+  private zoomToBatiment(batLat: any, batLon: any): void {
+    console.log("zoom to building");
+    this.map!.setView([batLat, batLon], 20);
+  }
 
   // Tous les batiments
   loadBatiments(): void {
@@ -256,15 +257,17 @@ export class CarteComponent implements AfterViewInit, OnInit{
     this.batimentService.getBatimentsByType(selectedType).subscribe(data => {
       this.batiments = data;
       console.log(this.batiments);
-      console.log(selectedType);
       this.addMarkers();
+      console.log(selectedType);
+
+      if (this.batiments.length == 1) {
+        this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
+      }
+      else {
+        this.map!.setZoom(6);
+      }
     });
-    
     this.hideFilters();
-    // Zoomer en arrière    
-    this.map!.setZoom(6);
-
-
   }
 
   // Filtre par type et region
@@ -277,10 +280,15 @@ export class CarteComponent implements AfterViewInit, OnInit{
       console.log(selectedType);
       console.log(selectedRegion);
       this.addMarkers();
+
+      if (this.batiments.length == 1) {
+        this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
+      }
+      else {
+        this.map!.setZoom(6);
+      }
     });
     this.hideFilters();
-    // Zoomer en arrière    
-    this.map!.setZoom(6);
 
   }
 
@@ -294,10 +302,15 @@ export class CarteComponent implements AfterViewInit, OnInit{
       console.log(selectedType);
       console.log(selectedDepartement);
       this.addMarkers();
+
+      if (this.batiments.length == 1) {
+        this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
+      }
+      else {
+        this.map!.setZoom(6);
+      }
     });
     this.hideFilters();
-    // Zoomer en arrière    
-    this.map!.setZoom(6);
 
   }
 
@@ -310,10 +323,15 @@ export class CarteComponent implements AfterViewInit, OnInit{
       console.log(this.batiments);
       console.log(selectedDepartement);
       this.addMarkers();
+
+      if (this.batiments.length == 1) {
+        this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
+      }
+      else {
+        this.map!.setZoom(6);
+      }
     });
     this.hideFilters();
-    // Zoomer en arrière
-    this.map!.setZoom(6);
 
   }
 
@@ -326,12 +344,15 @@ export class CarteComponent implements AfterViewInit, OnInit{
       console.log(this.batiments);
       console.log(selectedRegion);
       this.addMarkers();
+
+      if (this.batiments.length == 1) {
+        this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
+      }
+      else {
+        this.map!.setZoom(6);
+      }
     });
     this.hideFilters();
-    // Zoomer en arrière    
-    this.map!.setZoom(6);
-
-
   }
 
   // Filtre par nom
@@ -350,13 +371,16 @@ export class CarteComponent implements AfterViewInit, OnInit{
         console.log("Aucun résultat trouvé");
       } else {
         var aucunResultat =false;
-        this.batimentService.setAfficherAucunResultat(aucunResultat);
         this.addMarkers();
+
+        if (this.batiments.length == 1) {
+        this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
+        }
+        else {
+          this.map!.setZoom(6);
+        }
       }
     });
-    // Zoomer en arrière
-    this.map!.setZoom(6);
-
   }
 
   // Cacher la fenêtre des filtres
@@ -390,6 +414,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
       //Tooltip
       marker.on('click', () => {
         marker.openPopup();
+        this.zoomToBatiment(batiment.lat, batiment.lon);
       });
 
       marker.on('mouseover', () => {
