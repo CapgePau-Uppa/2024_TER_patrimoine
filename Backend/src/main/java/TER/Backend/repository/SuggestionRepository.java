@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import TER.Backend.entities.EtatSuggestion;
 import TER.Backend.entities.Suggestion;
 
 @Repository
@@ -19,6 +20,8 @@ public interface SuggestionRepository extends JpaRepository<Suggestion, Long> {
     void deleteById(Long id);
     List<Suggestion> findAll();
     List<Suggestion> findByDateCreation(LocalDateTime dateCreation);
+    List<Suggestion> findByEtat(EtatSuggestion etat);
+
     
 
     

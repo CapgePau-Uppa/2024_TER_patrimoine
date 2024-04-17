@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import TER.Backend.api.dto.SuggestionDTO;
+import TER.Backend.entities.EtatSuggestion;
 import TER.Backend.entities.Suggestion;
 import TER.Backend.services.SuggestionService;
 
@@ -38,6 +39,11 @@ public class SuggestionAPI {
     @GetMapping("/all-suggestions")
     public List<SuggestionDTO> getAllSuggestions() {
         return suggestionService.getAllSuggestions();
+    }
+    // Get all suggestions en attente
+    @GetMapping("/attente-suggestions")
+    public List<SuggestionDTO> getAllAttenteSuggestions() {
+        return suggestionService.getAllSuggestionsByEtat(EtatSuggestion.EN_ATTENTE);
     }
 
     // Get suggestion by id
@@ -79,7 +85,12 @@ public class SuggestionAPI {
 
     /*Historique */
 
-    // Get all suggestions validées
+    // Get all suggestions validées ou en attente
+    @GetMapping("/historique")
+    public List<SuggestionDTO> getAllValideeSuggestions() {
+        return suggestionService.getAllSuggestionsByEtat(EtatSuggestion.VALIDEE);
+    }
+
 
     // Modifier une suggestion pour la mettre dans l'historique
     @PutMapping("/historique/{id}")

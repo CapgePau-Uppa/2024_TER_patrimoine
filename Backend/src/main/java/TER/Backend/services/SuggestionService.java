@@ -80,6 +80,17 @@ public class SuggestionService {
                         .map(suggestion -> new SuggestionDTO(suggestion))
                         .collect(Collectors.toList());
     }
+
+    // Get suggestions by etat
+    public List<Suggestion> findAllSuggestionsByEtat(EtatSuggestion etat) {
+        return suggestionRepository.findByEtat(etat);
+    }
+    public List<SuggestionDTO> getAllSuggestionsByEtat(EtatSuggestion etat) {
+        List<Suggestion> suggestions = suggestionRepository.findByEtat(etat);
+        return suggestions.stream()
+                        .map(suggestion -> new SuggestionDTO(suggestion))
+                        .collect(Collectors.toList());
+    }
     // Get suggestions by date
     public List<Suggestion> findSuggestionsByDate(LocalDateTime dateCreation) {
         return suggestionRepository.findByDateCreation(dateCreation);
