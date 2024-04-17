@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,4 +77,23 @@ public class SuggestionAPI {
         suggestionService.deleteSuggestion(id);
     }
 
+    /*Historique */
+
+    // Get all suggestions validées
+
+    // Modifier une suggestion pour la mettre dans l'historique
+    @PutMapping("/historique/{id}")
+    public ResponseEntity<?> updateSuggestion(@PathVariable Long id,
+                                              @RequestParam String emailAdmin) {
+        suggestionService.updateSuggestion(id, emailAdmin);
+        return ResponseEntity.ok().build();
+    }
+
+    // Restore une suggestion de l'historique
+
+    @PutMapping("/restore/{id}")
+    public ResponseEntity<?> restoreSuggestion(@PathVariable Long id) {
+        suggestionService.restoreSuggestion(id);
+        return ResponseEntity.ok().build();
+    }
 }

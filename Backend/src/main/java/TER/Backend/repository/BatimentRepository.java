@@ -78,5 +78,10 @@ public interface BatimentRepository extends JpaRepository<Batiment, Long> {
     List<Object[]> countAndFirstBuildingCoordinatesByDepartement();
     
 
+    // Suggestion
+
+    @Query("SELECT b FROM Batiment b WHERE b.suggestion.id = :suggestionId")
+    Batiment findBySuggestionId(@Param("suggestionId") Long suggestionId);
+
 
 }

@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-
 @Entity
 @Table(name = "suggestions")
 @AllArgsConstructor
@@ -28,6 +27,8 @@ public class Suggestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = true)
+    private String reference;
     @Column(nullable = true)
     private String nomBatiment;
     @Column(nullable = true)
@@ -65,8 +66,18 @@ public class Suggestion {
     @Column(nullable = true)
     private String emailUser;
 
-    public Suggestion(LocalDateTime dateCreation) {
+    //Etat de la suggestion
+    @Column(nullable = true)
+    private EtatSuggestion etat; 
+
+    //Données de l'administrateur
+    @Column(nullable = true)
+    private String emailAdmin;
+
+    public Suggestion(LocalDateTime dateCreation, EtatSuggestion etat, String reference) {
         this.dateCreation = LocalDateTime.now();
+        this.etat = EtatSuggestion.EN_ATTENTE;
+        this.reference = "PS000"+ this.id;
     }
 
     @PrePersist

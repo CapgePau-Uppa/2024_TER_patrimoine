@@ -11,18 +11,20 @@ import org.springframework.stereotype.Service;
 import TER.Backend.api.dto.SuggestionDTO;
 import TER.Backend.entities.Batiment;
 import TER.Backend.entities.Coordonnees;
+import TER.Backend.entities.EtatSuggestion;
 import TER.Backend.entities.Lieu;
 import TER.Backend.entities.Suggestion;
 import TER.Backend.repository.BatimentRepository;
 import TER.Backend.repository.CoordonneesRepository;
 import TER.Backend.repository.LieuRepository;
-import TER.Backend.repository.SuggestionsRepository;
+import TER.Backend.repository.SuggestionRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class SuggestionService {
 
     @Autowired
-    private SuggestionsRepository suggestionsRepository;
+    private SuggestionRepository suggestionRepository;
 
     @Autowired
     private BatimentRepository batimentRepository;
@@ -31,26 +33,26 @@ public class SuggestionService {
     @Autowired
     private CoordonneesRepository coordonneesRepository;
 
-    public SuggestionService(SuggestionsRepository suggestionsRepository) {
-        this.suggestionsRepository = suggestionsRepository;
+    public SuggestionService(SuggestionRepository suggestionRepository) {
+        this.suggestionRepository = suggestionRepository;
     }
 
     // Save suggestion
     public Suggestion saveSuggestion(Suggestion suggestion) {
-        return suggestionsRepository.save(suggestion);
+        return suggestionRepository.save(suggestion);
     }
 
     // Delete suggestion
     public void deleteSuggestion(Long id) {
-        suggestionsRepository.deleteById(id);
+        suggestionRepository.deleteById(id);
     }
 
     // Get suggestion by id
     public Suggestion findSuggestionById(Long id) {
-        return suggestionsRepository.findById(id).get();
+        return suggestionRepository.findById(id).get();
     }
     public SuggestionDTO getSuggestionById(Long id) {
-        Suggestion suggestion = suggestionsRepository.findById(id)
+        Suggestion suggestion = suggestionRepository.findById(id)
                             .orElseThrow(() -> new NoSuchElementException("Suggestion inexistante"));
         return new SuggestionDTO(suggestion);
     }
@@ -58,10 +60,10 @@ public class SuggestionService {
 
     // Get suggestion by name
     public Suggestion findSuggestionByNom(String nomBatiment) {
-        return suggestionsRepository.findByNomBatiment(nomBatiment);
+        return suggestionRepository.findByNomBatiment(nomBatiment);
     }
     public SuggestionDTO getSuggestionByNom(String nomBatiment) {
-        Suggestion suggestion = suggestionsRepository.findByNomBatiment(nomBatiment);;
+        Suggestion suggestion = suggestionRepository.findByNomBatiment(nomBatiment);;
         if (suggestion == null) {
             throw new NoSuchElementException("Suggestion inexistante");
         }
@@ -70,20 +72,20 @@ public class SuggestionService {
 
     // Get all suggestions
     public List<Suggestion> findAllSuggestions() {
-        return suggestionsRepository.findAll();
+        return suggestionRepository.findAll();
     }
     public List<SuggestionDTO> getAllSuggestions() {
-        List<Suggestion> suggestions = suggestionsRepository.findAll();
+        List<Suggestion> suggestions = suggestionRepository.findAll();
         return suggestions.stream()
                         .map(suggestion -> new SuggestionDTO(suggestion))
                         .collect(Collectors.toList());
     }
     // Get suggestions by date
     public List<Suggestion> findSuggestionsByDate(LocalDateTime dateCreation) {
-        return suggestionsRepository.findByDateCreation(dateCreation);
+        return suggestionRepository.findByDateCreation(dateCreation);
     }
     public List<SuggestionDTO> getSuggestionsByDate(LocalDateTime dateCreation) {
-        List<Suggestion> suggestions = suggestionsRepository.findByDateCreation(dateCreation);
+        List<Suggestion> suggestions = suggestionRepository.findByDateCreation(dateCreation);
         return suggestions.stream()
                         .map(suggestion -> new SuggestionDTO(suggestion))
                         .collect(Collectors.toList());
@@ -106,7 +108,7 @@ public class SuggestionService {
         
         // Créer le Batiment
         Batiment batiment = new Batiment();
-        batiment.setReference("PS000"+ suggestion.getId());
+        batiment.setReference(suggestion.getReference());
         batiment.setNom(suggestion.getNomBatiment());
         batiment.setType(suggestion.getType());
         batiment.setStatut(suggestion.getStatut());
@@ -119,6 +121,32 @@ public class SuggestionService {
         batimentRepository.save(batiment);
     }
 
+    // Update d'une suggestion pour l'historique 
+    public void updateSuggestion(Long suggestionId, String emailAdmin) {
+        Suggestion suggestion = suggestionRepository.findById(suggestionId)
+            .orElseThrow(() -> new EntityNotFoundException("Suggestion not found with id: " + suggestionId));
+        suggestion.setEtat(EtatSuggestion.VALIDEE);
+        suggestion.setEmailAdmin(emailAdmin);
+        suggestionRepository.save(suggestion);
+    }
+
+    // Restore de l'historique
+    public void restoreSuggestion(Long suggestionId) {
+        Suggestion suggestion = suggestionRepository.findById(suggestionId)
+            .orElseThrow(() -> new EntityNotFoundException("Suggestion not found with id: " + suggestionId));
+       
+        // On recupère le batiment associé à la suggestion pour le supprimer
+        Batiment batiment = batimentRepository.findBySuggestionId(suggestionId);
+        if (batiment != null) {
+            batimentRepository.delete(batiment);
+        }
+        
+        // On restaure la suggestion
+        suggestion.setEtat(EtatSuggestion.EN_ATTENTE);
+        suggestion.setEmailAdmin(null);
+        suggestion.setDateCreation(LocalDateTime.now());
+        suggestionRepository.save(suggestion);
+    }
     
     
 }

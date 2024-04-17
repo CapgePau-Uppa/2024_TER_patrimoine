@@ -17,7 +17,7 @@ import TER.Backend.api.dto.SuggestionDTO;
 import TER.Backend.entities.Batiment;
 import TER.Backend.entities.Suggestion;
 import TER.Backend.repository.LieuRepository;
-import TER.Backend.repository.SuggestionsRepository;
+import TER.Backend.repository.SuggestionRepository;
 import TER.Backend.security.entity.User;
 import TER.Backend.security.service.UserService;
 import TER.Backend.services.BatimentService;
@@ -38,7 +38,7 @@ public class BackendApplication{ //implements CommandLineRunner
         PasswordEncoder passwordEncoder = context.getBean(PasswordEncoder.class);
         BatimentService batimentService = context.getBean(BatimentService.class);
         SuggestionService suggestionService = context.getBean(SuggestionService.class);
-        SuggestionsRepository suggestionsRepository = context.getBean(SuggestionsRepository.class);
+        SuggestionRepository suggestionsRepository = context.getBean(SuggestionRepository.class);
         LieuRepository lieuRepository = context.getBean(LieuRepository.class);
         boolean ok=true;
         Scanner scanner = new Scanner(System.in);

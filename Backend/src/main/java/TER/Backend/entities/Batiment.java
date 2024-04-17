@@ -50,5 +50,9 @@ public class Batiment {
     @JoinColumn(name = "coordonnees_id", referencedColumnName = "id")
     private Coordonnees coordonnees;
 
+    @OneToOne
+    @JoinColumn(name = "suggestion_id", referencedColumnName = "id")
+    private Suggestion suggestion;
+
 
 }

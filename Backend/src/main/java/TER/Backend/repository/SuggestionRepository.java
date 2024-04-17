@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import TER.Backend.entities.Suggestion;
 
 @Repository
-public interface SuggestionsRepository extends JpaRepository<Suggestion, Long> {
+public interface SuggestionRepository extends JpaRepository<Suggestion, Long> {
         
     @Override
     <S extends Suggestion> S save(S suggestion);
