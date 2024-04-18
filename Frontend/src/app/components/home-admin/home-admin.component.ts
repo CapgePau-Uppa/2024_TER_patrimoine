@@ -72,12 +72,13 @@ export class HomeAdminComponent implements OnInit{
 
   // Affichage des informations d'une suggestion
   getBuildingInformation(id: number): void {
+    this.modificationActive = false;
     const info = document.getElementById("container");
     // @ts-ignore
     info.style.display = "flex";
     this.homeAdminService.getSuggestionById(id).subscribe((data: SuggestionDTO) => {
       this.buildingInfo = data;
-      const dateCreationDate = new Date(this.buildingInfo.dateCreation);
+      //const dateCreationDate = new Date(this.buildingInfo.dateCreation);
       console.log(this.buildingInfo); 
     });
   }
@@ -96,6 +97,7 @@ export class HomeAdminComponent implements OnInit{
   // Validation d'une suggestion (et elle l'update pour la mettre dans l'historique)
   valider(): void {
     if (this.buildingInfo) {
+      this.buildingInfo.nomBatiment = this.buildingInfo.nomBatiment;
       this.homeAdminService.saveSuggestion(this.buildingInfo).subscribe(
         (data) => {
           console.log('Batiment enregistrée: ', data);

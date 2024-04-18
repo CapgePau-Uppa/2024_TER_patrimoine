@@ -92,11 +92,19 @@ export class BatimentService {
     this.afficherAucunResultat.next(value);
   }
 
-  //Recharger la page (lorsqu'on a plus besoins des filtres)
+  //Recharger la page (lorsqu'on a plus besoins des filtres) *Inutile pour le moment*
   private reloadMapSubject = new Subject<void>();
   reloadMap$ = this.reloadMapSubject.asObservable();
 
   triggerMapReload() {
     this.reloadMapSubject.next();
+  }
+
+  // Message pour appliquer le filtre
+  
+  private triggerLoadSubject: Subject<void> = new Subject<void>();
+  triggerLoad$ = this.triggerLoadSubject.asObservable();
+  triggerLoad(): void {
+    this.triggerLoadSubject.next();
   }
 }

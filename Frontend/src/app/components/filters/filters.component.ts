@@ -81,9 +81,7 @@ export class FiltersComponent implements OnInit{
   }
 
   valider() {
-    this.onTypeSelected();
-    this.onDepartementSelected();
-    this.onRegionSelected();
+    //this.batimentService.triggerLoad();
     this.hideFilters();
   }
 

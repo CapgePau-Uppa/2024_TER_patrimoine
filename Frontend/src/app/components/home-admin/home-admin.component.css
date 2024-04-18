@@ -130,12 +130,9 @@ aside {
   width: 100%;
 }
 
-.precedent {
-  justify-self: start;
-}
-
-.suivant {
-  justify-self: end; 
+.precedent, .suivant {
+  background: none;
+  border: none;
 }
 
 .coord{

@@ -52,7 +52,9 @@
           <textarea id="batDescription" [(ngModel)]="buildingInfo.description"  cols="30" rows="6" [disabled]="!modificationActive"></textarea>
         </div>
 
-        <button (click)="etapeSuivante()">+</button> 
+        <button class="suivant" (click)="etapeSuivante()">
+          Suivant &nbsp; <i class="fas fa-arrow-right"></i>
+        </button> 
         
     </div>
     <div class="grid-item" *ngIf="etapeCourante === 1">
@@ -89,8 +91,10 @@
           <input type="text" id="coord-lon" [(ngModel)]="buildingInfo.lon" [disabled]="!modificationActive">
         </div>
       </div>
-      <button class="precedent" (click)="etapePrecedente()">-</button> 
-      <button class="suivant" (click)="etapeSuivante()">+</button> 
+      <button class="precedent" (click)="etapePrecedente()">
+        <i class="fas fa-arrow-left"></i> &nbsp; Précedent
+      </button>
+      
   </div>
     </div>
 

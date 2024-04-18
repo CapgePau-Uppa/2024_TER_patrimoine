@@ -23,6 +23,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
   private deferredPrompt: any;
   currentAuthState: AuthState = AuthState.Visiteur;
   AuthState = AuthState;
+  triggerLoad: boolean = false;
 
   
   private reloadSubscription!: Subscription;
@@ -34,6 +35,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
       this.deferredPrompt = e;
       this.showInstallButton = true;
     });
+    
   }
 
   // Installation de l'application
@@ -71,6 +73,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
     this.authService.authState$.subscribe(state => {
       this.currentAuthState = state;
     });
+    
   }
 
   // Initialisation de la carte
@@ -81,31 +84,34 @@ export class CarteComponent implements AfterViewInit, OnInit{
       //this.loadBatiments();
       this.addClusteringMarkers();
     }
-    
     // Filtre par type, departement
     combineLatest([this.batimentService.selectedType$, this.batimentService.selectedRegion$, this.batimentService.selectedDepartement$])
-      .subscribe(([type, region, departement]) => {
+    .subscribe(([type, region, departement]) => {
         if (type && region) {
+          console.log("Type et region");
           this.loadBatimentsParTypeEtRegion(type, region);
-        } else if(type && departement) {
+        } 
+        else if(type && departement) {
+          console.log("Type et departement");
           this.loadBatimentsParTypeEtDepartement(type, departement);
-          
         }
         else if (type) {
+          console.log("Type");
           this.loadBatimentsParType(type);
         }
         else if (region) {
+          console.log("Region");
           this.loadBatimentsParRegion(region);
         }
         else if (departement) {
+          console.log("Departement");
           this.loadBatimentsParDepartements(departement);
         }
         else {
           this.buildingMarkersLayer.clearLayers();
           this.addClusteringMarkers();
         }
-        
-      });
+    });
     /* Ancienne version : Filtre non-combiné
     this.batimentService.selectedDepartement$.subscribe(dep => {
       if (dep) {
@@ -251,111 +257,109 @@ export class CarteComponent implements AfterViewInit, OnInit{
     });
   }
 
+
   // FILTRES : par type, par departement, par region
   // Filtre par type
-  loadBatimentsParType(selectedType: string): void{
-    this.removeDepartmentMarkers();
-    this.buildingMarkersLayer.clearLayers();
-    this.batimentService.getBatimentsByType(selectedType).subscribe(data => {
-      this.batiments = data;
-      console.log(this.batiments);
-      this.addMarkers();
-      console.log(selectedType);
-
-      if (this.batiments.length == 1) {
-        this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
-      }
-      else {
-        this.map!.setZoom(6);
-      }
-    });
-    this.hideFilters();
+  loadBatimentsParType(selectedType: string): void {
+    //this.batimentService.triggerLoad$.subscribe(() => {
+      this.removeDepartmentMarkers();
+      this.buildingMarkersLayer.clearLayers();
+      this.batimentService.getBatimentsByType(selectedType).subscribe(data => {
+        this.batiments = data;
+        console.log(this.batiments);
+        this.addMarkers();
+        console.log(selectedType);
+        if (this.batiments.length == 1) {
+          this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
+        } else {
+          this.map!.setZoom(6);
+        }
+      });
+    //});
   }
-
+  
   // Filtre par type et region
   loadBatimentsParTypeEtRegion(selectedType: string, selectedRegion: string): void{
-    this.removeDepartmentMarkers();
-    this.buildingMarkersLayer.clearLayers();
-    this.batimentService.getBatimentsByTypeAndRegion(selectedType, selectedRegion).subscribe(data => {
-      this.batiments = data;
-      console.log(this.batiments);
-      console.log(selectedType);
-      console.log(selectedRegion);
-      this.addMarkers();
-
-      if (this.batiments.length == 1) {
-        this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
-      }
-      else {
-        this.map!.setZoom(6);
-      }
-    });
-    this.hideFilters();
-
+    //this.batimentService.triggerLoad$.subscribe(() => {
+      this.removeDepartmentMarkers();
+      this.buildingMarkersLayer.clearLayers();
+      this.batimentService.getBatimentsByTypeAndRegion(selectedType, selectedRegion).subscribe(data => {
+        this.batiments = data;
+        console.log(this.batiments);
+        console.log(selectedType);
+        console.log(selectedRegion);
+        this.addMarkers();
+        if (this.batiments.length == 1) {
+          this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
+        }
+        else {
+          this.map!.setZoom(6);
+        }
+      });
+   // });
   }
 
   // Filtre par type et departement
   loadBatimentsParTypeEtDepartement(selectedType: string, selectedDepartement: string): void{
-    this.removeDepartmentMarkers();
-    this.buildingMarkersLayer.clearLayers();
-    this.batimentService.getBatimentsByTypeAndDepartement(selectedType, selectedDepartement).subscribe(data => {
-      this.batiments = data;
-      console.log(this.batiments);
-      console.log(selectedType);
-      console.log(selectedDepartement);
-      this.addMarkers();
-
-      if (this.batiments.length == 1) {
-        this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
-      }
-      else {
-        this.map!.setZoom(6);
-      }
-    });
-    this.hideFilters();
-
+    //this.batimentService.triggerLoad$.subscribe(() => {
+      this.removeDepartmentMarkers();
+      this.buildingMarkersLayer.clearLayers();
+      this.batimentService.getBatimentsByTypeAndDepartement(selectedType, selectedDepartement).subscribe(data => {
+        this.batiments = data;
+        console.log(this.batiments);
+        console.log(selectedType);
+        console.log(selectedDepartement);
+        this.addMarkers();
+        if (this.batiments.length == 1) {
+          this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
+        }
+        else {
+          this.map!.setZoom(6);
+        }
+      });
+    //});
   }
 
   // Filtre par departement
   loadBatimentsParDepartements(selectedDepartement: string): void{
-    this.removeDepartmentMarkers();
-    this.buildingMarkersLayer.clearLayers();
-    this.batimentService.getBatimentsByDepartement(selectedDepartement).subscribe(data => {
-      this.batiments = data;
-      console.log(this.batiments);
-      console.log(selectedDepartement);
-      this.addMarkers();
+    //this.batimentService.triggerLoad$.subscribe(() => {
+      this.removeDepartmentMarkers();
+      this.buildingMarkersLayer.clearLayers();
+      this.batimentService.getBatimentsByDepartement(selectedDepartement).subscribe(data => {
+        this.batiments = data;
+        console.log(this.batiments);
+        console.log(selectedDepartement);
+        this.addMarkers();
 
-      if (this.batiments.length == 1) {
-        this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
-      }
-      else {
-        this.map!.setZoom(6);
-      }
-    });
-    this.hideFilters();
-
+        if (this.batiments.length == 1) {
+          this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
+        }
+        else {
+          this.map!.setZoom(6);
+        }
+      });
+  //});
   }
 
   // Filtre par region
   loadBatimentsParRegion(selectedRegion: string): void{
-    this.removeDepartmentMarkers();
-    this.buildingMarkersLayer.clearLayers();
-    this.batimentService.getBatimentsByRegion(selectedRegion).subscribe(data => {
-      this.batiments = data;
-      console.log(this.batiments);
-      console.log(selectedRegion);
-      this.addMarkers();
-
-      if (this.batiments.length == 1) {
-        this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
-      }
-      else {
-        this.map!.setZoom(6);
-      }
-    });
-    this.hideFilters();
-  }
+    //this.batimentService.triggerLoad$.subscribe(() => {
+      this.removeDepartmentMarkers();
+      this.buildingMarkersLayer.clearLayers();
+      this.batimentService.getBatimentsByRegion(selectedRegion).subscribe(data => {
+        this.batiments = data;
+        console.log(this.batiments);
+        console.log(selectedRegion);
+        this.addMarkers();
+        if (this.batiments.length == 1) {
+          this.zoomToBatiment(this.batiments[0].lat, this.batiments[0].lon);
+        }
+        else {
+          this.map!.setZoom(6);
+        }
+      });
+  //});
+}
 
   // Filtre par nom
   loadBatimentsParNom(selectedNomSource: string): void{
