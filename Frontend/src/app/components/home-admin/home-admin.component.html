@@ -5,8 +5,10 @@
 <main>
 
   <aside>
-    <a (click)="switchToSuggestion()">Suggestion</a>
-    <a (click)="switchToHistorique()">Historique</a>
+    <div class="links-container">
+      <a (click)="switchToSuggestion()" [class.active]="historiqueMode">Suggestion</a>
+      <a (click)="switchToHistorique()" [class.active]="!historiqueMode">Historique</a>
+  </div>
     <div *ngFor="let building of buildings">
       <app-suggestion [batName]="building.nomBatiment"
                       [ngClass]="{'selected': building === buildingInfo}"
@@ -18,7 +20,7 @@
   
   <div id="container">
     <div id="information" *ngIf="buildingInfo">
-      <p>Suggestion de : {{ buildingInfo.nomUser }} {{ buildingInfo.prenomUser }} {{buildingInfo.dateCreation}}</p>
+      <p>Suggestion de : {{ buildingInfo.nomUser }} {{ buildingInfo.prenomUser }}</p>
 
       <div class="grid-container" [class.disabled]="!modificationActive">
         <div class="grid-item image">
@@ -70,7 +72,8 @@
 
       <div class="form">
         <label for="commune">Commune</label>
-          <select id="batCommune" class="form-control" [(ngModel)]="buildingInfo.commune" [disabled]="!modificationActive">
+        <select id="batCommune" class="form-control" [(ngModel)]="buildingInfo.commune" [disabled]="!modificationActive">
+          <option selected>{{ buildingInfo.commune }}</option>
           <option *ngFor="let commune of communes" [value]="commune">{{ commune }}</option>
         </select>
       </div>
@@ -127,16 +130,5 @@
     </div>
   </div>
 
-
-<!--
-<div *ngIf="!isSuggestionView">
-  <div id="container">
-    <div id="information" *ngIf="buildingInfo">
-      <p>Suggestion de : {{ buildingInfo.nomUser }} {{ buildingInfo.prenomUser }} {{buildingInfo.dateCreation}}</p>
-    </div>
-  </div>
-</div>
-
--->
 
 </main>

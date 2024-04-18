@@ -5,11 +5,12 @@ import { HomeAdminService } from './home-admin-service.model';
 import { AddBatService } from '../add-bat/add-bat-service.model';
 import { UserDTO } from '../connexion/user-dto.model';
 import { UserService } from 'src/app/services/user.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home-admin',
   templateUrl: './home-admin.component.html',
-  styleUrl: './home-admin.component.css'
+  styleUrl: './home-admin.component.css',
 })
 export class HomeAdminComponent implements OnInit{
 
@@ -57,6 +58,7 @@ export class HomeAdminComponent implements OnInit{
 
   // Affichage des noms des suggestions dans le aside
   loadAllBuildings(): void {
+    
     if (this.historiqueMode) {
       this.homeAdminService.getAllSuggestionsValidees().subscribe((data: SuggestionDTO[]) => {
         this.buildings = data;
@@ -75,6 +77,7 @@ export class HomeAdminComponent implements OnInit{
     info.style.display = "flex";
     this.homeAdminService.getSuggestionById(id).subscribe((data: SuggestionDTO) => {
       this.buildingInfo = data;
+      const dateCreationDate = new Date(this.buildingInfo.dateCreation);
       console.log(this.buildingInfo); 
     });
   }
@@ -114,6 +117,7 @@ export class HomeAdminComponent implements OnInit{
   updateSuggestion(id: number, emailAdmin: string): void {
     this.homeAdminService.updateSuggestion(id, emailAdmin).subscribe(
       (data) => {
+        this.modificationActive = true;
         const info = document.getElementById("container");
           // @ts-ignore
         info.style.display = "none";
@@ -152,12 +156,14 @@ export class HomeAdminComponent implements OnInit{
   /*Méthodes pour les listes de département et commune */
   // Chargement des départements en fonction de la région sélectionnée
   onRegionChange(region: string): void {
+    this.buildingInfo!.commune = '';
     this.addBatService.getAllDepartementsByRegion(region).subscribe(departements => {
       this.departements = departements;
     });
   }
   // Chargement des communes en fonction du département sélectionné
   onDepartementChange(departement: string): void {
+    this.buildingInfo!.commune = '';
     this.addBatService.getAllCommunesByDepartement(departement).subscribe(communes => {
       this.communes = communes;
     });

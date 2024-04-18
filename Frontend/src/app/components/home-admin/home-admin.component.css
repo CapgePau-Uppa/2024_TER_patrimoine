@@ -15,18 +15,10 @@ aside {
   flex-direction: column;
   align-items: center;
   background-color: white;
-  border-right: 3px solid #262f34;
-  width: 30%;
-  height: 100%;
+  border-right: 1px solid #262f34;
+  width: 23%;
+  height: 100vh;
   box-shadow: 5px 0 10px rgba(0,0,0,0.5);
-}
-
-h1 {
-  font-size: 30px;
-  font-family: "Roboto", sans-serif;
-  color: #262f34;
-  margin: 30px 0 40px 0;
-  text-align: center;
 }
 
 .selected {
@@ -156,12 +148,35 @@ h1 {
   margin-right: 10px;
 }
 
-.bouton-aside{
-  display: inline-block;
+.links-container {
+  display: flex;
+  width: 100%;
+  height: 10%;
+}
+
+.links-container a {
+  border-right: 1px solid #000;
+  display: flex;
   justify-content: center;
   align-items: center;
-}
-.bouton-aside a{
-  margin: 10px;
+  width: 50%;
+  height: 100%;
   cursor: pointer;
+  text-decoration: none;
+  /*Texte des balises*/
+  font-size: 20px;
+  font-family: "Roboto", sans-serif;
+  color: #262f34;
+}
+
+/*Pour pas que le deuxieme a ai un border right */ 
+.links-container a:last-child {
+  border-right: none;
+}
+
+/*Si les a sont cliqués*/
+.links-container a.active {
+  border-bottom: 1px solid black;
+  background-color: rgba(230, 230, 230, 0.658);
+
 }

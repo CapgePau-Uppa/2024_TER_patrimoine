@@ -59,4 +59,6 @@ export class HomeAdminService {
     restoreSuggestion(id: number): Observable<any> {
         return this.http.put<any>(`${this.baseUrl}/suggestion/historique/restauration-suggestion?id=${id}`, {});
     }
+
+   
 }
