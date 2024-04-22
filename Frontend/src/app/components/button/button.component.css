@@ -15,10 +15,6 @@
   color: #f6f5f7;
 }
 
-.btn-primary:focus {
-  box-shadow: 0 0 0 0.25rem rgba(38, 47, 52, .5);
-}
-
 
 /* ------ BOUTON BLEU ------ */
 .btn-blue {
@@ -35,10 +31,6 @@
 .btn-blue:hover {
   background-color: #369cd6;
   color: #262f34;
-}
-
-.btn-primary:focus {
-  box-shadow: 0 0 0 0.25rem rgba(17, 73, 104, .5);
 }
 
 

@@ -70,4 +70,19 @@ img {
   right: 60px;
 }
 
+/* -------- BOUTON SIGNALER DEGATS -------- */
+#signal {
+  display : block;
+  height: 40px;
+  width: auto;
+  padding: 0 40px 0 40px;
+  border-radius: 20px;
+  background-color: #114968;
+  border: 3px solid #114968;
+  color: #f6f5f7;
+}
 
+#signal:hover {
+  background-color: #369cd6;
+  color: #262f34;
+}

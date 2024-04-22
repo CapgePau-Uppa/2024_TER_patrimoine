@@ -187,11 +187,11 @@ export class CarteComponent implements AfterViewInit, OnInit{
         L.marker([userLat, userLng], { icon: menIcon }).addTo(this.map!).bindPopup('Votre position').openPopup();
 
       }, error => {
-        console.error('Geolocation error : ', error);
+        console.error('Erreur de geolocation : ', error);
       });
 
     } else {
-      console.error('Geolocation is not supported by this browser.');
+      console.error("La géolocalisation n'est pas supporté par votre navigateur.");
     }
   }
 
@@ -218,8 +218,6 @@ export class CarteComponent implements AfterViewInit, OnInit{
           if (this.previousDepartmentMarker) {
             this.map!.addLayer(this.previousDepartmentMarker);
           }
-          console.log("Marker"+marker);
-          console.log("Marker coordinates: ", marker.getLatLng());
           this.map!.removeLayer(marker); //Ne repond pas
           this.previousDepartmentMarker = marker;
         });
@@ -245,7 +243,6 @@ export class CarteComponent implements AfterViewInit, OnInit{
 
   // Zoomer sur le bâtiment
   private zoomToBatiment(batLat: any, batLon: any): void {
-    console.log("zoom to building");
     this.map!.setView([batLat, batLon], 20);
   }
 
@@ -256,7 +253,6 @@ export class CarteComponent implements AfterViewInit, OnInit{
       this.addMarkers();
     });
   }
-
 
   // FILTRES : par type, par departement, par region
   // Filtre par type
@@ -401,26 +397,66 @@ export class CarteComponent implements AfterViewInit, OnInit{
 
       // Contenue de la card
       const cardContent = `
+        <h4>${batiment.nom}</h4>
         <table>
         <tr>
-          <td><img src="${batiment.image}" alt="Batiment" style="border-radius: 20px 20px 20px 20px;
-        height : 90px; width : 90px;"></td>
+          <td><img src="${batiment.image}" alt="Image du batiment" style="border-radius: 20px;
+            height : 90px; width : 90px;"></td>
           <td class="container" style="padding: 1px 15px;">
-            <h4><b>${batiment.nom}</b></h4>
-            <p>Type: ${batiment.type} <br> Statut: ${batiment.statut} </p>
-            <button style="float:right; background:none; border:none; font-weight:bold;">>></button>
+            <p><b>Type</b> : ${batiment.type}</p>
+            <p><b>Statut</b> : ${batiment.statut} </p>
+            <button style="float:right; background:none; border:none; font-weight:bold;">Plus de détails</button>
           </td>
           </tr>
       </table>
       `;
 
       // Popup
-      marker.bindPopup(cardContent);
+      marker.bindPopup(cardContent, {maxWidth: 500});
       marker.bindTooltip(batiment.nom);
-      //Tooltip
+
+      // Tooltip
       marker.on('click', () => {
         marker.openPopup();
         this.zoomToBatiment(batiment.lat, batiment.lon);
+        const popup = marker.getPopup();
+        if (popup) {
+          const detailButton = popup.getElement()?.querySelector('button');
+          if (detailButton) {
+            detailButton.addEventListener('click', (e) => {
+              e.stopPropagation();
+
+              const detailedCardContent = `
+                <h4>${batiment.nom}</h4>
+                <table>
+                  <tr>
+                    <td><img src="${batiment.image}" alt="Image du batiment" style="border-radius: 20px;
+                      height : 90px; width : 90px;"></td>
+                    <td class="container" style="padding: 1px 15px;">
+                      <p><b>Type</b> : ${batiment.type}</p>
+                      <p><b>Statut</b> : ${batiment.statut}</p>
+                      <p><b>Historique</b> : </p>
+                      <p><b>Coordonées</b> : ${batiment.lat}, ${batiment.lon}</p>
+                      </br>
+                      <button style=
+                        "display : block;
+                        height: 40px;
+                        width: auto;
+                        padding: 0 40px 0 40px;
+                        border-radius: 20px;
+                        background-color: #114968;
+                        border: 3px solid #114968;
+                        color: #f6f5f7;">
+                      Signaler des dégats</button>
+                    </td>
+                  </tr>
+                </table>
+              `;
+        
+              popup.setContent(detailedCardContent).update();
+            });
+          }
+        }
       });
 
       marker.on('mouseover', () => {
