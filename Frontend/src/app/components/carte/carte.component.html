@@ -5,16 +5,14 @@
         <p class="hover-text" id="zoom-info">Zoomer sur l'utilisateur</p>
       </div>
 
-      <div class="img-container">
+      <!--<div class="img-container">
         <img id="btn-pwa" src="assets/icones/pwa.png" alt="install-pwa" (click)="installPWA()" loading="lazy">
         <p class="hover-text" id="pwa-info">Installer en tant qu'application</p>
-      </div>
+      </div>-->
 
       <div id="map"></div>
     </div>
 </div>
-
-<app-details id="details"></app-details>
 
 <app-button id="btn-add-bat" text="Suggérer un bâtiment" [buttonClass]="'btn-blue'" 
 routerLink="add-bat" *ngIf="currentAuthState === AuthState.User"></app-button>

@@ -13,7 +13,6 @@ import { ButtonModule } from "./components/button/button.module";
 import { NavbarModule } from "./components/navbar/navbar.module";
 import { HomeModule } from "./components/home/home.module";
 import { FiltersModule } from './components/filters/filters.module';
-import { DetailsModule } from './components/details/details.module';
 import { AddBatModule } from "./components/add-bat/add-bat.module";
 import { ConnexionModule } from "./components/connexion/connexion.module";
 import { HomeAdminModule } from "./components/home-admin/home-admin.module";
@@ -36,7 +35,6 @@ import { SuggestionModule } from "./components/suggestion/suggestion.module";
       NavbarModule,
       HomeModule,
       FiltersModule,
-      DetailsModule,
       AddBatModule,
       ConnexionModule,
       HomeAdminModule,

@@ -5,7 +5,6 @@ import { RouterLink } from "@angular/router";
 import { NavbarComponent } from "./navbar.component";
 import { ButtonModule } from "../button/button.module";
 import { FiltersModule } from "../filters/filters.module";
-import { DetailsModule } from "../details/details.module";
 import { FormsModule } from '@angular/forms';
 
 
@@ -16,11 +15,8 @@ import { FormsModule } from '@angular/forms';
     NgOptimizedImage,
     RouterLink,
     FormsModule,
-    
-
     ButtonModule,
     FiltersModule,
-    DetailsModule
   ],
   exports: [ NavbarComponent]
 })
