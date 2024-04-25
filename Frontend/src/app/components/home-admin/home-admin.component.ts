@@ -138,7 +138,7 @@ export class HomeAdminComponent implements OnInit{
   }
 
   // Restaurer une suggestion de l'historique vers les suggestions en attente
-  restaurer() {
+  corriger() {
     if (this.buildingInfo) { 
       this.homeAdminService.restoreSuggestion(this.buildingInfo?.id).subscribe(
         (data) => {
