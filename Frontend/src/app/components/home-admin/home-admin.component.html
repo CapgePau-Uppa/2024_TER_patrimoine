@@ -9,7 +9,7 @@
       <a (click)="switchToSuggestion()" [class.active]="historiqueMode">Suggestion</a>
       <a (click)="switchToHistorique()" [class.active]="!historiqueMode">Historique</a>
   </div>
-    <div *ngFor="let building of buildings">
+    <div id="sugg-container" *ngFor="let building of buildings">
       <app-suggestion [batName]="building.nomBatiment"
                       [ngClass]="{'selected': building === buildingInfo}"
                       (click)="building?.id && getBuildingInformation(building.id)">
@@ -103,33 +103,21 @@
     <div *ngIf="isSuggestionView"> 
       <div id="buttons">
         <div class="option">
-          <app-button [buttonClass]="'btn-blue'" (click)="valider()">
-            <img src="../assets/icones/valider.png" alt="Modifier" loading="lazy">
-          </app-button>
-          <p>Valider</p>
+          <app-button text="Valider" [buttonClass]="'btn-blue'" (click)="valider()"></app-button>
         </div>
     
         <div class="option">
-          <app-button [buttonClass]="'btn-blue'" (click)="modifier()">
-            <img src="../assets/icones/modifier.png" alt="Modifier" loading="lazy">
-          </app-button>
-          <p>Modifier</p>
+          <app-button text="Modifier" [buttonClass]="'btn-blue'" (click)="modifier()"></app-button>
         </div>
     
         <div class="option">
-          <app-button [buttonClass]="'btn-blue'" (click)="buildingInfo && supprimer(buildingInfo.id)">
-            <img src="../assets/icones/annuler.png" alt="Annuler" loading="lazy">
-          </app-button>
-          <p>Supprimer</p>
+          <app-button text="Supprimer" [buttonClass]="'btn-blue'" (click)="buildingInfo && supprimer(buildingInfo.id)"></app-button>
         </div>
       </div>
     </div>
     <div *ngIf="!isSuggestionView">
       <div class="option">
-        <app-button [buttonClass]="'btn-blue'" (click)="restaurer()">
-          <img src="../assets/icones/modifier.png" alt="Restaurer" loading="lazy">
-        </app-button>
-        <p>Restaurer</p>
+        <app-button text="Restaurer" [buttonClass]="'btn-blue'" (click)="restaurer()"></app-button>
       </div>
     </div>
   </div>
