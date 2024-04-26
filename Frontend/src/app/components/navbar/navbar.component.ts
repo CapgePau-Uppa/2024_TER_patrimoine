@@ -40,7 +40,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.currentAuthState = state;
         //this.currentAuthState = AuthState.Admin;
         this.cdRef.detectChanges();
-        console.log("(NavInit) Updated state to:", state);
       }
     );
   }
