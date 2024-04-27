@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -79,6 +80,11 @@ public class BatimentService {
     //Recuperation des batimments et leurs coordonnées
     public List<Batiment> findAllBatiments() {
         return batimentRepository.findAll();
+    }
+    // Recuperation d'un batiments par ces coordonnées
+    public Long findBatimentIdByCoordonnees(Double lat, Double lon) {
+        Optional<Long> batimentIdOptional = batimentRepository.findBatimentIdByCoordonnees(lat, lon);
+        return batimentIdOptional.orElse(null);
     }
     //Recuperation de tous les batiments
     public List<BatimentDTO> getAllBatiments() {

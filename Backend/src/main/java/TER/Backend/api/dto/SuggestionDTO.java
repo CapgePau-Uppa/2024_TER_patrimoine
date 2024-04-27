@@ -32,6 +32,9 @@ public class SuggestionDTO {
     private String prenomUser;
     private String emailUser;
 
+    /* Attribut lors de la vérification des coordonnées */
+    private String message;
+    private Long batimentId;
 
     public SuggestionDTO(Suggestion suggestion){
         id = suggestion.getId();

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import TER.Backend.api.dto.SuggestionDTO;
 import TER.Backend.entities.EtatSuggestion;
 import TER.Backend.entities.Suggestion;
+import TER.Backend.services.BatimentService;
 import TER.Backend.services.SuggestionService;
 
 @RestController
@@ -27,6 +28,8 @@ public class SuggestionAPI {
 
     @Autowired
     private SuggestionService suggestionService;
+    @Autowired
+    private BatimentService batimentService;
 
     public SuggestionAPI(SuggestionService suggestionService) {
         this.suggestionService = suggestionService;
@@ -45,11 +48,27 @@ public class SuggestionAPI {
     }
 
     // Get suggestion by id
+    /*  Ancienne méthode sans vérification des coordonnées
     @GetMapping("/suggestion-by-id/{id}")
     public SuggestionDTO getSuggestionById(@PathVariable Long id) {
         return suggestionService.getSuggestionById(id);
     }
+    */
+    @GetMapping("/suggestion-by-id/{id}")
+    public SuggestionDTO getSuggestionById(@PathVariable Long id) {
+        SuggestionDTO suggestionDTO = suggestionService.getSuggestionById(id);
 
+        // Vérifier si les coordonnées de la suggestion existent déjà pour un bâtiment
+        Long batimentID = batimentService.findBatimentIdByCoordonnees(suggestionDTO.getLat(), suggestionDTO.getLon());
+        if (batimentID != null) {
+            // Envoie d'un message avec l'ID du bâtiment existant
+            String message = "Ces coordonnées existent déjà pour un bâtiment";
+            suggestionDTO.setMessage(message);
+            suggestionDTO.setBatimentId(batimentID);
+        }
+
+        return suggestionDTO;
+    }
 
     // Get suggestion by date
     @GetMapping("/date-suggestions")
@@ -75,15 +94,15 @@ public class SuggestionAPI {
         }
     }
 
-    // Delete suggestion
+    // Delete suggestion *non-utilisé*
     @DeleteMapping("/delete-suggestion")
     public void deleteSuggestion(@RequestParam("id") Long id) {
         suggestionService.deleteSuggestion(id);
     }
 
-    /*Historique */
+    /*-------- Historique ---------*/
 
-    // Get all suggestions validées ou en attente
+    // Get all suggestions validées
     @GetMapping("/historique/all-suggestions")
     public List<SuggestionDTO> getAllValideeSuggestions() {
         return suggestionService.getAllSuggestionsByEtat(EtatSuggestion.VALIDEE);
@@ -104,4 +123,28 @@ public class SuggestionAPI {
         suggestionService.restoreSuggestion(id);
         return ResponseEntity.ok().build();
     }
+
+    /*-------- Corbeille ---------*/
+
+    // Get all suggestions supprimées
+    @GetMapping("/corbeille/all-suggestions")
+    public List<SuggestionDTO> getAllSupprimeeSuggestions() {
+        return suggestionService.getAllSuggestionsByEtat(EtatSuggestion.SUPPRIMEE);
+    }
+
+    // Modifier une suggestion pour la mettre dans la corbeille
+    @PutMapping("/corbeille/suppression-suggestion")
+    public ResponseEntity<?> updateSuggestionForCorbeille(@RequestParam Long id,
+                                              @RequestParam String emailAdmin) {
+        suggestionService.updateSuggestionForCorbeille(id, emailAdmin);
+        return ResponseEntity.ok().build();
+    }
+
+    // Restaurer une suggestion de la corbeille
+    @PutMapping("/corbeille/restauration-suggestion")
+    public ResponseEntity<?> restoreSuggestionFromCorbeille(@RequestParam Long id) {
+        suggestionService.restoreSuggestionFromCorbeille(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

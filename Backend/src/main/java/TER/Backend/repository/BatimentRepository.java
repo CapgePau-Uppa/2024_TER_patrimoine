@@ -17,6 +17,8 @@ public interface BatimentRepository extends JpaRepository<Batiment, Long> {
     List<Batiment> findByType(String type);
     @Query("SELECT c.lat, c.lon FROM Batiment b JOIN b.coordonnees c WHERE b.id = :id")
     Optional<Object[]> findCoordonneesByBatimentId(@Param("id") Long batimentId);
+    @Query("SELECT b.id FROM Batiment b JOIN b.coordonnees c WHERE c.lat = :lat AND c.lon = :lon")
+    Optional<Long> findBatimentIdByCoordonnees(@Param("lat") Double lat, @Param("lon") Double lon);
     @Query("SELECT l.region FROM Batiment b JOIN b.lieu l WHERE b.id = :id")
     String findRegionByBatimentId(@Param("id") Long batimentId);
     @Query("SELECT l.commune FROM Batiment b JOIN b.lieu l WHERE b.id = :id")
