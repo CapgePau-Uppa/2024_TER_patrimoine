@@ -1,7 +1,6 @@
 package TER.Backend.api.dto;
 
 import java.time.LocalDateTime;
-
 import TER.Backend.entities.Suggestion;
 import lombok.Data;
 import lombok.Getter;

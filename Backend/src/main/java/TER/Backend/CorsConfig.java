@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/* 
+ * Configuration de CORS pour autoriser les requêtes HTTP entre le front et le back 
+*/
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 

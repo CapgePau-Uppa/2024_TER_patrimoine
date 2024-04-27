@@ -3,7 +3,6 @@ package TER.Backend.api.controller;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import TER.Backend.api.dto.ConnexionRequest;
 import TER.Backend.api.dto.UserDTO;
 import TER.Backend.security.service.UserService;
@@ -26,6 +24,7 @@ public class UserAPI {
     @Autowired
     private UserService userService;
 
+    // Inscription
     @PostMapping("/inscription")
     public ResponseEntity<Object> inscriptionUser(@RequestBody UserDTO userDto) {
         try {
@@ -36,6 +35,7 @@ public class UserAPI {
         }
     }
 
+    // Inscription admin
     @PostMapping("/nouveau-admin")
     public ResponseEntity<String> inscriptionAdmin(@RequestBody UserDTO userDto) {
         try {
@@ -47,11 +47,13 @@ public class UserAPI {
     }
 
 
+    // Connexion
     @PostMapping("/connexion")
     public boolean connexion(@RequestBody ConnexionRequest request) {
         return userService.connexion(request.getEmail(), request.getMdp()) != null;
     }
 
+    // Récupérer le rôle d'un utilisateur
     @GetMapping("/role")
     public ResponseEntity<Map<String, String>> getRoleByEmail(@RequestParam String email) {
     String role = userService.getRoleByEmail(email); 
@@ -63,7 +65,7 @@ public class UserAPI {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("error", "Email non trouvé"));
     }}
 
-    // find user by email
+    //Find user by email
     @GetMapping("/user")
     public ResponseEntity<Map<String, String>> getUserByEmail(@RequestParam String email) {
         UserDTO user = userService.getByEmail(email);

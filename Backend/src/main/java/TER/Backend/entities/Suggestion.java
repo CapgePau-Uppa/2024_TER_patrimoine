@@ -1,7 +1,6 @@
 package TER.Backend.entities;
 
 import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +31,7 @@ public class Suggestion {
     @Column(nullable = true)
     private String type;
     @Column(nullable = true)
-    private String statut; // Faire un menu déroulant de la liste des statuts
+    private String statut;
     @Column(nullable = true, length = 8000)
     private String description;
     @Column(nullable = true)
@@ -40,7 +39,7 @@ public class Suggestion {
     @Column(nullable = true)
     private LocalDateTime dateCreation;
 
-    //lieu (menu déroulant pour les régions, départements et communes)
+    //Lieu
     @Column(nullable = true)
     private String region;
     @Column(nullable = true)
@@ -48,7 +47,7 @@ public class Suggestion {
     @Column(nullable = true)
     private String departement;
 
-    //coordonnées ou adresse
+    //Coordonnées ou Adresse
     @Column(nullable = true)
     private String adresse; 
     @Column(nullable = true)
@@ -56,7 +55,7 @@ public class Suggestion {
     @Column(nullable = true)
     private Double lon;
 
-    //Donnees utilisateur
+    //Données utilisateur
     @Column(nullable = true)
     private String nomUser;
     @Column(nullable = true)
@@ -72,6 +71,8 @@ public class Suggestion {
     @Column(nullable = true)
     private String emailAdmin;
 
+
+    // Date de création automatique 
     public Suggestion(LocalDateTime dateCreation) {
         this.dateCreation = LocalDateTime.now();
     }

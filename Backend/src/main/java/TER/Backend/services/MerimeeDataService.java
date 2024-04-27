@@ -7,14 +7,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import TER.Backend.model.MerimeeData;
 import TER.Backend.model.MerimeeDataResponse;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+
+/* 
+* Service pour la récupération des données de l'API Merimée 
+*/
 @Service
 public class MerimeeDataService {
 

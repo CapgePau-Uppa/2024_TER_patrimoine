@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Collections;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +17,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import TER.Backend.api.dto.BatimentDTO;
 import TER.Backend.services.BatimentService;
 
 @RestController
 @RequestMapping("/api/batiment")
-@CrossOrigin(origins = {"http://http://localhost:4200/"})
+@CrossOrigin(origins = {"http://http://localhost:4200/"}) //Autoriser les requetes depuis le front
 public class BatimentAPI {
 
     @Autowired
@@ -55,13 +53,14 @@ public class BatimentAPI {
     }
     
     /*--------Filtres--------*/
-    //Types (tous les types meme ceux qui ont 2 types ou plus)
+
+    //Type (tous les types meme ceux qui ont 2 types ou plus *non-utilisé*)
     @GetMapping("/list-types-all")
     public List<String> getAllTypesDouble() {
         return batimentService.findAllTypes();
         
     }
-    //Types sans les doubles types
+    //Type sans les doubles types
     @GetMapping("/list-types")
     public List<String> getAllTypes() {
         List<String> allTypes = batimentService.findAllTypes();
@@ -82,8 +81,7 @@ public class BatimentAPI {
         return batimentService.getBatimentsByType(type);
     }
 
-    //Rechercher
-
+    //Rechercher par nom
     @GetMapping("/rechercher")
     public ResponseEntity<List<BatimentDTO>> getBatimentsByNom(@RequestParam("nom") String nom) {
         List<BatimentDTO> batiments = batimentService.getBatimentsByNom(nom);
@@ -96,12 +94,10 @@ public class BatimentAPI {
         return batimentService.findAllCommunes();
         
     }
-
     @GetMapping("/communes-par-departement")
     public List<String> getCommunesByDepartement(@RequestParam("departement") String dep) {
         return batimentService.getCommunesByDepartement(dep);
     }
-
     @GetMapping("/batiments-par-commune")
     public List<BatimentDTO> getBatimentsByCommune(@RequestParam("commune") String commune) {
         return batimentService.getBatimentsByCommune(commune);
@@ -117,6 +113,7 @@ public class BatimentAPI {
     public List<BatimentDTO> getBatimentsByRegion(@RequestParam("region") String region) {
         return batimentService.getBatimentsByRegion(region);
     }
+
     //Departement
     @GetMapping("/list-departement")
     public List<String> getAllDepartements() {
@@ -127,13 +124,12 @@ public class BatimentAPI {
     public List<String> getDepartementsByRegion(@RequestParam("region") String region) {
         return batimentService.getDepartementsByRegion(region);
     }
-
     @GetMapping("/batiments-par-departement")
     public List<BatimentDTO> getBatimentsByDepartement(@RequestParam("departement") String dep) {
         return batimentService.getBatimentsByDepartement(dep);
     }
     
-    //Statut
+    //Statut (tous les statuts meme ceux qui ont 2 statuts ou plus *non-utilisé*)
     @GetMapping("/list-statut-all")
     public List<String> getAllStatuts() {
         return batimentService.findAllStatuts();

@@ -4,10 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import TER.Backend.api.dto.SuggestionDTO;
 import TER.Backend.entities.Batiment;
 import TER.Backend.entities.Coordonnees;

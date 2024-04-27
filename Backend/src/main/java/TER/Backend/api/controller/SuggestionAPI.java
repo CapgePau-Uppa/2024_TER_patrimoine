@@ -2,7 +2,6 @@ package TER.Backend.api.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import TER.Backend.api.dto.SuggestionDTO;
 import TER.Backend.entities.EtatSuggestion;
 import TER.Backend.entities.Suggestion;
@@ -101,7 +99,6 @@ public class SuggestionAPI {
     }
 
     // Restaurer une suggestion de l'historique
-
     @PutMapping("/historique/restauration-suggestion")
     public ResponseEntity<?> restoreSuggestion(@RequestParam Long id) {
         suggestionService.restoreSuggestion(id);

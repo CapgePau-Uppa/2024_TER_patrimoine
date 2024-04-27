@@ -1,12 +1,8 @@
 package TER.Backend.security.service;
 
-import java.util.NoSuchElementException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import TER.Backend.api.dto.SuggestionDTO;
 import TER.Backend.api.dto.UserDTO;
 import TER.Backend.security.entity.User;
 import TER.Backend.security.entity.User.Role;
@@ -24,32 +20,31 @@ public class UserService{
         this.passwordEncoder = passwordEncoder;
     }
 
+    // Find user
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
     public UserDTO getByEmail(String email) {
     User user = userRepository.findByEmail(email);
     return new UserDTO(user);
-}
+    }
 
+    // Connexion
     public UserDTO connexion(String email, String mdp){
+        //Verifier si l'utilisateur existe
         User user = userRepository.findByEmail(email);
         if (user != null && passwordEncoder.matches(mdp, user.getMdp())) {
             UserDTO userDTO = new UserDTO();
-            //userDTO.setId(user.getId());
-            userDTO.setEmail(user.getEmail());
-            //userDTO.setNom(user.getNom());
-            //userDTO.setPrenom(user.getPrenom());
-            //userDTO.setRole(user.getRole().name());
+            userDTO.setEmail(user.getEmail()); // Envoie de l'email de l'utilisateur connecté pour le front
             return userDTO;
         } else {
             return null;
         }
     }
-    
 
+    // Inscription
     public User saveUser(String nom, String prenom, String email, String mdp) {
-        // Tout d'abord vérifier si l'utilisateur existe
+        //Verifier si l'utilisateur existe, pour ne pas avoir deux utilisateurs avec le meme email
         User user = userRepository.findByEmail(email);
         if(user!=null) throw  new RuntimeException("Cet utilisateur existe deja ");
         user = new User();
@@ -62,7 +57,7 @@ public class UserService{
     }
 
     public User saveAdmin(String nom, String prenom, String email, String mdp) {
-        // Tout d'abord vérifier si l'admin existe
+        //Verifier si l'admin existe
         User user = userRepository.findByEmail(email);
         if(user!=null) throw  new RuntimeException("Cet admin existe deja ");
         user = new User();
