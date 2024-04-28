@@ -81,6 +81,11 @@ public class BatimentService {
     public List<Batiment> findAllBatiments() {
         return batimentRepository.findAll();
     }
+    //Recuperation d'un batiment par son id
+    public BatimentDTO findById(Long id) {
+        Optional<Batiment> batimentOptional = batimentRepository.findById(id);
+        return batimentOptional.map(BatimentDTO::new).orElse(null);
+    }
     // Recuperation d'un batiments par ces coordonnées
     public Long findBatimentIdByCoordonnees(Double lat, Double lon) {
         Optional<Long> batimentIdOptional = batimentRepository.findBatimentIdByCoordonnees(lat, lon);

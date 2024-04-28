@@ -22,8 +22,19 @@
       <p>Suggestion de : {{ buildingInfo.nomUser }} {{ buildingInfo.prenomUser }}</p>
 
       <div class="grid-container" [class.disabled]="!modificationActive">
-        <div class="grid-item image">
-          <img src="../../../assets/img/chateau.png" alt="" loading="lazy">
+        <div class="grid-item">
+          <div class="image" *ngIf="etapeCourante === 0">
+            <img src="../../../assets/img/chateau.png" alt="" loading="lazy">
+          </div>
+          <div class="sidebar-container" *ngIf="etapeCourante === 1">
+            <div class="sidebar" [ngClass]="{'show': showBatimentDetails}">
+              <img src="{{batimentDetails?.image}}" alt="">
+              <p>Nom : {{batimentDetails?.nom}}</p>
+              <p>Type : {{batimentDetails?.type}}</p>
+              <p>Statut : {{batimentDetails?.statut}}</p>
+              <p>Description : {{batimentDetails?.description}}</p>
+            </div>
+          </div>
         </div>
 
         <div class="grid-item" *ngIf="etapeCourante === 0">
@@ -88,6 +99,10 @@
         <div class="coord">
           <input type="text" id="coord-lat" [(ngModel)]="buildingInfo.lat" [disabled]="!modificationActive">
           <input type="text" id="coord-lon" [(ngModel)]="buildingInfo.lon" [disabled]="!modificationActive">
+        </div>
+        <div class="message">
+          <p>{{buildingInfo.message}} : <a (click)="toggleBuildingDetails()">Voir le bâtiment</a></p> 
+          
         </div>
       </div>
       <button class="precedent" (click)="etapePrecedente()">

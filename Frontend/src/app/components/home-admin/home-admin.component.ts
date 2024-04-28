@@ -6,6 +6,7 @@ import { AddBatService } from '../add-bat/add-bat-service.model';
 import { UserDTO } from '../connexion/user-dto.model';
 import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { BatimentDTO } from '../carte/batiment-dto.model';
 
 @Component({
   selector: 'app-home-admin',
@@ -32,7 +33,8 @@ export class HomeAdminComponent implements OnInit{
   //new modif
   currentRoute: string= '';
   titre: string = '';
-
+  showBatimentDetails = false;
+  batimentDetails: BatimentDTO | undefined;
   
   constructor(private homeAdminService: HomeAdminService, private userService: UserService,private addBatService : AddBatService, private router: Router) { }
 
@@ -69,21 +71,6 @@ export class HomeAdminComponent implements OnInit{
   majuscule(word: string): string {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
-
-  // Affichage des noms des suggestions dans le aside
-  /* Ancienne version
-  loadAllBuildings(): void {
-    
-    if (this.historiqueMode) {
-      this.homeAdminService.getAllSuggestionsValidees().subscribe((data: SuggestionDTO[]) => {
-        this.buildings = data;
-      });
-    } else {
-      this.homeAdminService.getAllSuggestionsEnAttente().subscribe((data: SuggestionDTO[]) => {
-        this.buildings = data;
-      });
-    }
-  }*/
 
   loadAllBuildings(): void {
     if (this.currentRoute == "historique") {
@@ -124,8 +111,10 @@ export class HomeAdminComponent implements OnInit{
     this.homeAdminService.getSuggestionById(id).subscribe((data: SuggestionDTO) => {
       this.buildingInfo = data;
       //const dateCreationDate = new Date(this.buildingInfo.dateCreation);
-      console.log(this.buildingInfo); 
+      console.log(this.buildingInfo);
+      console.log(this.buildingInfo.batimentId); 
     });
+    
   }
 
   // Suppression d'une suggestion (et elle l'update pour la mettre dans la corbeille)
@@ -224,7 +213,7 @@ export class HomeAdminComponent implements OnInit{
     }
   }
   
-  /*Méthodes pour les listes de département et commune */
+  /*-------- Méthodes pour les listes de département et commune ---------*/
 
   // Chargement des départements en fonction de la région sélectionnée
   onRegionChange(region: string): void {
@@ -242,7 +231,7 @@ export class HomeAdminComponent implements OnInit{
   }
 
 
-  // Etape
+  /*-------- Etape --------*/
   etapeCourante: number = 0;
 
   afficherEtape(etapeIndex: number) {
@@ -262,4 +251,30 @@ export class HomeAdminComponent implements OnInit{
     }
   }
 
+
+  /*-------- Details batiments si coordonnées existante --------*/
+
+  toggleBuildingDetails(): void {
+    this.showBatimentDetails = !this.showBatimentDetails;
+    this.getBuildingDetails();
+  }
+
+  getBuildingDetails(): void {
+    console.log('Récupération des détails du bâtiment...');
+    if (this.buildingInfo) {
+      const batimentId = this.buildingInfo.batimentId; // Supposons que buildingInfo contient l'ID du bâtiment
+      console.log('ID du bâtiment:', batimentId);
+      if (batimentId) {
+        this.homeAdminService.getBatimentById(batimentId).subscribe(
+          (data: BatimentDTO) => {
+            this.batimentDetails = data;
+            console.log(this.batimentDetails);
+          },
+          (error) => {
+            console.error('Une erreur s\'est produite lors de la récupération des détails du bâtiment:', error);
+          }
+        );
+      }
+  }
+  }
 }

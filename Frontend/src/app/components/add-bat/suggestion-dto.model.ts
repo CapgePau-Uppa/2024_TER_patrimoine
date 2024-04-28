@@ -18,6 +18,8 @@ export interface SuggestionDTO {
     etat: string;
     emailAdmin: string;
     dateCreation: Date;
+    message: string;
+    batimentId: number;
   
   }
   

@@ -32,6 +32,16 @@ public class BatimentAPI {
         this.batimentService = batimentService;
     }
 
+    //Get batiment par id
+    @GetMapping("/batiment-by-id")
+    public ResponseEntity<BatimentDTO> getBatimentById(@RequestParam Long id) {
+        BatimentDTO batiment = batimentService.findById(id);
+        if (batiment == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(batiment, HttpStatus.OK);
+    }
+
     //Get tout les batiments pour ensuite les afficher sur la carte (solution avec données<=100)
     @GetMapping
     public List<BatimentDTO> getAllBatiments() {

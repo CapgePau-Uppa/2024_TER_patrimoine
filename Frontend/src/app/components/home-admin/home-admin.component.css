@@ -126,7 +126,7 @@ app-button {
   padding: 0;
   text-align: center;
 }
-.grid-item.image{
+.image{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,7 +134,7 @@ app-button {
   height: 100%;
 }
 
-.grid-item.image img{
+.image img{
   width: 100%;
 }
 
@@ -149,12 +149,17 @@ app-button {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-}
 
+}
+.coord input{
+  width: 120px;
+}
+.coord a{
+  cursor: pointer;
+}
 #coord-lat {
   margin-right: 20px;
 }
-
 
 .links-container {
   display: flex;
@@ -176,19 +181,61 @@ app-button {
   color: #262f34;
 }
 
-/*
-//Pour pas que le deuxieme a ai un border right  
-.links-container a:last-child {
-  border-right: none;
-}
 
-//Si les a sont cliqués
-.links-container a.active {
-  border-bottom: 2px solid black;
-  background-color: rgba(230, 230, 230, 0.658);
-
-}
-*/
 #sugg-container {
   width: 80%;
+}
+
+/*nn*/
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+}
+.message p {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  color: #d80000;
+}
+
+.message a {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.sidebar-container {
+  display: flex;
+  background-color: aqua;
+  height: 90%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 100%; /* Largeur du contenu */
+  height: 100%;
+  background-color: #f1f1f1; /* Couleur de fond */
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.sidebar img {
+  height: 50%;
+  margin-bottom: 10px;
+}
+.sidebar p {
+  display: flex;
+  font-size: 20px;
+  font-family: "Roboto", sans-serif;
+  color: #262f34;
+}
+
+.sidebar.show {
+  transform: translateX(0);
+}
+
+.sidebar.show {
+  right: 0; /* Affiche le bouton lorsque la barre latérale est ouverte */
 }

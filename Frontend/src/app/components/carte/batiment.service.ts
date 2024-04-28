@@ -13,7 +13,7 @@ export class BatimentService {
 
   constructor(private http: HttpClient) { }
 
-  // Tous les batiments : on ne l'utilise plus
+  // Tous les batiments *non-utilisé*
   getBatiments(): Observable<BatimentDTO[]> {
     return this.http.get<BatimentDTO[]>(`${this.baseUrl}/batiment`);
   }

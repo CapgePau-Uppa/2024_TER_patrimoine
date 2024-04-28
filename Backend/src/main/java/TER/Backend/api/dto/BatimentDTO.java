@@ -16,6 +16,7 @@ public class BatimentDTO {
     private String type;
     private String statut;
     private String image;
+    private String description;
     private String commune;
     private String departement;
     private String region;
@@ -28,6 +29,7 @@ public class BatimentDTO {
         type = batiment.getType();
         statut = batiment.getStatut();
         image = batiment.getImage();
+        description = batiment.getDescription();
         commune = batiment.getLieu().getCommune();
         departement = batiment.getLieu().getDepartement();
         lat= batiment.getCoordonnees().getLat();

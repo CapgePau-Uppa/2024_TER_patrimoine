@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SuggestionDTO } from '../add-bat/suggestion-dto.model';
+import { BatimentDTO } from '../carte/batiment-dto.model';
 @Injectable({
     providedIn: 'root'
 })
@@ -12,6 +13,11 @@ export class HomeAdminService {
     
    
     constructor(private http: HttpClient) { }
+
+    // Récuperer un batiment par son id
+    getBatimentById(id: number): Observable<BatimentDTO> {
+        return this.http.get<BatimentDTO>(`${this.baseUrl}/batiment/batiment-by-id?id=${id}`);
+    }
 
     /*--------- Suggestions (suggestion EN ATTENTE) ---------*/
 

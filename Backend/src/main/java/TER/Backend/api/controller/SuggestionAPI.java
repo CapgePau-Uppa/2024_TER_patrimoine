@@ -62,7 +62,7 @@ public class SuggestionAPI {
         Long batimentID = batimentService.findBatimentIdByCoordonnees(suggestionDTO.getLat(), suggestionDTO.getLon());
         if (batimentID != null) {
             // Envoie d'un message avec l'ID du bâtiment existant
-            String message = "Ces coordonnées existent déjà pour un bâtiment";
+            String message = "Ces coordonnées existent déjà";
             suggestionDTO.setMessage(message);
             suggestionDTO.setBatimentId(batimentID);
         }
