@@ -5,7 +5,7 @@ import { HomeAdminService } from './home-admin-service.model';
 import { AddBatService } from '../add-bat/add-bat-service.model';
 import { UserDTO } from '../connexion/user-dto.model';
 import { UserService } from 'src/app/services/user.service';
-import { DatePipe } from '@angular/common';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-home-admin',
@@ -29,8 +29,12 @@ export class HomeAdminComponent implements OnInit{
   historiqueMode: boolean = false;
   isSuggestionView = true;
 
+  //new modif
+  currentRoute: string= '';
+  titre: string = '';
+
   
-  constructor(private homeAdminService: HomeAdminService, private userService: UserService,private addBatService : AddBatService) { }
+  constructor(private homeAdminService: HomeAdminService, private userService: UserService,private addBatService : AddBatService, private router: Router) { }
 
   ngOnInit(): void {
     /*A revoir : il me prend le 1ere element du DTO 
@@ -39,6 +43,16 @@ export class HomeAdminComponent implements OnInit{
     const { nom, prenom, email } = this.utilisateurConnecte;
     this.emailAdmin = email;
     console.log('email:', this.emailAdmin);*/
+
+    //Ecoute de la route
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.url.split('/').pop() as string;
+        console.log(this.currentRoute);
+        console.log("enter router event");
+        this.loadAllBuildings();
+      }
+    });
 
     //Récupération de la liste des suggestions
     this.loadAllBuildings();
@@ -57,6 +71,7 @@ export class HomeAdminComponent implements OnInit{
   }
 
   // Affichage des noms des suggestions dans le aside
+  /* Ancienne version
   loadAllBuildings(): void {
     
     if (this.historiqueMode) {
@@ -68,7 +83,37 @@ export class HomeAdminComponent implements OnInit{
         this.buildings = data;
       });
     }
+  }*/
+
+  loadAllBuildings(): void {
+    if (this.currentRoute == "historique") {
+      this.titre = 'Historique';
+      this.homeAdminService.getAllSuggestionsValidees().subscribe((data: SuggestionDTO[]) => {
+        this.buildings = data;
+        console.log(this.buildings);
+      });
+      const info = document.getElementById("container");
+      // @ts-ignore
+      info.style.display = "none";
+    } else if (this.currentRoute == "corbeille") {
+      this.titre = 'Corbeille';
+      this.homeAdminService.getAllSuggestionsSupprimees().subscribe((data: SuggestionDTO[]) => {
+        this.buildings = data;
+      });
+      const info = document.getElementById("container");
+      // @ts-ignore
+      info.style.display = "none";
+    } else {
+      this.titre = 'Suggestion';
+      this.homeAdminService.getAllSuggestionsEnAttente().subscribe((data: SuggestionDTO[]) => {
+        this.buildings = data;
+      });
+      const info = document.getElementById("container");
+      // @ts-ignore
+      info.style.display = "none";
+    }
   }
+  
 
   // Affichage des informations d'une suggestion
   getBuildingInformation(id: number): void {
@@ -83,15 +128,21 @@ export class HomeAdminComponent implements OnInit{
     });
   }
 
-  // Suppression d'une suggestion
+  // Suppression d'une suggestion (et elle l'update pour la mettre dans la corbeille)
   supprimer(id: number): void {
       if (confirm('Êtes-vous sûr de vouloir supprimer cette suggestion?')) {
-        this.homeAdminService.deleteSuggestion(id).subscribe(() => {
-          const info = document.getElementById("container");
-          // @ts-ignore
-          info.style.display = "none";
-          this.loadAllBuildings();
-        });
+        this.homeAdminService.updateSuggestionToCorbeille(id, this.emailAdmin).subscribe(
+          (data) => {
+            const info = document.getElementById("container");
+              // @ts-ignore
+            info.style.display = "none";
+            this.loadAllBuildings();
+            console.log('Suggestion supprimée avec succès : ', data);
+          },
+          (error) => {
+            console.error('Erreur lors de la supression de la suggestion : ', error);
+          }
+        );
     }}
 
   // Validation d'une suggestion (et elle l'update pour la mettre dans l'historique)
@@ -154,8 +205,27 @@ export class HomeAdminComponent implements OnInit{
       );    
     }
   }
+
+  // Restaurer une suggestion de la corbeille vers les suggestions en attente
+  restaurer(): void {
+    if (this.buildingInfo) { 
+      this.homeAdminService.restoreSuggestionFromCorbeille(this.buildingInfo?.id).subscribe(
+        (data) => {
+          const info = document.getElementById("container");
+          // @ts-ignore
+          info.style.display = "none";
+          this.loadAllBuildings();
+          console.log('Suggestion restaurée avec succès : ', data);
+        },
+        (error) => {
+          console.error('Erreur lors de la restauration de la suggestion : ', error);
+        }
+      );
+    }
+  }
   
   /*Méthodes pour les listes de département et commune */
+
   // Chargement des départements en fonction de la région sélectionnée
   onRegionChange(region: string): void {
     this.buildingInfo!.commune = '';
@@ -171,29 +241,6 @@ export class HomeAdminComponent implements OnInit{
     });
   }
 
-
-  // Historique ou Suggestions
-
-  switchToSuggestion() {
-    console.log("Suggestions");
-    this.historiqueMode = false;
-    const info = document.getElementById("container");
-          // @ts-ignore
-    info.style.display = "none";
-    this.loadAllBuildings();
-    this.isSuggestionView = true;
-  }
-
-  switchToHistorique() {
-    console.log("Historique");
-    this.historiqueMode = true;
-    const info = document.getElementById("container");
-          // @ts-ignore
-    info.style.display = "none";
-    this.loadAllBuildings();
-    this.isSuggestionView = false;
-  }  
-    
 
   // Etape
   etapeCourante: number = 0;

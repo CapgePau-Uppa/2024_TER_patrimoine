@@ -163,14 +163,12 @@ app-button {
   margin-bottom: 20px;
 }
 
-.links-container a {
-  border-right: 2px solid #000;
+.links-container p {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 100%;
   height: 100%;
-  cursor: pointer;
   text-decoration: none;
   /*Texte des balises*/
   font-size: 20px;
@@ -178,18 +176,19 @@ app-button {
   color: #262f34;
 }
 
-/*Pour pas que le deuxieme a ai un border right */ 
+/*
+//Pour pas que le deuxieme a ai un border right  
 .links-container a:last-child {
   border-right: none;
 }
 
-/*Si les a sont cliqués*/
+//Si les a sont cliqués
 .links-container a.active {
   border-bottom: 2px solid black;
   background-color: rgba(230, 230, 230, 0.658);
 
 }
-
+*/
 #sugg-container {
   width: 80%;
 }

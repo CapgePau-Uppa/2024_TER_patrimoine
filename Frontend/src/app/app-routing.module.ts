@@ -10,7 +10,12 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'add-bat', component: AddBatComponent },
   { path: 'connexion', component: ConnexionComponent },
-  { path: 'home-admin', component: HomeAdminComponent },
+  { path: 'home-admin', component: HomeAdminComponent,
+    children: [
+      { path: 'historique', component: HomeAdminComponent },
+      { path: 'corbeille', component: HomeAdminComponent }
+    ]
+  },
   { path: 'account', component: AccountComponent },
 ];
 

@@ -6,8 +6,7 @@
 
   <aside>
     <div class="links-container">
-      <a (click)="switchToSuggestion()" [class.active]="historiqueMode">Suggestion</a>
-      <a (click)="switchToHistorique()" [class.active]="!historiqueMode">Historique</a>
+      <p>{{titre}}</p>
   </div>
     <div id="sugg-container" *ngFor="let building of buildings">
       <app-suggestion [batName]="building.nomBatiment"
@@ -100,7 +99,7 @@
 
 
     </div>
-    <div *ngIf="isSuggestionView"> 
+    <div *ngIf="currentRoute !== 'historique' && currentRoute !== 'corbeille'"> 
       <div id="buttons">
         <div class="option">
           <app-button text="Valider" [buttonClass]="'btn-blue'" (click)="valider()"></app-button>
@@ -115,9 +114,16 @@
         </div>
       </div>
     </div>
-    <div *ngIf="!isSuggestionView">
+
+    <div *ngIf="currentRoute === 'historique'">
       <div class="option">
         <app-button text="Corriger" [buttonClass]="'btn-blue'" (click)="corriger()"></app-button>
+      </div>
+    </div>
+
+    <div *ngIf="currentRoute === 'corbeille'">
+      <div class="option">
+        <app-button text="Restaurer" [buttonClass]="'btn-blue'" (click)="restaurer()"></app-button>
       </div>
     </div>
   </div>
