@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import * as L from 'leaflet';
 import { SuggestionDTO } from '../add-bat/suggestion-dto.model';
 import { HomeAdminService } from './home-admin-service.model';
@@ -13,7 +13,7 @@ import { BatimentDTO } from '../carte/batiment-dto.model';
   templateUrl: './home-admin.component.html',
   styleUrl: './home-admin.component.css',
 })
-export class HomeAdminComponent implements OnInit, AfterViewInit{
+export class HomeAdminComponent implements OnInit{
 
   buildings: SuggestionDTO[] = [];
   buildingInfo: SuggestionDTO | null = null;
@@ -27,7 +27,7 @@ export class HomeAdminComponent implements OnInit, AfterViewInit{
 
   utilisateurConnecte!: UserDTO;
   modificationActive: boolean = false;
-  mapInitialized = false;
+
 
   //new modif
   currentRoute: string= '';
@@ -35,9 +35,9 @@ export class HomeAdminComponent implements OnInit, AfterViewInit{
   lien: string = '';
   showBatimentDetails = false;
   batimentDetails: BatimentDTO | undefined;
-  map1!: L.Map ;
+  map!: L.Map ;
   
-  constructor(private homeAdminService: HomeAdminService, private userService: UserService,private addBatService : AddBatService, private router: Router) { }
+  constructor(private homeAdminService: HomeAdminService, private userService: UserService,private addBatService : AddBatService, private router: Router, private elRef: ElementRef) { }
   
 
   ngOnInit(): void {
@@ -70,18 +70,15 @@ export class HomeAdminComponent implements OnInit, AfterViewInit{
     
   }
 
-  ngAfterViewInit(): void {
-    
-    if (this.map1 == undefined){
-      console.log('Initialisation..');
-      this.initMap();
-    }
-  }
-
   majuscule(word: string): string {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
-
+  actualiser(){
+    const info = document.getElementById("container");
+        // @ts-ignore
+    info.style.display = "none";
+    this.etapeCourante = 0;
+  }
   loadAllBuildings(): void {
     if (this.currentRoute == "historique") {
       this.titre = 'Historique';
@@ -89,31 +86,26 @@ export class HomeAdminComponent implements OnInit, AfterViewInit{
         this.buildings = data;
         console.log(this.buildings);
       });
-      const info = document.getElementById("container");
-      // @ts-ignore
-      info.style.display = "none";
+      this.actualiser();
     } else if (this.currentRoute == "corbeille") {
       this.titre = 'Corbeille';
       this.homeAdminService.getAllSuggestionsSupprimees().subscribe((data: SuggestionDTO[]) => {
         this.buildings = data;
       });
-      const info = document.getElementById("container");
-      // @ts-ignore
-      info.style.display = "none";
+      this.actualiser();
     } else {
       this.titre = 'Suggestion';
       this.homeAdminService.getAllSuggestionsEnAttente().subscribe((data: SuggestionDTO[]) => {
         this.buildings = data;
       });
-      const info = document.getElementById("container");
-      // @ts-ignore
-      info.style.display = "none";
+      this.actualiser();
     }
   }
   
 
   // Affichage des informations d'une suggestion
   getBuildingInformation(id: number): void {
+    this.actualiser();
     this.modificationActive = false;
     const info = document.getElementById("container");
     // @ts-ignore
@@ -132,9 +124,7 @@ export class HomeAdminComponent implements OnInit, AfterViewInit{
       if (confirm('Êtes-vous sûr de vouloir supprimer cette suggestion?')) {
         this.homeAdminService.updateSuggestionToCorbeille(id, this.emailAdmin).subscribe(
           (data) => {
-            const info = document.getElementById("container");
-              // @ts-ignore
-            info.style.display = "none";
+            this.actualiser();
             this.loadAllBuildings();
             console.log('Suggestion supprimée avec succès : ', data);
           },
@@ -158,6 +148,7 @@ export class HomeAdminComponent implements OnInit, AfterViewInit{
             console.error("l'id est null");
           }
           alert('Suggestion enregistrée comme un bâtiment avec succès !');
+          this.actualiser();
         },
         (error) => {
           console.error('Erreur lors de l\'enregistrement de la suggestion comme un bâtiment : ', error);
@@ -170,9 +161,7 @@ export class HomeAdminComponent implements OnInit, AfterViewInit{
     this.homeAdminService.updateSuggestion(id, emailAdmin).subscribe(
       (data) => {
         this.modificationActive = true;
-        const info = document.getElementById("container");
-          // @ts-ignore
-        info.style.display = "none";
+        this.actualiser();
         this.loadAllBuildings();
         console.log('Suggestion mise à jour avec succès : ', data);
       },
@@ -192,9 +181,7 @@ export class HomeAdminComponent implements OnInit, AfterViewInit{
     if (this.buildingInfo) { 
       this.homeAdminService.restoreSuggestion(this.buildingInfo?.id).subscribe(
         (data) => {
-          const info = document.getElementById("container");
-          // @ts-ignore
-          info.style.display = "none";
+          this.actualiser();
           this.loadAllBuildings();
           console.log('Suggestion restaurée avec succès : ', data);
         },
@@ -210,9 +197,7 @@ export class HomeAdminComponent implements OnInit, AfterViewInit{
     if (this.buildingInfo) { 
       this.homeAdminService.restoreSuggestionFromCorbeille(this.buildingInfo?.id).subscribe(
         (data) => {
-          const info = document.getElementById("container");
-          // @ts-ignore
-          info.style.display = "none";
+          this.actualiser();
           this.loadAllBuildings();
           console.log('Suggestion restaurée avec succès : ', data);
         },
@@ -253,6 +238,7 @@ export class HomeAdminComponent implements OnInit, AfterViewInit{
     if (this.etapeCourante < 1) {
       this.etapeCourante++;
     }
+    this.onAsideItemClick();
     
   }
 
@@ -262,45 +248,67 @@ export class HomeAdminComponent implements OnInit, AfterViewInit{
     }
   }
 
+
   /*-------- Carte --------*/
-  // La carte ne s'affiche pas
-  private initMap(): void {
-    const cont = document.getElementById('map1');
-    console.log(cont);
-    if (cont) {
-      console.log('Initialisation de la carte...');
-      const franceBounds: L.LatLngBoundsExpression = [
-        [41.325, -5.0], // Sud-ouest 
-        [51.124, 9.662] // Nord-est
-      ];
-
-      this.map1 = L.map(cont, { // Utiliser 'cont' comme conteneur
-        maxBounds: franceBounds,
-        maxBoundsViscosity: 1.0,
-        zoomSnap: 0.1,
-        minZoom: 5.5,
-        maxZoom: 19
-      }).fitBounds(franceBounds);
-
-      // Ajouter une couche de tuile principale
-      const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        minZoom: 2,
-        maxZoom: 19,
-      });
-      mainLayer.addTo(this.map1);
-    } else {
-      console.error('L\'élément conteneur de la carte n\'existe pas dans le DOM.');
-    }
+  onAsideItemClick(): void {
+    setTimeout(() => {
+      const mapContainer = this.elRef.nativeElement.querySelector('#map');
+      console.log(mapContainer);
+      if (mapContainer) {
+        this.initMap(mapContainer);
+      }
+    });
   }
   
+  private initMap(mapContainer: HTMLElement): void {
+    const franceBounds: L.LatLngBoundsExpression = [
+      [41.325, -5.0],
+      [51.124, 9.662] 
+    ];
+    this.map = L.map(mapContainer, {
+      maxBounds: franceBounds,
+      maxBoundsViscosity: 1.0,
+      zoomSnap: 0.1,
+      minZoom: 5.5,
+      maxZoom: 19
+    }).fitBounds(franceBounds);
+
+    const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      minZoom: 2,
+      maxZoom: 19,
+    });
+    mainLayer.addTo(this.map);
+    console.log('Carte initialisée avec succès !');
+
+    // Ajout du marqueur seulement si les coordonnées sont présentes
+    if (this.buildingInfo) {
+      // Coordonnées
+      const markerCoords: L.LatLngExpression = [this.buildingInfo?.lat, this.buildingInfo?.lon]; // Paris
+      // Ajout du marqueur
+      const marker = L.marker(markerCoords).addTo(this.map);
+      // Zoom
+      this.map.flyTo(markerCoords, 12);    
+  }
+
+  }
 
 
   /*-------- Details batiments si coordonnées existante --------*/
 
+  showSidebar: boolean = false;
+  
+
+// Méthode pour basculer l'état de la sidebar
   toggleBuildingDetails(): void {
-    this.lien = 'Voir bâtiment';
+    console.log('showSidebar:', this.showSidebar);
+    this.showSidebar = !this.showSidebar;
+    console.log('showSidebar2:', this.showSidebar);
     this.showBatimentDetails = !this.showBatimentDetails;
-    this.getBuildingDetails();
+    if (this.showSidebar) {
+      this.getBuildingDetails();
+    } else {
+      this.onAsideItemClick();
+    }
   }
 
   getBuildingDetails(): void {

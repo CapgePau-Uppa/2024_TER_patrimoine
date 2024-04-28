@@ -215,10 +215,10 @@ export class CarteComponent implements AfterViewInit, OnInit{
         marker.on('click', () => {
           this.showBuildingsByDepartment(department.departement);
           this.zoomToDepartment(marker);
+          this.map!.removeLayer(marker); //Ne repond pas
           if (this.previousDepartmentMarker) {
             this.map!.addLayer(this.previousDepartmentMarker);
           }
-          this.map!.removeLayer(marker); //Ne repond pas
           this.previousDepartmentMarker = marker;
         });
         this.departmentMarkers.push(marker);
@@ -238,12 +238,16 @@ export class CarteComponent implements AfterViewInit, OnInit{
 
   // Zoomer sur le département
   private zoomToDepartment(marker: any): void {
-    this.map!.setView(marker.getLatLng(), 10);
+    //this.map!.setView(marker.getLatLng(), 10);
+    this.map!.flyTo(marker.getLatLng(), 12);    
+
   }
 
   // Zoomer sur le bâtiment
   private zoomToBatiment(batLat: any, batLon: any): void {
-    this.map!.setView([batLat, batLon], 20);
+    //this.map!.setView([batLat, batLon], 20);
+    this.map!.flyTo([batLat, batLon], 18);    
+
   }
 
   // Tous les batiments

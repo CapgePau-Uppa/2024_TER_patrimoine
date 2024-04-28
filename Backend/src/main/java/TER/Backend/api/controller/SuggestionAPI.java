@@ -64,7 +64,7 @@ public class SuggestionAPI {
             // Envoie d'un message avec l'ID du bâtiment existant
             String message = "Ces coordonnées existent déjà : Voir le batiment";
             suggestionDTO.setMessage(message);
-            suggestionDTO.setBatimentId(batimentID);
+            suggestionDTO.setBatimentId(batimentID); 
         }
 
         return suggestionDTO;

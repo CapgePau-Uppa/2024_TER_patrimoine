@@ -22,13 +22,14 @@
       <p>Suggestion de : {{ buildingInfo.nomUser }} {{ buildingInfo.prenomUser }}</p>
 
       <div class="grid-container" [class.disabled]="!modificationActive">
+        
         <div class="grid-item">
           <div class="image" *ngIf="etapeCourante === 0">
             <img src="../../../assets/img/chateau.png" alt="" loading="lazy">
           </div>
-          <div id="map1"  *ngIf="etapeCourante === 1"></div>
           <div class="sidebar-container" *ngIf="etapeCourante === 1">
-            <div class="sidebar" [ngClass]="{'show': showBatimentDetails}">
+            <div id="map" #map *ngIf="!showSidebar"></div>
+            <div class="sidebar" [ngClass]="{'show': showBatimentDetails}" *ngIf="showSidebar">
               <img src="{{batimentDetails?.image}}" alt="">
               <p>Nom : {{batimentDetails?.nom}}</p>
               <p>Type : {{batimentDetails?.type}}</p>

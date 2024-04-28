@@ -117,12 +117,13 @@ app-button {
 
 .grid-container {
   display: grid;
+  height: 100%;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px; 
   width: 100%;
 }
 .grid-item {
-  background-color: #fff;
+  height: 100%;
+  width: 100%;
   padding: 0;
   text-align: center;
 }
@@ -204,15 +205,14 @@ app-button {
 
 .sidebar-container {
   display: flex;
-  height: 90%;
+  height: 100%;
   width: 100%;
   overflow: hidden;
 }
 
 .sidebar {
-  width: 100%; /* Largeur du contenu */
+  width: 100%; 
   height: 100%;
-  background-color: #f1f1f1; /* Couleur de fond */
   transform: translateX(100%);
   transition: transform 0.3s ease;
 }
@@ -230,13 +230,11 @@ app-button {
 
 .sidebar.show {
   transform: translateX(0);
-}
+  right: 0;
 
-.sidebar.show {
-  right: 0; /* Affiche le bouton lorsque la barre latérale est ouverte */
 }
 
 #map {
-  width: 200px;
-  height: 300px; /* ou toute autre valeur de hauteur souhaitée */
+  width: 100%;
+  height: 600px;
 }
