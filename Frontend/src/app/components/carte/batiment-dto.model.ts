@@ -7,8 +7,9 @@ export class BatimentDTO {
     lat: number;
     lon: number;
     description: string;
+    etoile: number;
   
-    constructor(id: number, nom: string,type: string, statut: string, image: string, description:string ,lat: number, lon: number) {
+    constructor(id: number, nom: string,type: string, statut: string, image: string, description:string ,lat: number, lon: number, etoile: number) {
       this.id = id;
       this.nom = nom;
       this.statut= statut;
@@ -17,6 +18,7 @@ export class BatimentDTO {
       this.description= description;
       this.lat = lat;
       this.lon = lon;
+      this.etoile = etoile;
     }
   }
   

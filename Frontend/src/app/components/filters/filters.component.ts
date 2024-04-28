@@ -68,8 +68,18 @@ export class FiltersComponent implements OnInit{
     this.filterService.hideFilters();
   }
 
+  valider() {
+    this.batimentService.setSelectedType(this.selectedType);
+    console.log("selected type : "+this.selectedType);
+    this.batimentService.setSelectedDepartement(this.selectedDepartement);
+    console.log("selected dep : "+ this.selectedDepartement);
+    this.batimentService.setSelectedRegion(this.selectedRegion);
+    console.log("selected region : "+this.selectedRegion);
+    // Cacher les filtres
+    this.hideFilters();
+  }
   onTypeSelected(): void {
-      this.batimentService.setSelectedType(this.selectedType);
+    this.batimentService.setSelectedType(this.selectedType);
   }
 
   onDepartementSelected(): void {
@@ -79,12 +89,7 @@ export class FiltersComponent implements OnInit{
   onRegionSelected(): void {
       this.batimentService.setSelectedRegion(this.selectedRegion);
   }
-
-  valider() {
-    //this.batimentService.triggerLoad();
-    this.hideFilters();
-  }
-
+  
   
 
 }

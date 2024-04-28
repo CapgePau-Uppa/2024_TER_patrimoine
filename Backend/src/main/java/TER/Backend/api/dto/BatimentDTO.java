@@ -22,6 +22,7 @@ public class BatimentDTO {
     private String region;
     private Double lat;
     private Double lon;
+    private Integer etoile;
 
     public BatimentDTO(Batiment batiment){
         id= batiment.getId();
@@ -35,6 +36,7 @@ public class BatimentDTO {
         lat= batiment.getCoordonnees().getLat();
         lon = batiment.getCoordonnees().getLon();
         region = batiment.getLieu().getRegion();
+        etoile = batiment.getEtoile();
     }
     
 }

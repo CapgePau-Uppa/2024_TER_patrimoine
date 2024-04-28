@@ -5,7 +5,7 @@
   <!-- Building type dropdown -->
   <div class="form-group">
     <div class="dropdown">
-      <select id="buildingType" class="form-control" [(ngModel)]="selectedType" (change)="onTypeSelected()">
+      <select id="buildingType" class="form-control" [(ngModel)]="selectedType">
         <option class="placeholder" value="" disabled selected>Rechercher par type</option>
         <option *ngFor="let type of types" [value]="type">{{ majuscule(type.toLowerCase()) }}</option>
       </select>
@@ -22,7 +22,7 @@
   <!-- Region dropdown -->
   <div class="form-group">
     <div class="dropdown">
-      <select id="region" class="form-control" [(ngModel)]="selectedRegion" (change)="onRegionSelected()">
+      <select id="region" class="form-control" [(ngModel)]="selectedRegion">
         <option class="placeholder" value="" disabled selected>Rechercher par région</option>
         <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
       </select>
@@ -39,7 +39,7 @@
   <!-- Departement dropdown -->
   <div class="form-group">
     <div class="dropdown">
-        <select id="departement" class="form-control" [(ngModel)]="selectedDepartement" (change)="onDepartementSelected()">
+        <select id="departement" class="form-control" [(ngModel)]="selectedDepartement">
           <option class="placeholder" value="" disabled selected>Rechercher par département</option>
           <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
         </select>

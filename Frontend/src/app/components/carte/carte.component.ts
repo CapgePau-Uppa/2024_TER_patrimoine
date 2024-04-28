@@ -24,11 +24,15 @@ export class CarteComponent implements AfterViewInit, OnInit{
   currentAuthState: AuthState = AuthState.Visiteur;
   AuthState = AuthState;
   triggerLoad: boolean = false;
+  etoiles: number[] = [1, 2, 3, 4, 5];
+
 
   
   private reloadSubscription!: Subscription;
 
   constructor(private authService: AuthService, private batimentService: BatimentService, private filterService: FilterService, private zone: NgZone) { 
+    
+    /*--------- PWA --------*/
     // Installation de l'application
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
@@ -66,15 +70,17 @@ export class CarteComponent implements AfterViewInit, OnInit{
   // Initialisation
   ngOnInit(): void {
     this.reloadSubscription = this.batimentService.reloadMap$.subscribe(() => {
-      this.clearMap(); // Supprimer tous les marqueurs ou couches, sauf le fond de carte
-      this.addClusteringMarkers(); // Appeler ngAfterViewInit() lorsque le sujet est déclenché
+      this.clearMap();
+      this.addClusteringMarkers();
     }); 
-
     this.authService.authState$.subscribe(state => {
       this.currentAuthState = state;
     });
     
   }
+
+
+      /*--------- Carte --------*/
 
   // Initialisation de la carte
   ngAfterViewInit(): void {
@@ -213,9 +219,10 @@ export class CarteComponent implements AfterViewInit, OnInit{
         });
         let marker = L.marker([department.lat, department.lon], { icon: customIcon }).addTo(this.map!);
         marker.on('click', () => {
+          console.log(marker.getLatLng());
+          this.map!.removeLayer(marker); //Ne repond pas
           this.showBuildingsByDepartment(department.departement);
           this.zoomToDepartment(marker);
-          this.map!.removeLayer(marker); //Ne repond pas
           if (this.previousDepartmentMarker) {
             this.map!.addLayer(this.previousDepartmentMarker);
           }
@@ -258,7 +265,8 @@ export class CarteComponent implements AfterViewInit, OnInit{
     });
   }
 
-  // FILTRES : par type, par departement, par region
+      /*--------- FILTRES --------*/
+
   // Filtre par type
   loadBatimentsParType(selectedType: string): void {
     //this.batimentService.triggerLoad$.subscribe(() => {
@@ -393,76 +401,49 @@ export class CarteComponent implements AfterViewInit, OnInit{
   hideFilters(): void {
     this.filterService.hideFilters();
   }
+  batimentSelectionne: any;
 
   // Ajout des markers
   addMarkers(): void {
-    this.batiments.forEach(batiment => {
+    this.batiments.forEach((batiment, index) => {
       const marker = L.marker([batiment.lat, batiment.lon]).addTo(this.buildingMarkersLayer);
-
-      // Contenue de la card
+  
+      // Contenu de la carte
       const cardContent = `
         <h4>${batiment.nom}</h4>
         <table>
-        <tr>
-          <td><img src="${batiment.image}" alt="Image du batiment" style="border-radius: 20px;
-            height : 90px; width : 90px;"></td>
-          <td class="container" style="padding: 1px 15px;">
-            <p><b>Type</b> : ${batiment.type}</p>
-            <p><b>Statut</b> : ${batiment.statut} </p>
-            <button style="float:right; background:none; border:none; font-weight:bold;">Plus de détails</button>
-          </td>
+          <tr>
+            <td><img src="${batiment.image}" alt="Image du batiment" style="border-radius: 20px;
+                height: 90px; width: 90px;"></td>
+            <td class="container" style="padding: 1px 15px;">
+              <p><b>Type</b> : ${batiment.type}</p>
+              <p><b>Statut</b> : ${batiment.statut} </p>
+              <button id="detailsBtn${index}" 
+                      style="float:right; background:none; border:none; font-weight:bold;">
+                Plus de détails
+              </button>
+            </td>
           </tr>
-      </table>
+        </table>
       `;
-
+  
       // Popup
-      marker.bindPopup(cardContent, {maxWidth: 500});
+      marker.bindPopup(cardContent, { maxWidth: 500 });
       marker.bindTooltip(batiment.nom);
-
+  
       // Tooltip
       marker.on('click', () => {
-        marker.openPopup();
-        this.zoomToBatiment(batiment.lat, batiment.lon);
-        const popup = marker.getPopup();
-        if (popup) {
-          const detailButton = popup.getElement()?.querySelector('button');
-          if (detailButton) {
-            detailButton.addEventListener('click', (e) => {
-              e.stopPropagation();
-
-              const detailedCardContent = `
-                <h4>${batiment.nom}</h4>
-                <table>
-                  <tr>
-                    <td><img src="${batiment.image}" alt="Image du batiment" style="border-radius: 20px;
-                      height : 90px; width : 90px;"></td>
-                    <td class="container" style="padding: 1px 15px;">
-                      <p><b>Type</b> : ${batiment.type}</p>
-                      <p><b>Statut</b> : ${batiment.statut}</p>
-                      <p><b>Historique</b> : </p>
-                      <p><b>Coordonées</b> : ${batiment.lat}, ${batiment.lon}</p>
-                      </br>
-                      <button style=
-                        "display : block;
-                        height: 40px;
-                        width: auto;
-                        padding: 0 40px 0 40px;
-                        border-radius: 20px;
-                        background-color: #114968;
-                        border: 3px solid #114968;
-                        color: #f6f5f7;">
-                      Signaler des dégats</button>
-                    </td>
-                  </tr>
-                </table>
-              `;
-        
-              popup.setContent(detailedCardContent).update();
-            });
-          }
+        const detailButton = document.getElementById(`detailsBtn${index}`);
+        if (detailButton) {
+          detailButton.addEventListener('click', (e) => {
+            this.togglePopup();
+            e.stopPropagation();
+            this.batimentSelectionne = batiment;
+            console.log("click"+this.batimentSelectionne);
+          });
         }
       });
-
+  
       marker.on('mouseover', () => {
         marker.openTooltip();
       });
@@ -470,6 +451,27 @@ export class CarteComponent implements AfterViewInit, OnInit{
         marker.closeTooltip();
       });
     });
+  }
+
+  togglePopup(): void {
+    console.log("togglePopup");
+    const popupContent = document.getElementById('popupContent');
+    const bouton = document.getElementById('btn-add-bat');
+    if (popupContent) {
+      popupContent.classList.toggle('active');
+      console.log(popupContent)
+      bouton?.classList.toggle('hidden');
+      console.log(bouton)
+    }
+  }
+  
+  closePopupContent(): void {
+    const popupContent = document.getElementById('popupContent');
+    const bouton = document.getElementById('btn-add-bat');
+    if (popupContent) {
+      popupContent.classList.remove('active');
+      bouton?.classList.remove('hidden');
+    }
   }
 
   // Zoommer sur la position du user
