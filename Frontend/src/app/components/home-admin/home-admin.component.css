@@ -194,20 +194,16 @@ app-button {
   text-align: center;
 
 }
-.message p {
+
+.message a {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   color: #d80000;
-}
-
-.message a {
-  text-decoration: underline;
   cursor: pointer;
 }
 
 .sidebar-container {
   display: flex;
-  background-color: aqua;
   height: 90%;
   width: 100%;
   overflow: hidden;
@@ -238,4 +234,9 @@ app-button {
 
 .sidebar.show {
   right: 0; /* Affiche le bouton lorsque la barre latérale est ouverte */
+}
+
+#map {
+  width: 200px;
+  height: 300px; /* ou toute autre valeur de hauteur souhaitée */
 }

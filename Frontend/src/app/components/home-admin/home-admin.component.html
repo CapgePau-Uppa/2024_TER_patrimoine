@@ -26,6 +26,7 @@
           <div class="image" *ngIf="etapeCourante === 0">
             <img src="../../../assets/img/chateau.png" alt="" loading="lazy">
           </div>
+          <div id="map1"  *ngIf="etapeCourante === 1"></div>
           <div class="sidebar-container" *ngIf="etapeCourante === 1">
             <div class="sidebar" [ngClass]="{'show': showBatimentDetails}">
               <img src="{{batimentDetails?.image}}" alt="">
@@ -101,7 +102,7 @@
           <input type="text" id="coord-lon" [(ngModel)]="buildingInfo.lon" [disabled]="!modificationActive">
         </div>
         <div class="message">
-          <p>{{buildingInfo.message}} : <a (click)="toggleBuildingDetails()">Voir le bâtiment</a></p> 
+          <a (click)="toggleBuildingDetails()">{{buildingInfo.message}}</a>
           
         </div>
       </div>

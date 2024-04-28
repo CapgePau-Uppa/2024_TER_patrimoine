@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Building } from "../../building.model";
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import * as L from 'leaflet';
 import { SuggestionDTO } from '../add-bat/suggestion-dto.model';
 import { HomeAdminService } from './home-admin-service.model';
 import { AddBatService } from '../add-bat/add-bat-service.model';
@@ -13,7 +13,7 @@ import { BatimentDTO } from '../carte/batiment-dto.model';
   templateUrl: './home-admin.component.html',
   styleUrl: './home-admin.component.css',
 })
-export class HomeAdminComponent implements OnInit{
+export class HomeAdminComponent implements OnInit, AfterViewInit{
 
   buildings: SuggestionDTO[] = [];
   buildingInfo: SuggestionDTO | null = null;
@@ -27,16 +27,18 @@ export class HomeAdminComponent implements OnInit{
 
   utilisateurConnecte!: UserDTO;
   modificationActive: boolean = false;
-  historiqueMode: boolean = false;
-  isSuggestionView = true;
+  mapInitialized = false;
 
   //new modif
   currentRoute: string= '';
   titre: string = '';
+  lien: string = '';
   showBatimentDetails = false;
   batimentDetails: BatimentDTO | undefined;
+  map1!: L.Map ;
   
   constructor(private homeAdminService: HomeAdminService, private userService: UserService,private addBatService : AddBatService, private router: Router) { }
+  
 
   ngOnInit(): void {
     /*A revoir : il me prend le 1ere element du DTO 
@@ -45,7 +47,6 @@ export class HomeAdminComponent implements OnInit{
     const { nom, prenom, email } = this.utilisateurConnecte;
     this.emailAdmin = email;
     console.log('email:', this.emailAdmin);*/
-
     //Ecoute de la route
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -65,7 +66,16 @@ export class HomeAdminComponent implements OnInit{
     this.addBatService.getAllRegions().subscribe(regions => this.regions = regions.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
     this.addBatService.getAllDepartements().subscribe(departements => this.departements = departements.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
     this.addBatService.getAllCommunes().subscribe(communes => this.communes = communes.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
+  
     
+  }
+
+  ngAfterViewInit(): void {
+    
+    if (this.map1 == undefined){
+      console.log('Initialisation..');
+      this.initMap();
+    }
   }
 
   majuscule(word: string): string {
@@ -243,6 +253,7 @@ export class HomeAdminComponent implements OnInit{
     if (this.etapeCourante < 1) {
       this.etapeCourante++;
     }
+    
   }
 
   etapePrecedente() {
@@ -251,10 +262,43 @@ export class HomeAdminComponent implements OnInit{
     }
   }
 
+  /*-------- Carte --------*/
+  // La carte ne s'affiche pas
+  private initMap(): void {
+    const cont = document.getElementById('map1');
+    console.log(cont);
+    if (cont) {
+      console.log('Initialisation de la carte...');
+      const franceBounds: L.LatLngBoundsExpression = [
+        [41.325, -5.0], // Sud-ouest 
+        [51.124, 9.662] // Nord-est
+      ];
+
+      this.map1 = L.map(cont, { // Utiliser 'cont' comme conteneur
+        maxBounds: franceBounds,
+        maxBoundsViscosity: 1.0,
+        zoomSnap: 0.1,
+        minZoom: 5.5,
+        maxZoom: 19
+      }).fitBounds(franceBounds);
+
+      // Ajouter une couche de tuile principale
+      const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        minZoom: 2,
+        maxZoom: 19,
+      });
+      mainLayer.addTo(this.map1);
+    } else {
+      console.error('L\'élément conteneur de la carte n\'existe pas dans le DOM.');
+    }
+  }
+  
+
 
   /*-------- Details batiments si coordonnées existante --------*/
 
   toggleBuildingDetails(): void {
+    this.lien = 'Voir bâtiment';
     this.showBatimentDetails = !this.showBatimentDetails;
     this.getBuildingDetails();
   }
