@@ -34,7 +34,6 @@
 
   <!-- ======= USER & ADMIN ======= -->
 
-
   <!-- MENU -->
   <a class="option" id="opt-account" (click)="toggleMenu()" *ngIf="currentAuthState !== AuthState.Visiteur">
     <img ngSrc='../../assets/icones/menu.png' alt="Menu" height="40" width="40" loading="lazy">
@@ -60,15 +59,19 @@
 
   <!-- SUGGESTION -->
   <div class="option" id="opt-suggest" routerLink="/home-admin" *ngIf="currentAuthState === AuthState.Admin">
-    <img ngSrc='../../assets/icones/suggest.png' alt="Suggestion" height="24" width="24" loading="lazy">
+    <img ngSrc='../../assets/icones/suggestion.png' alt="Suggestion" height="24" width="24" loading="lazy">
     <span>Suggestions</span>
   </div>
+
+  <!-- HISTORIQUE -->
   <div class="option" id="opt-historique" routerLink="/home-admin/historique" *ngIf="currentAuthState === AuthState.Admin">
-    <img ngSrc='../../assets/icones/suggest.png' alt="Suggestion" height="24" width="24" loading="lazy">
+    <img ngSrc='../../assets/icones/historique.png' alt="Historique" height="24" width="24" loading="lazy">
     <span>Historique</span>
   </div>
+
+  <!-- CORBEILLE -->
   <div class="option" id="opt-corbeille" routerLink="/home-admin/corbeille" *ngIf="currentAuthState === AuthState.Admin">
-    <img ngSrc='../../assets/icones/suggest.png' alt="Suggestion" height="24" width="24" loading="lazy">
+    <img ngSrc='../../assets/icones/corbeille.png' alt="Corbeille" height="24" width="24" loading="lazy">
     <span>Corbeille</span>
   </div>
 
