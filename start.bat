@@ -1,23 +1,49 @@
 @echo off
+SETLOCAL EnableDelayedExpansion
 
 REM Arrêter le script en cas d'erreur
-setlocal enabledelayedexpansion
+SET ERRORLEVEL=0
 
-:: Lancement du backend et du frontend
-echo Starting backend and frontend...
-
+REM Lancement du backend
+echo ======== DEMARRAGE DU BACKEND ========
 cd Backend
-start mvn clean install
-start mvn spring-boot:run
-cd ..
 
-cd Frontend
-start npm run run-start
-cd ..
+REM Nettoyer le projet et installer les dépendances
+call mvn clean install
+IF %ERRORLEVEL% NEQ 0 (
+  echo Erreur : Echec de la construction Maven pour le backend.
+  exit /b 1
+)
 
-timeout /t 5
+REM Lancement du backend
+start /b java -jar target/Backend-0.0.1-SNAPSHOT.jar
+SET backend_pid=%!
 
-:: Lancement du site web
+REM Délai de sommeil pour s'assurer que le backend est lancé
+TIMEOUT /T 5
+
+REM Lancement du frontend
+echo ======== DEMARRAGE DU FRONTEND ========
+cd ../Frontend
+
+REM Lancement du frontend
+call npm run run-start
+IF %ERRORLEVEL% NEQ 0 (
+  echo ERREUR : Echec du demarrage du frontend.
+  taskkill /pid !backend_pid!
+  exit /b 1
+)
+
+REM Vérification du backend
+curl -s http://localhost:8080/actuator/health | findstr "UP"
+IF %ERRORLEVEL% NEQ 0 (
+  echo ERREUR : Le backend ne fonctionne pas correctement.
+  taskkill /pid !backend_pid!
+  exit /b 1
+)
+
+REM Lancement du site web
+echo ======== LANCEMENT DE L'APPLICATION ========
 start http://localhost:4200/
 
-echo Webapp started.
+echo ======== SITE WEB LANCE ========

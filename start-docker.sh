@@ -3,48 +3,34 @@
 # Arrêter le script en cas d'erreur
 set -e
 
-# Lancement du backend
-echo "Démarrage du backend..."
+echo "Lancement de Docker Desktop..."
 
-cd ./Backend
-# Nettoyer le projet et installer les dépendances
-if ! mvn clean install; then
-    echo "Erreur: Échec du démarrage du backend."
+# Vérification si Docker est installé
+if ! command -v docker &> /dev/null
+then
+    echo "Docker n'est pas installé. Veuillez l'installer et réessayer."
     exit 1
 fi
 
-# Lancement du backend
-java -jar target/Backend-0.0.1-SNAPSHOT.jar &
-backend_pid=$!
+# Si oui, on l'ouvre
+open -a Docker
 
+# Attendre que Docker soit prêt
+while ! docker system info > /dev/null 2>&1; do
+  echo "En attente de l'ouverture de Docker..."
+  sleep 1
+done
 
-# Lancement du frontend
-echo "Démarrage du frontend..."
+echo "Docker est prêt."
 
-cd ../Frontend
-# Lancement du frontend
-if ! npm run run-start; then
-    echo "Erreur : Échec du démarrage du frontend."
-    kill $backend_pid
-    exit 1
-fi
+# Chemin vers le fichier docker-compose.yaml
+DOCKER_COMPOSE_PATH="docker-compose.yaml"
 
-# Délai de sommeil pour s'assurer que le backend est lancé
-sleep 5
+# Lancement de l'environnement Docker
+docker-compose -f "$DOCKER_COMPOSE_PATH" up -d
 
-# Vérification du backend
-if ! curl -s http://localhost:8080/actuator/health | grep 'UP' > /dev/null; then
-    echo "Erreur : Le backend ne fonctionne pas correctement."
-    kill $backend_pid
-    exit 1
-fi
+echo "L'environnement Docker est lancé."
 
-# Lancement du site web
-echo "LAncement du site web..."
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    open http://localhost:4200/
-elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    xdg-open http://localhost:4200/
-fi
-
-echo "Webapp démarrée."
+# Appeler le script start.sh
+echo "Lancement du script de démarrage..."
+./start.sh
