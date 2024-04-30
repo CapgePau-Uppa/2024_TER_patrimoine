@@ -23,7 +23,7 @@ public class Batiment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    //Remplissage automatiques par l'API ou manuel lors de la création d'un nouveau batiment
+    //Remplissage automatiques par l'API ou manuel(dans le service) lors de la transfromation d'une suggestion en un batiment
     @Column(nullable = true)
     private String reference;
     @Column(nullable = false, length = 2000)
@@ -34,13 +34,12 @@ public class Batiment {
     private String statut;
     @Column(nullable = true, length = 8000)
     private String description;
-    //Image donne par défaut
+    //Image donne par défaut dans util/ImagesUtil.java
     @Column(nullable = true, length = 5000)
     private String image;
     //Système d'évaluations des utilisateurs d'un batiment
     @Column(nullable = true)
     private int etoile;
-    //pour les commentaires creer une classe commentaire et la mappé ici
 
     @OneToOne
     @JoinColumn(name = "lieu_id", referencedColumnName = "id")

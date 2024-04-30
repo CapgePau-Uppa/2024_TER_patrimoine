@@ -4,10 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import TER.Backend.api.dto.SuggestionDTO;
 import TER.Backend.entities.Batiment;
 import TER.Backend.entities.Coordonnees;
@@ -134,7 +132,9 @@ public class SuggestionService {
         batimentRepository.save(batiment);
     }
 
-    // Update d'une suggestion pour l'historique 
+    /*--------- Historique --------- */
+
+    // Update d'une suggestion pour l'historique (etat en attente --> validée)
     public void updateSuggestion(Long suggestionId, String emailAdmin) {
         Suggestion suggestion = suggestionRepository.findById(suggestionId)
             .orElseThrow(() -> new EntityNotFoundException("Suggestion not found with id: " + suggestionId));
@@ -161,5 +161,25 @@ public class SuggestionService {
         suggestionRepository.save(suggestion);
     }
     
+    /*--------- Corbeille --------- */
+    // Update suggestion pour la corbeille (etat en attente --> supprimée)
+    public void updateSuggestionForCorbeille(Long suggestionId, String emailAdmin) {
+        Suggestion suggestion = suggestionRepository.findById(suggestionId)
+            .orElseThrow(() -> new EntityNotFoundException("Suggestion not found with id: " + suggestionId));
+        suggestion.setEtat(EtatSuggestion.SUPPRIMEE);
+        suggestion.setEmailAdmin(emailAdmin);
+        suggestionRepository.save(suggestion);
+    }
+
+    // Restore de la corbeille
+    public void restoreSuggestionFromCorbeille(Long suggestionId) {
+        Suggestion suggestion = suggestionRepository.findById(suggestionId)
+            .orElseThrow(() -> new EntityNotFoundException("Suggestion not found with id: " + suggestionId));
+        // On restaure la suggestion
+        suggestion.setEtat(EtatSuggestion.EN_ATTENTE);
+        suggestion.setEmailAdmin(null);
+        suggestion.setDateCreation(LocalDateTime.now());
+        suggestionRepository.save(suggestion);
+    }
     
 }

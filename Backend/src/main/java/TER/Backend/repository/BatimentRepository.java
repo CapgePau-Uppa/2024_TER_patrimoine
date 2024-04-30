@@ -2,12 +2,10 @@ package TER.Backend.repository;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import TER.Backend.entities.Batiment;
 
 @Repository
@@ -17,10 +15,10 @@ public interface BatimentRepository extends JpaRepository<Batiment, Long> {
     Batiment findByReference(String reference);
     @Query("SELECT b FROM Batiment b WHERE b.type = :type")
     List<Batiment> findByType(String type);
-    /*@Query("SELECT b.nom, c.lat, c.lon FROM Batiment b JOIN b.coordonnees c")
-    List<Object[]> findAllBatimentsWithCoordonnees();*/
     @Query("SELECT c.lat, c.lon FROM Batiment b JOIN b.coordonnees c WHERE b.id = :id")
     Optional<Object[]> findCoordonneesByBatimentId(@Param("id") Long batimentId);
+    @Query("SELECT b.id FROM Batiment b JOIN b.coordonnees c WHERE c.lat = :lat AND c.lon = :lon")
+    Optional<Long> findBatimentIdByCoordonnees(@Param("lat") Double lat, @Param("lon") Double lon);
     @Query("SELECT l.region FROM Batiment b JOIN b.lieu l WHERE b.id = :id")
     String findRegionByBatimentId(@Param("id") Long batimentId);
     @Query("SELECT l.commune FROM Batiment b JOIN b.lieu l WHERE b.id = :id")
@@ -44,8 +42,7 @@ public interface BatimentRepository extends JpaRepository<Batiment, Long> {
     @Query("SELECT b FROM Batiment b JOIN b.lieu l WHERE l.commune = :commune AND b.type = :type")
     List<Batiment> findByTypeAndCommune(@Param("type") String type, @Param("commune") String commune);
 
-    
-
+    // Enregistrement des batiments
     @Override
     <S extends Batiment> S save(S batiment);
     
@@ -78,8 +75,7 @@ public interface BatimentRepository extends JpaRepository<Batiment, Long> {
     List<Object[]> countAndFirstBuildingCoordinatesByDepartement();
     
 
-    // Suggestion
-
+    // Find un batiment qui etait une suggestion 
     @Query("SELECT b FROM Batiment b WHERE b.suggestion.id = :suggestionId")
     Batiment findBySuggestionId(@Param("suggestionId") Long suggestionId);
 

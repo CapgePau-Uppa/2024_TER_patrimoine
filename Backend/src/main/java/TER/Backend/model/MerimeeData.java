@@ -1,16 +1,18 @@
 package TER.Backend.model;
 
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import TER.Backend.entities.Coordonnees;
 
+/*
+ * Model pour les données de la base Merimee, utilisé pour la transformation des données de l'API en données utilisables par le service
+ * Les noms des attributs doivent être identique à ceux de l'API
+ */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,7 +20,6 @@ import TER.Backend.entities.Coordonnees;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MerimeeData {
     //Attribut pour Batiment
-
     //Nom
     @JsonProperty("titre_editorial_de_la_notice")
     private String titre_editorial_de_la_notice;
@@ -35,13 +36,12 @@ public class MerimeeData {
     //Description
     @JsonProperty("historique")
     private String historique;
-    /*Image
-    @JsonProperty("lien_vers_la_base_archiv_mh")
-    private String lien_vers_la_base_archiv_mh;*/
+    /*Image *non-utilsé*
+    * @JsonProperty("lien_vers_la_base_archiv_mh")
+    * private String lien_vers_la_base_archiv_mh;
+    */
 
-    //Attribut pour un lieu
-    
-    //region,commune,departement
+    //Attribut pour le lieu : region,commune,departement
     @JsonProperty("region")
     private List<String> region;
     @JsonProperty("commune_forme_index")

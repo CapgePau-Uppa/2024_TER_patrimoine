@@ -22,11 +22,8 @@ public class Coordonnees {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    //coordonnées
     @Column(nullable = true)
     private Double lat;
-
     @Column(nullable = true)
     private Double lon;
 

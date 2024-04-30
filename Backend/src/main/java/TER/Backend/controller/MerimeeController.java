@@ -1,7 +1,6 @@
 package TER.Backend.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import TER.Backend.model.MerimeeData;
@@ -9,11 +8,15 @@ import TER.Backend.services.BatimentService;
 import TER.Backend.services.MerimeeDataService;
 import jakarta.annotation.PostConstruct;
 
+/* 
+ * Controller pour l'importation des données de l'api Merimée 
+*/
 @RestController
 public class MerimeeController {
 
-    /* Controller pour la première importation des données de l'api Merimée avec @PostConstruct
-    Le @Scheduled permet de faire la mise à jour des données de l'api, la màj ce fera le 5 des mois à minuit (00:00:00)  */
+    /* Pour une première importation des données de l'api Merimée, utiliser @PostConstruct au lieu du @Scheduled */
+    /* Le @Scheduled permet de faire la mise à jour des données de l'api, la màj ce fera le 5 des mois à minuit (00:00:00)  */
+
     @Autowired
     private MerimeeDataService merimeeAPIService;
 

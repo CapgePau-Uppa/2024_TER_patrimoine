@@ -1,5 +1,8 @@
 package TER.Backend.util;
 
+/**
+ * Classe utilitaire pour récupérer l'image correspondant à un type de batiment
+ */
 public class ImagesUtil {
     public static String getImageForType(String type) {
         if (type == null) {

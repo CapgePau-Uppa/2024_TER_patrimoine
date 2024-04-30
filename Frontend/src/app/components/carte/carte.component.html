@@ -1,7 +1,7 @@
 <div class="map-wrapper">
     <div class="map-border">
       <div class="img-container">
-        <img src="assets/icones/location.png" alt="user-location" (click)="resetView()" loading="lazy">
+        <img class="image-reset-view" src="assets/icones/location.png" alt="user-location" (click)="resetView()" loading="lazy">
         <p class="hover-text" id="zoom-info">Zoomer sur l'utilisateur</p>
       </div>
 
@@ -11,6 +11,37 @@
       </div>-->
 
       <div id="map"></div>
+      
+      <div id="popupContent">
+        <i class="fas fa-arrow-left" (click)="closePopupContent()"></i>
+        <div class="image-details">
+          <img [src]="batimentSelectionne?.image" alt="Image du batiment">
+        </div>
+        <p class="nom-details">{{ batimentSelectionne?.nom }}<p>
+        <div class="details">
+          <p> 
+            {{ batimentSelectionne?.etoile }}     
+            <span *ngFor="let etoile of etoiles">
+              <span class="etoile" [class.remplie]="etoile <= batimentSelectionne?.etoile">★</span>
+            </span> 
+            sur {{ batimentSelectionne?.etoile }} avis
+            <br>          
+            {{ batimentSelectionne?.type }}<br>
+            {{ batimentSelectionne?.statut }}
+          </p>
+        </div>
+        <div class="description">
+          <h4>Description :</h4>  
+          <p>{{ batimentSelectionne?.description}}</p>
+        </div>
+        <div class="boutons-details">
+          <app-button text="Favoris" [buttonClass]="'btn-blue'"></app-button>
+          <app-button text="Noter" [buttonClass]="'btn-blue'"></app-button>
+          <app-button text="Dégradation" [buttonClass]="'btn-blue'"></app-button>
+
+        </div>
+      </div>
+      
     </div>
 </div>
 

@@ -23,7 +23,6 @@ public class Lieu {
     private Long id;
     @Column(nullable = true)
     private String region;
-
     @Column(nullable = true)
     private String departement;
     @Column(nullable = true)

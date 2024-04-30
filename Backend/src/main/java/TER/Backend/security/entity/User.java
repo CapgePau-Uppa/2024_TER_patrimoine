@@ -1,6 +1,7 @@
 package TER.Backend.security.entity;
 
-
+import TER.Backend.entities.EtatSuggestion;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,12 +29,7 @@ public class User {
     private String email;
     private String mdp;
 
-    public enum Role {
-        USER,
-        ADMIN
-    }
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @Column(nullable = true)
+    private Role role; 
 }
 

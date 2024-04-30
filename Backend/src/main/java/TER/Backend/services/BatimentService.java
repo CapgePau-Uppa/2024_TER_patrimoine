@@ -2,7 +2,6 @@ package TER.Backend.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import TER.Backend.api.dto.BatimentDTO;
 import TER.Backend.entities.Batiment;
 import TER.Backend.entities.Coordonnees;
@@ -12,11 +11,11 @@ import TER.Backend.repository.BatimentRepository;
 import TER.Backend.repository.CoordonneesRepository;
 import TER.Backend.repository.LieuRepository;
 import TER.Backend.util.ImagesUtil;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,17 +28,23 @@ public class BatimentService {
     @Autowired
     private CoordonneesRepository coordonneesRepository;
 
+    /*
+     * Importation des données de l'api dans la base de données locale
+     */
     public void enregistrerBatiments(List<MerimeeData> listeMerimeeData) {
-        //voir si il y a des espaces 
-        //Pattern pattern = Pattern.compile("\\b\\w+\\s+\\w+\\b");
         for (MerimeeData merimeeData : listeMerimeeData) {
-            //Verifier si le titre n'est pas un seul mot 
-            //Matcher matcher = pattern.matcher(merimeeData.getTitre_editorial_de_la_notice());
-            //Verifier l'existence du batiment
-            //Batiment existingBatiment = batimentRepository.findByReference(merimeeData.getReference());
-            //Verifier si les coordonnées ne sont pas nuls (car dans les données il y a des coordonnees null)
-            Coordonnees coord = merimeeData.getCoordonnees_au_format_wgs84(); //existingBatiment == null && 
-            if (coord != null) {
+            /*
+             * Pour chaque batiment dans la liste, on vérifie s'il existe déjà dans la base de données locale à l'aide de la réference qui est unique pour chaque batiment.
+             * Elle permet de vérifier si le batiment a déjà été importé ou non lors d'une mise à jour.
+             * Pour une première importation, cette vérification n'est pas nécessaire et donc peut être commentée pour gagner en temps.
+             */
+            Batiment existingBatiment = batimentRepository.findByReference(merimeeData.getReference());
+            /*
+             * Les coordonnées des batiments de l'API sont parfois nulles, il faut donc vérifier si elles ne le sont pas avant de créer un batiment.
+             * Les coordonnées etant une entité importante pour la localisation des batiments, il est nécessaire qu'elles soient renseignées.
+             */
+            Coordonnees coord = merimeeData.getCoordonnees_au_format_wgs84();
+            if (existingBatiment == null && coord != null) {
                 //Créer lieu
                 Lieu lieu = new Lieu();
                 lieu.setRegion(merimeeData.getRegion().get(0));
@@ -72,11 +77,21 @@ public class BatimentService {
         }
     }
 
-    //recuperation desbatimments et leurs coordonnes
+    //Recuperation des batimments et leurs coordonnées
     public List<Batiment> findAllBatiments() {
         return batimentRepository.findAll();
     }
-    //recuperation de tous les batiments
+    //Recuperation d'un batiment par son id
+    public BatimentDTO findById(Long id) {
+        Optional<Batiment> batimentOptional = batimentRepository.findById(id);
+        return batimentOptional.map(BatimentDTO::new).orElse(null);
+    }
+    // Recuperation d'un batiments par ces coordonnées
+    public Long findBatimentIdByCoordonnees(Double lat, Double lon) {
+        Optional<Long> batimentIdOptional = batimentRepository.findBatimentIdByCoordonnees(lat, lon);
+        return batimentIdOptional.orElse(null);
+    }
+    //Recuperation de tous les batiments
     public List<BatimentDTO> getAllBatiments() {
         List<Batiment> batiments = batimentRepository.findAll();
         return batiments.stream()
@@ -107,18 +122,18 @@ public class BatimentService {
                         .map(batiment -> new BatimentDTO(batiment))
                         .collect(Collectors.toList());
     }
-    // Trouver un batiment par nom
+    //Trouver un batiment par nom
     public List<BatimentDTO> getBatimentsByNom(String nom) {
         List<Batiment> batiments = batimentRepository.findByNomContainingIgnoreCase(nom);
         return batiments.stream()
                        .map(batiment -> new BatimentDTO(batiment))
                        .collect(Collectors.toList());
     }
-    //recuperation liste types des batiments
+    //Recuperation liste types des batiments
     public List<String> findAllTypes() {
         return batimentRepository.findDistinctTypes();
     }
-    //recuperation liste regions des batiments
+    //Recuperation liste regions des batiments
     public List<String> findAllRegions() {
         return batimentRepository.findDistinctRegions();
     }
@@ -129,7 +144,7 @@ public class BatimentService {
                         .map(batiment -> new BatimentDTO(batiment))
                         .collect(Collectors.toList());
     }
-    //recuperation liste communes des batiments
+    //Recuperation liste communes des batiments
     public List<String> findAllCommunes() {
         return batimentRepository.findDistinctCommunes();
     }
@@ -144,7 +159,7 @@ public class BatimentService {
                         .collect(Collectors.toList());
     }
     
-    //recuperation liste departements des batiments
+    //Recuperation liste departements des batiments
     public List<String> findAllDepartements() {
         return batimentRepository.findDistinctDepartements();
     }
@@ -159,9 +174,7 @@ public class BatimentService {
                         .collect(Collectors.toList());
     }
 
-
-
-    //recuperation liste statuts des batiments
+    //Recuperation liste statuts des batiments
     public List<String> findAllStatuts() {
         return batimentRepository.findDistinctStatut();
     }

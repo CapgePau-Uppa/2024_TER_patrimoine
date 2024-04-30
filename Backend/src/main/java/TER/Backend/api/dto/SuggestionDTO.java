@@ -1,7 +1,6 @@
 package TER.Backend.api.dto;
 
 import java.time.LocalDateTime;
-
 import TER.Backend.entities.Suggestion;
 import lombok.Data;
 import lombok.Getter;
@@ -33,6 +32,9 @@ public class SuggestionDTO {
     private String prenomUser;
     private String emailUser;
 
+    /* Attribut lors de la vérification des coordonnées */
+    private String message;
+    private Long batimentId;
 
     public SuggestionDTO(Suggestion suggestion){
         id = suggestion.getId();

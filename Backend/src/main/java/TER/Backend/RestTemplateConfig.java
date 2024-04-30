@@ -8,6 +8,11 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+/*
+* Configuration de RestTemplate pour ajouter un convertisseur JSON 
+* et un ObjectMapper pour ignorer les valeurs null lors de la sérialisation JSON
+* il est utilisé dans le service MerimeeDataService lors de la récupération des données de l'API Merimé
+*/
 @Configuration
 public class RestTemplateConfig {
 
