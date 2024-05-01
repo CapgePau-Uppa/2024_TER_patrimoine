@@ -6,18 +6,18 @@ import { UserDTO } from '../components/connexion/user-dto.model';
 })
 export class UserService {
 
-    // Classe pour stocke l'utilisateur connecté
-    
-        user!: UserDTO; 
-    
+    // Variable
+    user!: UserDTO; 
+
     constructor() { }
-    
+
+    // Fonction pour mettre à jour l'utilisateur
     setUser(user: UserDTO) {
         this.user = user;
     }
-    
+
+    // Fonction pour récupérer l'utilisateur
     getUser(): UserDTO {
         return this.user!;
     }
-
 }

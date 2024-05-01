@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { UserDTO } from '../components/connexion/user-dto.model';
 
-
+// Enumération des états de l'authentification
 export enum AuthState {
   Visiteur = 0,
   User = 1,
@@ -14,8 +14,10 @@ export enum AuthState {
   providedIn: 'root'
 })
 export class AuthService {
+  // Variable
   private authState = new BehaviorSubject<AuthState>(AuthState.Visiteur);
 
+  // Observable de l'état de l'authentification
   get authState$() {
     return this.authState.asObservable();
   }
@@ -33,6 +35,7 @@ export class AuthService {
     this.authState.next(AuthState.Visiteur);
   }
 
+  // Fonction pour récupérer l'état de l'authentification
   getAuthStateObservable() {
     return this.authState.asObservable();
   }
@@ -46,7 +49,6 @@ export class AuthService {
     } else {
       this.setAuthState(AuthState.Visiteur);
     }
-    console.log("authState : " + this.authState.value);
   }
 
   // Fonction pour s'inscrire et se connecter
