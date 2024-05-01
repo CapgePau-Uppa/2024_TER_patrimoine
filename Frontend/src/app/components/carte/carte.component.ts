@@ -67,6 +67,9 @@ export class CarteComponent implements AfterViewInit, OnInit{
  
   // Initialisation
   ngOnInit(): void {
+    console.log("currentAuthState: ", this.currentAuthState);
+    this.setupSubscriptions();
+
     this.authSubscription = this.authService.getAuthStateObservable().subscribe((state: AuthState) => {
       if (state === AuthState.Visiteur) {
         this.reloadMap();
