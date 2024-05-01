@@ -12,12 +12,12 @@ import { Subscription } from 'rxjs';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
+  // Variables
   currentAuthState: AuthState = AuthState.Visiteur;
   private authStateSubscription: Subscription;
   AuthState = AuthState;
 
-
-  //Pour le filtre rechercher
+  // Pour le filtre rechercher
   @Output() nomRechercher: EventEmitter<string> = new EventEmitter<string>();
   selectedNomSource: string = '';
   afficherAucunResultat: boolean = false;
@@ -26,24 +26,30 @@ export class NavbarComponent implements OnInit, OnDestroy {
   // Utilisez une référence locale pour accéder à l'entrée
   @ViewChild('rechercheInput') rechercheInput!: ElementRef<HTMLInputElement>;
 
-  constructor
-  (private authService: AuthService, private batimentService: BatimentService, private router: Router, private cdRef: ChangeDetectorRef) {
+  constructor (
+    private authService: AuthService, 
+    private batimentService: BatimentService, 
+    private router: Router, 
+    private cdRef: ChangeDetectorRef
+  ) {
     this.placeholderText = "Rechercher..."; 
     this.authStateSubscription = new Subscription();
   }
 
+  // Initialisation
   ngOnInit(): void {
     this.getDisplay("filters-window");
     this.getDisplay("menu");
+
     this.authStateSubscription = this.authService.authState$.subscribe(
       (state) => {
         this.currentAuthState = state;
-        //this.currentAuthState = AuthState.Admin;
         this.cdRef.detectChanges();
       }
     );
   }
 
+  // Désabonnement
   ngOnDestroy() {
     if (this.authStateSubscription) {
       this.authStateSubscription.unsubscribe();
@@ -54,8 +60,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   rechercher(): void {
     if (this.selectedNomSource !== null) { 
       this.batimentService.setSelectedNom(this.selectedNomSource);
-
     }
+
     // Afficher le message d'erreur si aucun résultat n'est trouvé
     this.batimentService.afficherAucunResultat$.subscribe((value) => {
       if (value) {
@@ -64,9 +70,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
       } else {
         this.placeholderText = 'Rechercher...';
       }
-  });
+    });
   }
 
+  // Récupérer l'affichage
   getDisplay(id: string): string | null {
     const element = document.getElementById(id);
 
@@ -76,6 +83,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return null;
   }
 
+  // Méthode pour afficher les filtres
   toggleFilters() {
     const filtersWindow = document.getElementById("filters-window");
     const filtersDisplay = this.getDisplay("filters-window");
@@ -90,6 +98,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Méthode pour afficher le menu
   toggleMenu() {
     const menu = document.getElementById("menu");
     const menuDisplay = this.getDisplay("menu");
@@ -104,6 +113,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Méthode pour déconnecter l'utilisateur
   deconnexion() {
     console.log("Déconnexion");
     this.authService.deconnexion();

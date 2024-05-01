@@ -26,7 +26,7 @@ export class ConnexionComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  // Connexion
+  // Validation de la connexion
   valider() {
     // Vérifier si aucun champ n'est vide :
     if (!this.model.email || !this.model.mdp) {
@@ -37,20 +37,14 @@ export class ConnexionComponent implements OnInit {
     const email = this.model.email;
     const mdp = this.model.mdp;
 
-    console.log(email + '' + mdp);
-
     this.connexionService.connexion(email, mdp).subscribe((res: boolean): void => {
       this.getData = res;
-      console.log(res);
+
       if (this.getData === true) {
         this.connexionService.getRoleByEmail(email).subscribe(
           response => {
             this.role = response.role;
-            console.log('Rôle de l\'utilisateur :', this.role); 
-
             this.authService.login(this.role);
-            console.log("(connexionService) Updated state to:", this.role);
-
 
             if (this.role === 'ADMIN') {
               this.router.navigate(['../home-admin']);
@@ -63,7 +57,6 @@ export class ConnexionComponent implements OnInit {
               response => {
                 const utilisateurConnecte: UserDTO = new UserDTO(response.nom, response.prenom, email, '');
                 this.userService.setUser(utilisateurConnecte);
-                console.log("utilisateur connecté : ", utilisateurConnecte)
               }, (error) => {
                 console.error('Erreur lors de la récupération du rôle :', error);
               });
@@ -71,7 +64,7 @@ export class ConnexionComponent implements OnInit {
             console.error('Erreur lors de la récupération du rôle :', error);
           });
       } else {
-        this.model.message = 'Email ou Mot de Passe incorrecte';
+        this.model.message = 'Email ou mot de passe incorrecte';
       }
     }, (error) => {
       console.error('Une erreur s\'est produite :', error);
@@ -93,7 +86,6 @@ export class ConnexionComponent implements OnInit {
 
     this.connexionService.inscription(nom, prenom, email, mdp).subscribe(
       response => {
-        console.log('Inscription réussie', response);
         const utilisateurConnecte: UserDTO = new UserDTO(nom, prenom, email, '');
         this.userService.setUser(utilisateurConnecte);
         this.authService.signupAndLogin(utilisateurConnecte);
@@ -101,7 +93,6 @@ export class ConnexionComponent implements OnInit {
       },
 
       error => {
-        console.error('Erreur lors de l\'inscription', error);
         if (error.error && error.error.error) {
           this.model2.message = error.error.error;
         } else {
@@ -111,17 +102,19 @@ export class ConnexionComponent implements OnInit {
     );
   }
 
-  // Gérer les cards de la vue connexion
+
+  /* ----- Gestion des cartes ----- */
+
   @ViewChild('container') container!: ElementRef;
   @ViewChild('overlay') overlay!: ElementRef;
 
+  // Gérer les cards de la vue connexion
   card_inscription() {
     this.container.nativeElement.classList.add('right-panel-active');
   }
 
+  // Gérer les cards de la vue connexion
   card_connexion() {
     this.container.nativeElement.classList.remove('right-panel-active');
   }
-
-  
 }

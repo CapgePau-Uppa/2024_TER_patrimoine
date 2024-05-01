@@ -15,6 +15,7 @@ import { BatimentDTO } from '../carte/batiment-dto.model';
 })
 export class HomeAdminComponent implements OnInit{
 
+  // Variables
   buildings: SuggestionDTO[] = [];
   buildingInfo: SuggestionDTO | null = null;
   suggestion: any = {};
@@ -24,12 +25,8 @@ export class HomeAdminComponent implements OnInit{
   departements!: string[];
   communes!: string[];
   emailAdmin: string = '';
-
   utilisateurConnecte!: UserDTO;
   modificationActive: boolean = false;
-
-
-  //new modif
   currentRoute: string= '';
   titre: string = '';
   lien: string = '';
@@ -37,9 +34,15 @@ export class HomeAdminComponent implements OnInit{
   batimentDetails: BatimentDTO | undefined;
   map!: L.Map ;
   
-  constructor(private homeAdminService: HomeAdminService, private userService: UserService,private addBatService : AddBatService, private router: Router, private elRef: ElementRef) { }
+  constructor(
+    private homeAdminService: HomeAdminService, 
+    private userService: UserService,
+    private addBatService : AddBatService, 
+    private router: Router, 
+    private elRef: ElementRef
+  ) { }
   
-
+  // Initialisation
   ngOnInit(): void {
     /*A revoir : il me prend le 1ere element du DTO 
     //Recuperation de informations de l'utilisateur connecté
@@ -47,52 +50,55 @@ export class HomeAdminComponent implements OnInit{
     const { nom, prenom, email } = this.utilisateurConnecte;
     this.emailAdmin = email;
     console.log('email:', this.emailAdmin);*/
-    //Ecoute de la route
+
+    // Ecoute de la route
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.currentRoute = event.url.split('/').pop() as string;
-        console.log(this.currentRoute);
-        console.log("enter router event");
         this.loadAllBuildings();
       }
     });
 
-    //Récupération de la liste des suggestions
+    // Récupération de la liste des suggestions
     this.loadAllBuildings();
 
-    //Récupération des données pour les listes déroulantes
+    // Récupération des données pour les listes déroulantes
     this.addBatService.getAllTypes().subscribe(types => this.types = types.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })).slice(5));
     this.addBatService.getAllStatuts().subscribe(statuts => this.statuts = statuts.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
     this.addBatService.getAllRegions().subscribe(regions => this.regions = regions.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
     this.addBatService.getAllDepartements().subscribe(departements => this.departements = departements.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
     this.addBatService.getAllCommunes().subscribe(communes => this.communes = communes.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
-  
-    
   }
 
+  // Méthode pour mettre la première lettre en majuscule
   majuscule(word: string): string {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
+
+  // Méthode pour actualiser la page
   actualiser(){
     const info = document.getElementById("container");
         // @ts-ignore
     info.style.display = "none";
     this.etapeCourante = 0;
   }
+
+  // Chargement de toutes les suggestions
   loadAllBuildings(): void {
     if (this.currentRoute == "historique") {
       this.titre = 'Historique';
       this.homeAdminService.getAllSuggestionsValidees().subscribe((data: SuggestionDTO[]) => {
         this.buildings = data;
-        console.log(this.buildings);
       });
       this.actualiser();
+
     } else if (this.currentRoute == "corbeille") {
       this.titre = 'Corbeille';
       this.homeAdminService.getAllSuggestionsSupprimees().subscribe((data: SuggestionDTO[]) => {
         this.buildings = data;
       });
       this.actualiser();
+
     } else {
       this.titre = 'Suggestion';
       this.homeAdminService.getAllSuggestionsEnAttente().subscribe((data: SuggestionDTO[]) => {
@@ -102,7 +108,6 @@ export class HomeAdminComponent implements OnInit{
     }
   }
   
-
   // Affichage des informations d'une suggestion
   getBuildingInformation(id: number): void {
     this.actualiser();
@@ -110,13 +115,10 @@ export class HomeAdminComponent implements OnInit{
     const info = document.getElementById("container");
     // @ts-ignore
     info.style.display = "flex";
+
     this.homeAdminService.getSuggestionById(id).subscribe((data: SuggestionDTO) => {
       this.buildingInfo = data;
-      //const dateCreationDate = new Date(this.buildingInfo.dateCreation);
-      console.log(this.buildingInfo);
-      console.log(this.buildingInfo.batimentId); 
     });
-    
   }
 
   // Suppression d'une suggestion (et elle l'update pour la mettre dans la corbeille)
@@ -126,7 +128,6 @@ export class HomeAdminComponent implements OnInit{
           (data) => {
             this.actualiser();
             this.loadAllBuildings();
-            console.log('Suggestion supprimée avec succès : ', data);
           },
           (error) => {
             console.error('Erreur lors de la supression de la suggestion : ', error);
@@ -138,12 +139,12 @@ export class HomeAdminComponent implements OnInit{
   valider(): void {
     if (this.buildingInfo) {
       this.buildingInfo.nomBatiment = this.buildingInfo.nomBatiment;
+
       this.homeAdminService.saveSuggestion(this.buildingInfo).subscribe(
         (data) => {
-          console.log('Batiment enregistrée: ', data);
           if (this.buildingInfo?.id) {
             this.updateSuggestion(this.buildingInfo.id, this.emailAdmin);
-            console.log("suggestion validée avec succès !");
+
           } else {
             console.error("l'id est null");
           }
@@ -163,7 +164,6 @@ export class HomeAdminComponent implements OnInit{
         this.modificationActive = true;
         this.actualiser();
         this.loadAllBuildings();
-        console.log('Suggestion mise à jour avec succès : ', data);
       },
       (error) => {
         console.error('Erreur lors de la mise à jour de la suggestion : ', error);
@@ -183,7 +183,6 @@ export class HomeAdminComponent implements OnInit{
         (data) => {
           this.actualiser();
           this.loadAllBuildings();
-          console.log('Suggestion restaurée avec succès : ', data);
         },
         (error) => {
           console.error('Erreur lors de la restauration de la suggestion : ', error);
@@ -199,7 +198,6 @@ export class HomeAdminComponent implements OnInit{
         (data) => {
           this.actualiser();
           this.loadAllBuildings();
-          console.log('Suggestion restaurée avec succès : ', data);
         },
         (error) => {
           console.error('Erreur lors de la restauration de la suggestion : ', error);
@@ -208,7 +206,8 @@ export class HomeAdminComponent implements OnInit{
     }
   }
   
-  /*-------- Méthodes pour les listes de département et commune ---------*/
+
+  /* ----- Méthodes pour les listes de département et commune ----- */
 
   // Chargement des départements en fonction de la région sélectionnée
   onRegionChange(region: string): void {
@@ -217,6 +216,7 @@ export class HomeAdminComponent implements OnInit{
       this.departements = departements;
     });
   }
+
   // Chargement des communes en fonction du département sélectionné
   onDepartementChange(departement: string): void {
     this.buildingInfo!.commune = '';
@@ -226,22 +226,23 @@ export class HomeAdminComponent implements OnInit{
   }
 
 
-  /*-------- Etape --------*/
+  /* ----- Etape ----- */
   etapeCourante: number = 0;
 
+  // Méthode pour afficher une étape
   afficherEtape(etapeIndex: number) {
     this.etapeCourante = etapeIndex;
-    
   }
 
+  // Méthode pour passer à l'étape suivante
   etapeSuivante() {
     if (this.etapeCourante < 1) {
       this.etapeCourante++;
     }
     this.onAsideItemClick();
-    
   }
 
+  // Méthode pour revenir à l'étape précédente
   etapePrecedente() {
     if (this.etapeCourante > 0) {
       this.etapeCourante--;
@@ -249,22 +250,25 @@ export class HomeAdminComponent implements OnInit{
   }
 
 
-  /*-------- Carte --------*/
+  /* ----- Carte ----- */
+
+  // Méthode pour initialiser la carte
   onAsideItemClick(): void {
     setTimeout(() => {
       const mapContainer = this.elRef.nativeElement.querySelector('#map');
-      console.log(mapContainer);
       if (mapContainer) {
         this.initMap(mapContainer);
       }
     });
   }
   
+  // Méthode pour initialiser la carte
   private initMap(mapContainer: HTMLElement): void {
     const franceBounds: L.LatLngBoundsExpression = [
       [41.325, -5.0],
       [51.124, 9.662] 
     ];
+
     this.map = L.map(mapContainer, {
       maxBounds: franceBounds,
       maxBoundsViscosity: 1.0,
@@ -278,32 +282,25 @@ export class HomeAdminComponent implements OnInit{
       maxZoom: 19,
     });
     mainLayer.addTo(this.map);
-    console.log('Carte initialisée avec succès !');
 
     // Ajout du marqueur seulement si les coordonnées sont présentes
     if (this.buildingInfo) {
-      // Coordonnées
       const markerCoords: L.LatLngExpression = [this.buildingInfo?.lat, this.buildingInfo?.lon]; // Paris
-      // Ajout du marqueur
       const marker = L.marker(markerCoords).addTo(this.map);
-      // Zoom
       this.map.flyTo(markerCoords, 12);    
+    }
   }
 
-  }
 
-
-  /*-------- Details batiments si coordonnées existante --------*/
+  /* ----- Details batiments si coordonnées existante ----- */
 
   showSidebar: boolean = false;
-  
 
-// Méthode pour basculer l'état de la sidebar
+  // Méthode pour basculer l'état de la sidebar
   toggleBuildingDetails(): void {
-    console.log('showSidebar:', this.showSidebar);
     this.showSidebar = !this.showSidebar;
-    console.log('showSidebar2:', this.showSidebar);
     this.showBatimentDetails = !this.showBatimentDetails;
+
     if (this.showSidebar) {
       this.getBuildingDetails();
     } else {
@@ -311,22 +308,21 @@ export class HomeAdminComponent implements OnInit{
     }
   }
 
+  // Méthode pour récupérer les détails du bâtiment
   getBuildingDetails(): void {
-    console.log('Récupération des détails du bâtiment...');
     if (this.buildingInfo) {
-      const batimentId = this.buildingInfo.batimentId; // Supposons que buildingInfo contient l'ID du bâtiment
-      console.log('ID du bâtiment:', batimentId);
+      const batimentId = this.buildingInfo.batimentId;
+
       if (batimentId) {
         this.homeAdminService.getBatimentById(batimentId).subscribe(
           (data: BatimentDTO) => {
             this.batimentDetails = data;
-            console.log(this.batimentDetails);
           },
           (error) => {
             console.error('Une erreur s\'est produite lors de la récupération des détails du bâtiment:', error);
           }
         );
       }
-  }
+    }
   }
 }

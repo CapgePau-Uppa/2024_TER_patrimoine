@@ -15,6 +15,8 @@ import { AuthService, AuthState } from 'src/app/services/auth.service';
   styleUrls: ['./add-bat.component.css']
 })
 export class AddBatComponent implements OnInit {
+
+  // Variables
   myForm!: FormGroup;
   types!: string[];
   statuts!: string[];
@@ -30,18 +32,19 @@ export class AddBatComponent implements OnInit {
   @ViewChild('adresse') adresseInputElement!: ElementRef<HTMLInputElement>;
 
 
-  constructor(private formBuilder: FormBuilder, private addBatService: AddBatService,
-    private router: Router, private userService: UserService, private authService: AuthService) { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private addBatService: AddBatService,
+    private router: Router, 
+    private userService: UserService, 
+    private authService: AuthService) { }
 
-    //Formulaire
+  // Formulaire
   ngOnInit(): void {
-    //Recuperation de informations de l'utilisateur connecté
     this.utilisateurConnecte = this.userService.getUser();
     const { nom, prenom, email } = this.utilisateurConnecte;
-    console.log('Nom:', nom);
-    console.log('Prénom:', prenom);
-    console.log('Email:', email);
-    //Initialisation du formulaire
+
+    // Initialisation du formulaire
     this.myForm = this.formBuilder.group({
       nomBatiment: ['', Validators.required],
       type: ['', Validators.required],
@@ -60,20 +63,14 @@ export class AddBatComponent implements OnInit {
       checkboxStatus: [Validators.required],
     });
 
-
-    //Récupération des données pour les listes déroulantes
+    // Récupération des données pour les listes déroulantes
     this.addBatService.getAllTypes().subscribe(types => this.types = types.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })).slice(5));
     this.addBatService.getAllStatuts().subscribe(statuts => this.statuts = statuts.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
     this.addBatService.getAllRegions().subscribe(regions => this.regions = regions.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
-    //this.addBatService.getAllDepartements().subscribe(departements => this.departements = departements.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
-    //this.addBatService.getAllCommunes().subscribe(communes => this.communes = communes.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })));
-    
- 
-    console.log("Avant l'appel à getCoordinates()");
     this.getCoordinates();
-
   }
 
+  // Méthode pour la première lettre en majuscule
   majuscule(word: string): string {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
@@ -82,10 +79,9 @@ export class AddBatComponent implements OnInit {
   onSubmit(): void {
     if (this.myForm.valid) {
       const suggestion: SuggestionDTO = this.myForm.value;
+
       this.addBatService.saveSuggestion(suggestion).subscribe(
         (data) => {
-          console.log('Suggestion enregistrée avec succès : ', data);
-          //alert('Suggestion enregistrée avec succès !');
           this.router.navigate(['../']);
         },
         (error) => {
@@ -94,11 +90,9 @@ export class AddBatComponent implements OnInit {
       );
     } else {
       console.error('Le formulaire est invalide');
-      
     }
   }
   
-
   // Récupération des coordonnées de l'utilisateur
   getCoordinates(): void {
     const inputElement = this.latInputElement.nativeElement;
@@ -138,41 +132,46 @@ export class AddBatComponent implements OnInit {
       inputElement3.disabled = false;
       inputElement.disabled = true;
       inputElement2.disabled = true;  
-      
     }
     else{
     }
-    
-  }
-  // Etape
-  etapeCourante: number = 0;
-  etapesTitre: string[] = ['Informations', 'Lieu', 'Image(s)', 'Validation'];
-  afficherEtape(etapeIndex: number) {
-    this.etapeCourante = etapeIndex;
-    
   }
 
+  /* ----- Etapes ----- */
+  etapeCourante: number = 0;
+  etapesTitre: string[] = ['Informations', 'Lieu', 'Image(s)', 'Validation'];
+
+  // Afficher l'étape
+  afficherEtape(etapeIndex: number) {
+    this.etapeCourante = etapeIndex;
+  }
+
+  // Boutons de retour
   cancel() {
     this.router.navigate(['']);
   }
 
+  // Boutons d'étape suivante
   etapeSuivante() {
     if (this.etapeCourante < 3) {
       this.etapeCourante++;
     }
   }
 
+  // Boutons d'étape précédente
   etapePrecedente() {
     if (this.etapeCourante > 0) {
       this.etapeCourante--;
     }
   }
 
-  /*Méthodes pour les listes de département et region */
+  /* ----- Méthodes pour les listes de département et de region ----- */
+
   // Chargement des départements en fonction de la région sélectionnée
   onRegionChange(event: Event): void {
     let target = event.target as HTMLSelectElement; 
     let region = target.value; 
+
     this.addBatService.getAllDepartementsByRegion(region).subscribe(departements => {
       this.departements = departements;
       this.departementsEnabled = true;
@@ -187,6 +186,7 @@ export class AddBatComponent implements OnInit {
   onDepartementChange(event: Event): void {
     let target = event.target as HTMLSelectElement;
     let departement = target.value; 
+    
     this.addBatService.getAllCommunesByDepartement(departement).subscribe(communes => {
       this.communes = communes;
       this.communesEnabled = true;

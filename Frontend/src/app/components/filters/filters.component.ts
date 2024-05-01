@@ -11,20 +11,24 @@ import { BatimentService } from '../carte/batiment.service';
 
 export class FiltersComponent implements OnInit{
   
-  clearSelection(menu: string): void { //Annuler
+  // Supprimer la sélection
+  clearSelection(menu: string): void {
     switch (menu) {
       case 'type':
         this.selectedType = '';
         this.batimentService.setSelectedType(null);
         break;
+
       case 'region':
         this.selectedRegion = '';
         this.batimentService.setSelectedRegion(null);
         break;
+
       case 'departement':
         this.selectedDepartement = '';
         this.batimentService.setSelectedDepartement(null);
         break;
+
       case 'all':
         this.selectedType = '';
         this.batimentService.setSelectedType(null);
@@ -33,8 +37,8 @@ export class FiltersComponent implements OnInit{
         this.selectedDepartement = '';
         this.batimentService.setSelectedDepartement(null);
         this.hideFilters();
-        //this.batimentService.triggerMapReload(); //Sert pour le rechargement de la page (à utiliser plus tard mais pas ici)
         break;
+
       default:
         break;
     }
@@ -44,7 +48,7 @@ export class FiltersComponent implements OnInit{
   departements: string[] = []; 
   types: string[] = [];
 
-  // event emitter pour envoyer les valeurs sélectionnées
+  // Event emitter pour envoyer les valeurs sélectionnées
   @Output() typeSelected: EventEmitter<string> = new EventEmitter<string>();
   @Output() departementSelected: EventEmitter<string> = new EventEmitter<string>();
   @Output() regionSelected: EventEmitter<string> = new EventEmitter<string>();
@@ -55,42 +59,46 @@ export class FiltersComponent implements OnInit{
 
   constructor(private filterService: FilterService, private batimentService: BatimentService) { }
 
+  // Initialisation des filtres
   ngOnInit(): void {
     this.filterService.getAllTypes().subscribe(types => this.types = types.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })).slice(5));
     this.filterService.getAllRegions().subscribe(regions => this.regions = regions.sort());
     this.filterService.getAllDepartements().subscribe(departements => this.departements = departements.sort());
   }
+
   // Mettre une majuscule à la première lettre
   majuscule(word: string): string {
     return word.charAt(0).toUpperCase() + word.slice(1);
-}
+  }
+
+  // Cacher les filtres
   hideFilters() {
     this.filterService.hideFilters();
   }
 
+  // Valider les filtres
   valider() {
     this.batimentService.setSelectedType(this.selectedType);
-    console.log("selected type : "+this.selectedType);
     this.batimentService.setSelectedDepartement(this.selectedDepartement);
-    console.log("selected dep : "+ this.selectedDepartement);
     this.batimentService.setSelectedRegion(this.selectedRegion);
-    console.log("selected region : "+this.selectedRegion);
+    
     // Cacher les filtres
     this.hideFilters();
   }
+
+  // Envoyer le type sélectionné
   onTypeSelected(): void {
     this.batimentService.setSelectedType(this.selectedType);
   }
 
+  // Envoyer le département sélectionné
   onDepartementSelected(): void {
       this.batimentService.setSelectedDepartement(this.selectedDepartement);
   }
 
+  // Envoyer la région sélectionnée
   onRegionSelected(): void {
       this.batimentService.setSelectedRegion(this.selectedRegion);
   }
-  
-  
-
 }
 

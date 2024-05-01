@@ -11,7 +11,4 @@ import {NavbarModule} from "../navbar/navbar.module";
   styleUrl: './account.component.css'
 })
 export class AccountComponent {
-
-  constructor( ) {}
-
 }
