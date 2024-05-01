@@ -97,7 +97,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
       this.createMap();
       this.getUserLocation();
       //this.loadBatiments();
-      this.addClusteringMarkers();
+      //this.addClusteringMarkers();
     }
     // Filtre par type, departement
     combineLatest([this.batimentService.selectedType$, this.batimentService.selectedRegion$, this.batimentService.selectedDepartement$])
@@ -227,15 +227,16 @@ export class CarteComponent implements AfterViewInit, OnInit{
           iconSize: [60, 60]
         });
         let marker = L.marker([department.lat, department.lon], { icon: customIcon }).addTo(this.map!);
+
         marker.on('click', () => {
-          console.log(marker.getLatLng());
-          this.map!.removeLayer(marker); //Ne repond pas
+          this.map!.removeLayer(marker);
           this.showBuildingsByDepartment(department.departement);
           this.zoomToDepartment(marker);
-          if (this.previousDepartmentMarker) {
+
+          /*if (this.previousDepartmentMarker) {
             this.map!.addLayer(this.previousDepartmentMarker);
           }
-          this.previousDepartmentMarker = marker;
+          this.previousDepartmentMarker = marker;*/
         });
         this.departmentMarkers.push(marker);
       });
@@ -248,7 +249,6 @@ export class CarteComponent implements AfterViewInit, OnInit{
     this.batimentService.getBatimentsClusteringByDepartement(department).subscribe(data => {
       this.batiments = data;
       this.addMarkers();
-      //this.zoomToDepartment(department);
     });
   }
 
@@ -414,8 +414,15 @@ export class CarteComponent implements AfterViewInit, OnInit{
 
   // Ajout des markers
   addMarkers(): void {
+    const myIcon = L.icon({
+      iconUrl: '../assets/icones/marker.png',
+      iconSize: [40, 40],
+      popupAnchor: [0, -30]
+    });
+
     this.batiments.forEach((batiment, index) => {
-      const marker = L.marker([batiment.lat, batiment.lon]).addTo(this.buildingMarkersLayer);
+    
+      const marker = L.marker([batiment.lat, batiment.lon], {icon: myIcon}).addTo(this.buildingMarkersLayer);
   
       // Contenu de la carte
       const cardContent = `
@@ -442,6 +449,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
   
       // Tooltip
       marker.on('click', () => {
+        this.zoomToBatiment(batiment.lat, batiment.lon);
         const detailButton = document.getElementById(`detailsBtn${index}`);
         if (detailButton) {
           detailButton.addEventListener('click', (e) => {
