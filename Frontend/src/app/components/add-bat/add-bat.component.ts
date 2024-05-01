@@ -152,6 +152,10 @@ export class AddBatComponent implements OnInit {
     
   }
 
+  cancel() {
+    this.router.navigate(['']);
+  }
+
   etapeSuivante() {
     if (this.etapeCourante < 3) {
       this.etapeCourante++;

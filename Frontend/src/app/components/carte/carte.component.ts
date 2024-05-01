@@ -26,9 +26,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
   triggerLoad: boolean = false;
   etoiles: number[] = [1, 2, 3, 4, 5];
 
-
-  
-  private reloadSubscription!: Subscription;
+  private authSubscription!: Subscription;
 
   constructor(private authService: AuthService, private batimentService: BatimentService, private filterService: FilterService, private zone: NgZone) { 
     
@@ -69,18 +67,29 @@ export class CarteComponent implements AfterViewInit, OnInit{
  
   // Initialisation
   ngOnInit(): void {
-    this.reloadSubscription = this.batimentService.reloadMap$.subscribe(() => {
-      this.clearMap();
-      this.addClusteringMarkers();
+    this.authSubscription = this.authService.getAuthStateObservable().subscribe((state: AuthState) => {
+      if (state === AuthState.Visiteur) {
+        this.reloadMap();
+      }
+    });
+  }
+
+  setupSubscriptions(): void {
+    this.batimentService.reloadMap$.subscribe(() => {
+      this.reloadMap();
     }); 
     this.authService.authState$.subscribe(state => {
       this.currentAuthState = state;
     });
-    
+  }
+
+  reloadMap(): void {
+    this.clearMap();
+    this.addClusteringMarkers();
   }
 
 
-      /*--------- Carte --------*/
+  /*--------- Carte --------*/
 
   // Initialisation de la carte
   ngAfterViewInit(): void {

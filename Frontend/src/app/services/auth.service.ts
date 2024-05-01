@@ -6,7 +6,8 @@ import { UserDTO } from '../components/connexion/user-dto.model';
 export enum AuthState {
   Visiteur = 0,
   User = 1,
-  Admin = 2
+  Admin = 2,
+  Owner = 3
 }
 
 @Injectable({
@@ -29,11 +30,16 @@ export class AuthService {
   // Fonction pour se déconnecter
   deconnexion() {
     this.setAuthState(AuthState.Visiteur);
+    this.authState.next(AuthState.Visiteur);
+  }
+
+  getAuthStateObservable() {
+    return this.authState.asObservable();
   }
 
   // Fonction pour se connecter
   login(role: string) {
-    if (role === 'ADMIN') {
+    if (role === 'ADMIN' || role === 'OWNER') {
       this.setAuthState(AuthState.Admin);
     } else if (role === 'USER') {
       this.setAuthState(AuthState.User);

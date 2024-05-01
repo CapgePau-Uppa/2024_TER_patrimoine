@@ -1,4 +1,5 @@
-import { Component, HostListener, NgZone } from '@angular/core';
+import { Component, HostListener, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { NgIf } from "@angular/common";
 
 

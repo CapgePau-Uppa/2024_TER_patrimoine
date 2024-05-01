@@ -76,46 +76,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  /*toggleStatut() {
-    let connection = this.globalService.isConnected;
-    let statut = this.globalService.globalVariable;
-
-    if (!connection) {
-    }
-
-    else {
-      if (statut === 1) {  // user
-        const searchBar = document.getElementById("searchBar");
-        // @ts-ignore
-        searchBar.style.display = "flex";
-
-        const optAccount = document.getElementById("opt-account");
-        // @ts-ignore
-        optAccount.style.display = "flex";
-
-        const btnConnect = document.getElementById("btn-connect");
-        // @ts-ignore
-        btnConnect.style.display = "none";
-
-        const btnBat = document.getElementById("btn-add-bat");
-        // @ts-ignore
-        btnBat.style.display = "block";
-      } else if (statut === 2) {  // admin
-        const optSuggest = document.getElementById("opt-suggest");
-        // @ts-ignore
-        optSuggest.style.display = "flex";
-
-        const optAccount = document.getElementById("opt-account");
-        // @ts-ignore
-        optAccount.style.display = "flex";
-
-        const btnConnect = document.getElementById("btn-connect");
-        // @ts-ignore
-        btnConnect.style.display = "none";
-      }
-    }
-  }*/
-
   toggleFilters() {
     const filtersWindow = document.getElementById("filters-window");
     const filtersDisplay = this.getDisplay("filters-window");

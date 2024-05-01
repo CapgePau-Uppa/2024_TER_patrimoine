@@ -49,7 +49,8 @@
         </div>
 
         <div class="button-container">
-            <app-button id="valider-e1" (click)="etapeSuivante()" text="Suivant" [buttonClass]="'btn-blue'"></app-button>
+          <app-button (click)="cancel()" text="Précédent" [buttonClass]="'btn-light'"></app-button>
+          <app-button (click)="etapeSuivante()" text="Suivant" [buttonClass]="'btn-blue'"></app-button>
         </div>
       </div>
     
