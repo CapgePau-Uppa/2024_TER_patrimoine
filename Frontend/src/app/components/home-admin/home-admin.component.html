@@ -19,10 +19,9 @@
 
   <!----- DETAILS DE SUGGESTION ----->
   <div id="details-container">
-    
+
     <!----- INFORMATIONS ----->
     <div id="information" *ngIf="buildingInfo">
-      <!----- Nom de l'utilisateur ----->
       <p>Suggestion de : {{ buildingInfo.nomUser }} {{ buildingInfo.prenomUser }}</p>
 
       <div class="grid-container" [class.disabled]="!modificationActive">
@@ -34,14 +33,18 @@
           </div>
 
           <div class="sidebar-container" *ngIf="etapeCourante === 1">
+            <!----- Carte ----->
             <div id="map" #map *ngIf="!showSidebar"></div>
 
+            <!----- Informations du doublon ----->
             <div class="sidebar" [ngClass]="{'show': showBatimentDetails}" *ngIf="showSidebar">
-              <img src="{{batimentDetails?.image}}" alt="">
-              <p>Nom : {{batimentDetails?.nom}}</p>
-              <p>Type : {{batimentDetails?.type}}</p>
-              <p>Statut : {{batimentDetails?.statut}}</p>
-              <p>Description : {{batimentDetails?.description}}</p>
+              <img src="{{batimentDetails?.image}}" alt="Image du batiment">
+              <div id="double-details">
+                <p><b>Nom</b> : {{batimentDetails?.nom}}</p>
+                <p><b>Type</b> : {{batimentDetails?.type}}</p>
+                <p><b>Statut</b> : {{batimentDetails?.statut}}</p>
+                <p><b>Description</b> : {{batimentDetails?.description}}</p>
+              </div>
             </div>
           </div>
         </div>
