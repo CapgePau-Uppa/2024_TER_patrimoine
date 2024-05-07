@@ -4,31 +4,38 @@
 
 <main>
 
+  <!----- ASIDE DE SUGGESTION ----->
   <aside>
     <div class="links-container">
       <p>{{titre}}</p>
-  </div>
+    </div>
+
     <div id="sugg-container" *ngFor="let building of buildings">
-      <app-suggestion [batName]="building.nomBatiment"
-                      [ngClass]="{'selected': building === buildingInfo}"
-                      (click)="building?.id && getBuildingInformation(building.id)">
+      <app-suggestion [batName]="building.nomBatiment" [ngClass]="{'selected': building === buildingInfo}"
+        (click)="building?.id && getBuildingInformation(building.id)">
       </app-suggestion>
     </div>
   </aside>
 
-  
-  <div id="container">
+  <!----- DETAILS DE SUGGESTION ----->
+  <div id="details-container">
+    
+    <!----- INFORMATIONS ----->
     <div id="information" *ngIf="buildingInfo">
+      <!----- Nom de l'utilisateur ----->
       <p>Suggestion de : {{ buildingInfo.nomUser }} {{ buildingInfo.prenomUser }}</p>
 
       <div class="grid-container" [class.disabled]="!modificationActive">
-        
+
+        <!----- PARTIE GAUCHE ----->
         <div class="grid-item">
           <div class="image" *ngIf="etapeCourante === 0">
             <img src="../../../assets/img/chateau.png" alt="" loading="lazy">
           </div>
+
           <div class="sidebar-container" *ngIf="etapeCourante === 1">
             <div id="map" #map *ngIf="!showSidebar"></div>
+
             <div class="sidebar" [ngClass]="{'show': showBatimentDetails}" *ngIf="showSidebar">
               <img src="{{batimentDetails?.image}}" alt="">
               <p>Nom : {{batimentDetails?.nom}}</p>
@@ -39,111 +46,121 @@
           </div>
         </div>
 
+        <!----- PARTIE DROITE ----->
         <div class="grid-item" *ngIf="etapeCourante === 0">
-        <div class="form">
-          <label for="batName">Nom du bâtiment</label>
-          <input type="text" id="batName" [(ngModel)]="buildingInfo.nomBatiment" [disabled]="!modificationActive">
+          <div class="form">
+            <label for="batName">Nom du bâtiment</label>
+            <input type="text" id="batName" [(ngModel)]="buildingInfo.nomBatiment" [disabled]="!modificationActive">
+          </div>
+
+          <div class="form">
+            <label for="batType">Type de bâtiment</label>
+            <select id="batType" class="form-control" [(ngModel)]="buildingInfo.type" [disabled]="!modificationActive">
+              <option *ngFor="let type of types" [value]="type">{{ majuscule(type.toLowerCase()) }}</option>
+            </select>
+          </div>
+
+          <div class="form">
+            <label for="batStatut">Statut </label>
+            <select id="batStatut" class="form-control" [(ngModel)]="buildingInfo.statut"
+              [disabled]="!modificationActive">
+              <option *ngFor="let statut of statuts" [value]="statut">{{ majuscule(statut) }}</option>
+            </select>
+          </div>
+
+          <div class="form">
+            <label for="description">Description</label>
+            <textarea id="batDescription" [(ngModel)]="buildingInfo.description" cols="30" rows="6"
+              [disabled]="!modificationActive"></textarea>
+          </div>
+
+          <button class="suivant" (click)="etapeSuivante()">
+            Suivant &nbsp; <i class="fas fa-arrow-right"></i>
+          </button>
         </div>
 
-        <div class="form">
-          <label for="batType">Type de bâtiment</label>
-          <select id="batType" class="form-control"  [(ngModel)]="buildingInfo.type" [disabled]="!modificationActive">
-            <option *ngFor="let type of types" [value]="type">{{ majuscule(type.toLowerCase()) }}</option>
-          </select>
-        </div>
+        <div class="grid-item" *ngIf="etapeCourante === 1">
+          <div class="form">
+            <label for="region">Région</label>
+            <select id="batRegion" class="form-control" [(ngModel)]="buildingInfo.region"
+              [disabled]="!modificationActive" (change)="onRegionChange(buildingInfo.region)">
+              <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+            </select>
+          </div>
 
-        <div class="form">
-          <label for="batStatut">Statut </label>
-          <select id="batStatut" class="form-control"[(ngModel)]="buildingInfo.statut" [disabled]="!modificationActive">
-            <option *ngFor="let statut of statuts" [value]="statut">{{ majuscule(statut) }}</option>
-          </select>
-        </div>
+          <div class="form">
+            <label for="departement">Département</label>
+            <select id="batDepartement" class="form-control" [(ngModel)]="buildingInfo.departement"
+              [disabled]="!modificationActive" (change)="onDepartementChange(buildingInfo.departement)">
+              <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
+            </select>
+          </div>
 
-        <div class="form">
-          <label for="description">Description</label>
-          <textarea id="batDescription" [(ngModel)]="buildingInfo.description"  cols="30" rows="6" [disabled]="!modificationActive"></textarea>
-        </div>
+          <div class="form">
+            <label for="commune">Commune</label>
+            <select id="batCommune" class="form-control" [(ngModel)]="buildingInfo.commune"
+              [disabled]="!modificationActive">
+              <option selected>{{ buildingInfo.commune }}</option>
+              <option *ngFor="let commune of communes" [value]="commune">{{ commune }}</option>
+            </select>
+          </div>
 
-        <button class="suivant" (click)="etapeSuivante()">
-          Suivant &nbsp; <i class="fas fa-arrow-right"></i>
-        </button> 
-        
-    </div>
-    <div class="grid-item" *ngIf="etapeCourante === 1">
-      <div class="form">
-        <label for="region">Région</label>
-        <select id="batRegion" class="form-control" [(ngModel)]="buildingInfo.region" [disabled]="!modificationActive" (change)="onRegionChange(buildingInfo.region)">
-          <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
-        </select>
-      </div>
+          <div class="form">
+            <label for="batAddress">Adresse</label>
+            <input type="text" id="batAddress" [(ngModel)]="buildingInfo.adresse" [disabled]="!modificationActive">
+          </div>
 
-      <div class="form">
-        <label for="departement">Département</label>
-        <select  id="batDepartement" class="form-control" [(ngModel)]="buildingInfo.departement" [disabled]="!modificationActive" (change)="onDepartementChange(buildingInfo.departement)">
-          <option *ngFor="let departement of departements" [value]="departement">{{ departement }}</option>
-        </select>
-      </div>
+          <div class="form">
+            <label for="coord">Coordonnées</label>
+            <div class="coord">
+              <input type="text" id="coord-lat" [(ngModel)]="buildingInfo.lat" [disabled]="!modificationActive">
+              <input type="text" id="coord-lon" [(ngModel)]="buildingInfo.lon" [disabled]="!modificationActive">
+            </div>
 
-      <div class="form">
-        <label for="commune">Commune</label>
-        <select id="batCommune" class="form-control" [(ngModel)]="buildingInfo.commune" [disabled]="!modificationActive">
-          <option selected>{{ buildingInfo.commune }}</option>
-          <option *ngFor="let commune of communes" [value]="commune">{{ commune }}</option>
-        </select>
-      </div>
-
-      <div class="form">
-        <label for="batAddress">Adresse</label>
-        <input type="text" id="batAddress" [(ngModel)]="buildingInfo.adresse" [disabled]="!modificationActive">
-      </div>
-      <div class="form">
-        <label for="coord">Coordonnées</label>
-        <div class="coord">
-          <input type="text" id="coord-lat" [(ngModel)]="buildingInfo.lat" [disabled]="!modificationActive">
-          <input type="text" id="coord-lon" [(ngModel)]="buildingInfo.lon" [disabled]="!modificationActive">
-        </div>
-        <div class="message">
-          <a (click)="toggleBuildingDetails()">{{buildingInfo.message}}</a>
+            <div class="message">
+              <a (click)="toggleBuildingDetails()">{{buildingInfo.message}}</a>
+            </div>
+          </div>
           
+          <button class="precedent" (click)="etapePrecedente()">
+            <i class="fas fa-arrow-left"></i> &nbsp; Précedent
+          </button>
         </div>
       </div>
-      <button class="precedent" (click)="etapePrecedente()">
-        <i class="fas fa-arrow-left"></i> &nbsp; Précedent
-      </button>
-      
-  </div>
     </div>
 
-
-    </div>
-    <div *ngIf="currentRoute !== 'historique' && currentRoute !== 'corbeille'"> 
+    <!----- BOUTONS D'ACTION SUGGESTION ----->
+    <div *ngIf="currentRoute !== 'historique' && currentRoute !== 'corbeille'">
       <div id="buttons">
         <div class="option">
           <app-button text="Valider" [buttonClass]="'btn-blue'" (click)="valider()"></app-button>
         </div>
-    
+
         <div class="option">
           <app-button text="Modifier" [buttonClass]="'btn-blue'" (click)="modifier()"></app-button>
         </div>
-    
+
         <div class="option">
-          <app-button text="Supprimer" [buttonClass]="'btn-blue'" (click)="buildingInfo && supprimer(buildingInfo.id)"></app-button>
+          <app-button text="Supprimer" [buttonClass]="'btn-blue'"
+            (click)="buildingInfo && supprimer(buildingInfo.id)"></app-button>
         </div>
       </div>
     </div>
 
+    <!----- BOUTONS D'ACTION HISTORIQUE ----->
     <div *ngIf="currentRoute === 'historique'">
       <div class="option">
         <app-button text="Corriger" [buttonClass]="'btn-blue'" (click)="corriger()"></app-button>
       </div>
     </div>
 
+    <!----- BOUTONS D'ACTION CORBEILLE ----->
     <div *ngIf="currentRoute === 'corbeille'">
       <div class="option">
         <app-button text="Restaurer" [buttonClass]="'btn-blue'" (click)="restaurer()"></app-button>
       </div>
     </div>
-  </div>
 
+  </div>
 
 </main>

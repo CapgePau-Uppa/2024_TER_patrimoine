@@ -77,7 +77,7 @@ export class HomeAdminComponent implements OnInit{
 
   // Méthode pour actualiser la page
   actualiser(){
-    const info = document.getElementById("container");
+    const info = document.getElementById("details-container");
         // @ts-ignore
     info.style.display = "none";
     this.etapeCourante = 0;
@@ -112,7 +112,7 @@ export class HomeAdminComponent implements OnInit{
   getBuildingInformation(id: number): void {
     this.actualiser();
     this.modificationActive = false;
-    const info = document.getElementById("container");
+    const info = document.getElementById("details-container");
     // @ts-ignore
     info.style.display = "flex";
 
