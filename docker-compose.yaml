@@ -3,7 +3,7 @@ services:
   ter_bd:
     image: mysql:latest
     volumes:
-      - ./db/container:/docker-entrypoint-initbd.d
+      - ./db/container:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_DATABASE=ter_bd
       - MYSQL_ROOT_PASSWORD=root
