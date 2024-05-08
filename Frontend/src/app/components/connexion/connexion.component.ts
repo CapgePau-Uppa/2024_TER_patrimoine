@@ -46,7 +46,7 @@ export class ConnexionComponent implements OnInit {
             this.role = response.role;
             this.authService.login(this.role);
 
-            if (this.role === 'ADMIN') {
+            if (this.role === 'ADMIN' || this.role === 'OWNER') {
               this.router.navigate(['../home-admin']);
             } else if (this.role === 'USER') {
               this.router.navigate(['../']);
