@@ -17,7 +17,7 @@ IF %ERRORLEVEL% NEQ 0 (
 
 REM Lancement du backend
 start /b java -jar target/Backend-0.0.1-SNAPSHOT.jar
-SET backend_pid=%!
+FOR /F "tokens=2" %%i IN ('tasklist /FI "IMAGENAME eq java.exe" /FO TABLE /NH') DO SET backend_pid=%%i
 
 REM Délai de sommeil pour s'assurer que le backend est lancé
 TIMEOUT /T 5
@@ -30,7 +30,7 @@ REM Lancement du frontend
 call npm run run-start
 IF %ERRORLEVEL% NEQ 0 (
   echo ERREUR : Echec du demarrage du frontend.
-  taskkill /pid !backend_pid!
+  taskkill /pid !backend_pid! /f
   exit /b 1
 )
 
@@ -38,7 +38,7 @@ REM Vérification du backend
 curl -s http://localhost:8080/actuator/health | findstr "UP"
 IF %ERRORLEVEL% NEQ 0 (
   echo ERREUR : Le backend ne fonctionne pas correctement.
-  taskkill /pid !backend_pid!
+  taskkill /pid !backend_pid! /f
   exit /b 1
 )
 
