@@ -14,10 +14,10 @@ REM On lance Docker Desktop
 start "" "C:\Program Files\Docker\Docker\Docker Desktop.exe"
 
 REM On attend que Docker soit prêt
+echo En attente de l'ouverture de Docker...
 :waitForDocker
 docker system info >nul 2>&1
 IF %ERRORLEVEL% NEQ 0 (
-    echo En attente de l'ouverture de Docker...
     TIMEOUT /T 1 >nul
     GOTO waitForDocker
 )
@@ -34,17 +34,9 @@ IF %ERRORLEVEL% NEQ 0 (
 echo L'environnement Docker est lancé.
 
 echo ===== Initialisation de la base de données... =====
+echo En attente de l'initialisation de MySQL...
 :waitForMySQL
-docker exec 2024_ter_patrimoine-ter_bd-1 mysql -uroot -p'root' -e ";" >nul 2>&1
-IF %ERRORLEVEL% NEQ 0 (
-    echo En attente de l'initialisation de MySQL...
-    TIMEOUT /T 2 >nul
-    GOTO waitForMySQL
-)
-
-REM Vérification de la connexion à la base de données
-echo Vérification de la base de données...
-docker exec 2024_ter_patrimoine-ter_bd-1 mysql -uroot -p'root' -e "USE ter_bd; SHOW TABLES"
+docker exec 2024_ter_patrimoine-ter_bd-1 mysql -uroot -p'root' ";" >nul 2>&1
 
 echo ===== Lancement du script de démarrage... =====
 call start.bat
