@@ -64,6 +64,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
   // Initialisation
   ngOnInit(): void {
     this.setupSubscriptions();
+    this.getDisplay("degradation");
 
     this.authSubscription = this.authService.getAuthStateObservable().subscribe((state: AuthState) => {
       if (state === AuthState.Visiteur) {
@@ -433,6 +434,16 @@ export class CarteComponent implements AfterViewInit, OnInit{
     });
   }
 
+  // Récupérer l'affichage
+  getDisplay(id: string): string | null {
+    const element = document.getElementById(id);
+
+    if (element) {
+      return getComputedStyle(element).display;
+    }
+    return null;
+  }
+
   // Afficher les détails du batiment
   togglePopup(): void {
     const popupContent = document.getElementById('popupContent');
@@ -441,6 +452,20 @@ export class CarteComponent implements AfterViewInit, OnInit{
     if (popupContent) {
       popupContent.classList.toggle('active');
       bouton?.classList.toggle('hidden');
+    }
+  }
+
+  togglDegradation() {
+    const degradation = document.getElementById("degradation");
+    const filtersDegradation = this.getDisplay("degradation");
+
+    // @ts-ignore
+    if (filtersDegradation === "none") {
+      // @ts-ignore
+      degradation.style.display = "flex";
+    } else {
+      // @ts-ignore
+      degradation.style.display = "none";
     }
   }
   

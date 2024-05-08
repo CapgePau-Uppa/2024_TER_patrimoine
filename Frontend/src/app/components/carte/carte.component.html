@@ -35,14 +35,19 @@
 
         <div class="description">
           <p><b>Description :</b></p>
-          <p id="scrollable">{{ batimentSelectionne?.description}}</p>
+          <p class="scrollable">{{ batimentSelectionne?.description}}</p>
+        </div>
+
+        <div id="degradation">
+          <p><b>Degradation :</b></p>
+          <textarea class="scrollable" placeholder="Veuillez décrire la dégradation en précisant sa nature, son emplacement, etc..."></textarea>
         </div>
 
         <div class="boutons-container">
           <div class="boutons-details">
             <app-button text="Favoris" [buttonClass]="'btn-blue'"></app-button>
             <app-button text="Noter" [buttonClass]="'btn-blue'"></app-button>
-            <app-button text="Dégradation" [buttonClass]="'btn-blue'"></app-button>
+            <app-button text="Dégradation" [buttonClass]="'btn-blue'" (click)="togglDegradation()"></app-button>
           </div>
         </div>
       </div>

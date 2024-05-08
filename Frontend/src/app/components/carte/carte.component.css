@@ -146,13 +146,18 @@ details {
   padding-top: 20px;
 }
 
-#scrollable {
+.scrollable {
   max-height: 200px;
   overflow-y: auto;
   border: 1px solid rgb(185, 185, 185);
   border-radius: 10px;
   padding: 20px;
   text-align: justify;
+}
+
+#degradation {
+  display: none;
+  flex-direction: column;
 }
 
 /* -------- BOUTONS DETAILS -------- */
