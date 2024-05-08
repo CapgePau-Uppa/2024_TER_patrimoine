@@ -22,9 +22,6 @@ Ce projet est une application web permettant aux utilisateurs et administrateurs
 
 _(Voir le [wiki](../../wiki) pour plus de détails)_
 
-## Configuration
-* Les paramètres de connexion à la base de données MySQL peuvent être configurés dans le fichier application.properties du backend.
-
 ## Licence
 Ce projet est sous licence [GNU](./LICENSE).
 
