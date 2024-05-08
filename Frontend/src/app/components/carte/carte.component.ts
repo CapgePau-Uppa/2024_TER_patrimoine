@@ -467,6 +467,8 @@ export class CarteComponent implements AfterViewInit, OnInit{
       // @ts-ignore
       degradation.style.display = "none";
     }
+
+    // TODO: Envoyer la degradation à l'admin
   }
   
   // Fermer la fenêtre des détails

@@ -8,7 +8,7 @@
   height: 80px;
   width: 100%;
   background-color: #262f34;
-
+  z-index: 1000;
 
 }
 

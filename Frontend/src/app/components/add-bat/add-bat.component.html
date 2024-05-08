@@ -7,14 +7,14 @@
     <form (ngSubmit)="onSubmit()" [formGroup]="myForm">
       <div class="card" >
         <div class="en-tete">
-        <div class="etapes">
-            <div class="etape" [ngClass]="{ 'complete': etapeCourante >= 0 }">1</div>
-            <div class="etape" [ngClass]="{ 'complete': etapeCourante >= 1 }">2</div>
-            <div class="etape"[ngClass]="{ 'complete': etapeCourante >= 2 }">3</div>
-            <div class="etape" [ngClass]="{ 'complete': etapeCourante >= 3 }">4</div>
+          <div class="etapes">
+              <div class="etape" [ngClass]="{ 'complete': etapeCourante >= 0 }">1</div>
+              <div class="etape" [ngClass]="{ 'complete': etapeCourante >= 1 }">2</div>
+              <div class="etape"[ngClass]="{ 'complete': etapeCourante >= 2 }">3</div>
+              <div class="etape" [ngClass]="{ 'complete': etapeCourante >= 3 }">4</div>
+          </div>
+          <h4>{{ etapesTitre[etapeCourante] }}</h4>
         </div>
-        <h4>{{ etapesTitre[etapeCourante] }}</h4>
-      </div>
 
       <!-- ETAPE 1 -->
       <div class="card1" *ngIf="etapeCourante === 0">
