@@ -191,6 +191,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
   }
 
   // Fonction pour afficher les marker par departements
+
   addClusteringMarkers(): void {
     this.batimentService.getClusteringDepartement().subscribe(data => {
       data.forEach(department => {
@@ -209,18 +210,19 @@ export class CarteComponent implements AfterViewInit, OnInit{
 
         marker.on('click', () => {
           this.map!.removeLayer(marker);
+          //marker.removeFrom(this.map!);
           this.showBuildingsByDepartment(department.departement);
           this.zoomToDepartment(marker);
-
-          /*if (this.previousDepartmentMarker) {
+          if (this.previousDepartmentMarker) {
             this.map!.addLayer(this.previousDepartmentMarker);
           }
-          this.previousDepartmentMarker = marker;*/
+          this.previousDepartmentMarker = marker;
         });
         this.departmentMarkers.push(marker);
       });
     });
   }
+
 
   // Afficher les batiments par departement
   private showBuildingsByDepartment(department: string): void {
