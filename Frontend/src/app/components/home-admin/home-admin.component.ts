@@ -33,18 +33,18 @@ export class HomeAdminComponent implements OnInit{
   showBatimentDetails = false;
   batimentDetails: BatimentDTO | undefined;
   map!: L.Map ;
-  
+
   constructor(
-    private homeAdminService: HomeAdminService, 
+    private homeAdminService: HomeAdminService,
     private userService: UserService,
-    private addBatService : AddBatService, 
-    private router: Router, 
+    private addBatService : AddBatService,
+    private router: Router,
     private elRef: ElementRef
   ) { }
-  
+
   // Initialisation
   ngOnInit(): void {
-    /*A revoir : il me prend le 1ere element du DTO 
+    /*A revoir : il me prend le 1ere element du DTO
     //Recuperation de informations de l'utilisateur connecté
     this.utilisateurConnecte = this.userService.getUser();
     const { nom, prenom, email } = this.utilisateurConnecte;
@@ -107,7 +107,7 @@ export class HomeAdminComponent implements OnInit{
       this.actualiser();
     }
   }
-  
+
   // Affichage des informations d'une suggestion
   getBuildingInformation(id: number): void {
     this.actualiser();
@@ -170,7 +170,7 @@ export class HomeAdminComponent implements OnInit{
       }
     );
   }
-  
+
   // Modification de la suggestion qui enlevera la classe 'disabled' des champs
   modifier() {
     this.modificationActive = !this.modificationActive;
@@ -178,7 +178,7 @@ export class HomeAdminComponent implements OnInit{
 
   // Restaurer une suggestion de l'historique vers les suggestions en attente
   corriger() {
-    if (this.buildingInfo) { 
+    if (this.buildingInfo) {
       this.homeAdminService.restoreSuggestion(this.buildingInfo?.id).subscribe(
         (data) => {
           this.actualiser();
@@ -187,13 +187,13 @@ export class HomeAdminComponent implements OnInit{
         (error) => {
           console.error('Erreur lors de la restauration de la suggestion : ', error);
         }
-      );    
+      );
     }
   }
 
   // Restaurer une suggestion de la corbeille vers les suggestions en attente
   restaurer(): void {
-    if (this.buildingInfo) { 
+    if (this.buildingInfo) {
       this.homeAdminService.restoreSuggestionFromCorbeille(this.buildingInfo?.id).subscribe(
         (data) => {
           this.actualiser();
@@ -205,7 +205,7 @@ export class HomeAdminComponent implements OnInit{
       );
     }
   }
-  
+
 
   /* ----- Méthodes pour les listes de département et commune ----- */
 
@@ -261,13 +261,19 @@ export class HomeAdminComponent implements OnInit{
       }
     });
   }
-  
+
   // Méthode pour initialiser la carte
   private initMap(mapContainer: HTMLElement): void {
     const franceBounds: L.LatLngBoundsExpression = [
       [41.325, -5.0],
-      [51.124, 9.662] 
+      [51.124, 9.662]
     ];
+
+    const myIcon = L.icon({
+      iconUrl: '../assets/icones/marker.png',
+      iconSize: [40, 40],
+      popupAnchor: [0, -30]
+    });
 
     this.map = L.map(mapContainer, {
       maxBounds: franceBounds,
@@ -286,8 +292,8 @@ export class HomeAdminComponent implements OnInit{
     // Ajout du marqueur seulement si les coordonnées sont présentes
     if (this.buildingInfo) {
       const markerCoords: L.LatLngExpression = [this.buildingInfo?.lat, this.buildingInfo?.lon]; // Paris
-      const marker = L.marker(markerCoords).addTo(this.map);
-      this.map.flyTo(markerCoords, 12);    
+      const marker = L.marker(markerCoords, {icon: myIcon}).addTo(this.map);
+      this.map.flyTo(markerCoords, 12);
     }
   }
 

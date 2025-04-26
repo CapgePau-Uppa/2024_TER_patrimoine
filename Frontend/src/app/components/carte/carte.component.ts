@@ -30,11 +30,11 @@ export class CarteComponent implements AfterViewInit, OnInit{
   private authSubscription!: Subscription;
 
   constructor(
-    private authService: AuthService, 
-    private batimentService: BatimentService, 
-    private filterService: FilterService, 
-    private zone: NgZone) { 
-    
+    private authService: AuthService,
+    private batimentService: BatimentService,
+    private filterService: FilterService,
+    private zone: NgZone) {
+
     /* ----- PWA ----- */
     // Installation de l'application
     window.addEventListener('beforeinstallprompt', (e) => {
@@ -60,7 +60,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
       this.showInstallButton = false;
     }
   }
- 
+
   // Initialisation
   ngOnInit(): void {
     this.setupSubscriptions();
@@ -77,7 +77,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
   setupSubscriptions(): void {
     this.batimentService.reloadMap$.subscribe(() => {
       this.reloadMap();
-    }); 
+    });
 
     this.authService.authState$.subscribe(state => {
       this.currentAuthState = state;
@@ -90,7 +90,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
     this.addClusteringMarkers();
   }
 
-  
+
   /* ----- Carte ----- */
 
   // Initialisation de la carte
@@ -106,7 +106,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
     .subscribe(([type, region, departement]) => {
         if (type && region) {
           this.loadBatimentsParTypeEtRegion(type, region);
-        } 
+        }
         else if(type && departement) {
           this.loadBatimentsParTypeEtDepartement(type, departement);
         }
@@ -139,17 +139,17 @@ export class CarteComponent implements AfterViewInit, OnInit{
   // Création de la carte
   createMap() {
     const franceBounds: L.LatLngBoundsExpression = [
-      [41.325, -5.0], // Sud-ouest 
+      [41.325, -5.0], // Sud-ouest
       [51.124, 9.662] // Nord-est
     ];
 
     this.map = L.map('map', {
       maxBounds: franceBounds,
-      maxBoundsViscosity: 1.0, 
-      zoomSnap: 0.1, 
-      minZoom: 5.5, 
-      maxZoom: 19 
-    }).fitBounds(franceBounds); 
+      maxBoundsViscosity: 1.0,
+      zoomSnap: 0.1,
+      minZoom: 5.5,
+      maxZoom: 19
+    }).fitBounds(franceBounds);
 
     // Layer principal
     const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -235,12 +235,12 @@ export class CarteComponent implements AfterViewInit, OnInit{
 
   // Zoomer sur le département
   private zoomToDepartment(marker: any): void {
-    this.map!.flyTo(marker.getLatLng(), 12);    
+    this.map!.flyTo(marker.getLatLng(), 12);
   }
 
   // Zoomer sur le bâtiment
   private zoomToBatiment(batLat: any, batLon: any): void {
-    this.map!.flyTo([batLat, batLon], 18);    
+    this.map!.flyTo([batLat, batLon], 18);
   }
 
   // Tous les batiments
@@ -270,7 +270,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
       }
     });
   }
-  
+
   // Filtre par type et region
   loadBatimentsParTypeEtRegion(selectedType: string, selectedRegion: string): void{
     this.removeDepartmentMarkers();
@@ -350,7 +350,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
 
     this.batimentService.getBatimentByName(selectedNomSource).subscribe(data => {
       this.batiments = data;
-      
+
       // Vérifier si la recherche existe
       if (this.batiments.length === 0) {
         var aucunResultat =true;
@@ -386,9 +386,9 @@ export class CarteComponent implements AfterViewInit, OnInit{
     });
 
     this.batiments.forEach((batiment, index) => {
-    
+
       const marker = L.marker([batiment.lat, batiment.lon], {icon: myIcon}).addTo(this.buildingMarkersLayer);
-  
+
       // Contenu de la carte
       const cardContent = `
         <h4>${batiment.nom}</h4>
@@ -399,7 +399,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
             <td class="container" style="padding: 1px 15px;">
               <p><b>Type</b> : ${batiment.type}</p>
               <p><b>Statut</b> : ${batiment.statut} </p>
-              <button id="detailsBtn${index}" 
+              <button id="detailsBtn${index}"
                       style="float:right; background:none; border:none; font-weight:bold;">
                 Plus de détails
               </button>
@@ -407,11 +407,11 @@ export class CarteComponent implements AfterViewInit, OnInit{
           </tr>
         </table>
       `;
-  
+
       // Popup
       marker.bindPopup(cardContent, { maxWidth: 500 });
       marker.bindTooltip(batiment.nom);
-  
+
       // Tooltip
       marker.on('click', () => {
         this.zoomToBatiment(batiment.lat, batiment.lon);
@@ -425,7 +425,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
           });
         }
       });
-  
+
       marker.on('mouseover', () => {
         marker.openTooltip();
       });
@@ -472,7 +472,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
 
     // TODO: Envoyer la degradation à l'admin
   }
-  
+
   // Fermer la fenêtre des détails
   closePopupContent(): void {
     const popupContent = document.getElementById('popupContent');
@@ -494,7 +494,7 @@ export class CarteComponent implements AfterViewInit, OnInit{
     if (this.map) {
       this.map.eachLayer((layer) => {
         if (!(layer instanceof L.TileLayer)) {
-          this.map!.removeLayer(layer); 
+          this.map!.removeLayer(layer);
         }
       });
     }

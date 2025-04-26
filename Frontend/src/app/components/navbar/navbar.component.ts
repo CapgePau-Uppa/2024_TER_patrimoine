@@ -27,18 +27,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @ViewChild('rechercheInput') rechercheInput!: ElementRef<HTMLInputElement>;
 
   constructor (
-    private authService: AuthService, 
-    private batimentService: BatimentService, 
-    private router: Router, 
+    private authService: AuthService,
+    private batimentService: BatimentService,
+    private router: Router,
     private cdRef: ChangeDetectorRef
   ) {
-    this.placeholderText = "Rechercher..."; 
+    this.placeholderText = "Rechercher...";
     this.authStateSubscription = new Subscription();
   }
 
   // Initialisation
   ngOnInit(): void {
-    this.getDisplay("filters-window");
+
     this.getDisplay("menu");
 
     this.authStateSubscription = this.authService.authState$.subscribe(
@@ -58,14 +58,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   // Barre de recherche
   rechercher(): void {
-    if (this.selectedNomSource !== null) { 
+    if (this.selectedNomSource !== null) {
       this.batimentService.setSelectedNom(this.selectedNomSource);
     }
 
     // Afficher le message d'erreur si aucun résultat n'est trouvé
     this.batimentService.afficherAucunResultat$.subscribe((value) => {
       if (value) {
-        this.rechercheInput.nativeElement.value = ''; 
+        this.rechercheInput.nativeElement.value = '';
         this.placeholderText = 'Aucun résultat trouvé... Veuillez réessayer.' ;
       } else {
         this.placeholderText = 'Rechercher...';

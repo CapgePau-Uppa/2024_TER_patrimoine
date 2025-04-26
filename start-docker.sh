@@ -22,10 +22,10 @@ done
 echo "Docker est prêt."
 
 
-echo "===== Lancement de l'environnement Docker... ====="
+# echo "===== Lancement de l'environnement Docker... ====="
 # Lancement de l'environnement Docker
-docker-compose -f "docker-compose.yaml" up -d
-echo "L'environnement Docker est lancé."
+#docker-compose -f "docker-compose.yaml" up -d
+#echo "L'environnement Docker est lancé."
 
 
 echo " ===== Initialisation de la base de données... ===== "
